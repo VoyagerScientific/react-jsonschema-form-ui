@@ -11,7 +11,7 @@ import {
   StatesWidget
 } from './widgets';
 
-export default {
+export {
   ArrayFieldTemplate,
   HeadingField,
   CurrencyWidget,
