@@ -1,8 +1,6 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
-import bootstrap from 'bootstrap';
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { ArrayFieldTemplate } from './components/fields';
+import { ArrayFieldTemplate } from '../../src/fields';
 import { CurrencyWidget, ReactDatePickerWidget, ReactSelectWidget } from '../../src/widgets';
 import './App.css';
 
@@ -87,23 +85,21 @@ const uiSchema = {
 function App() {
   return (
     <div className="App">
-      <div className="container">
-        <br /><br />
-        <div className="row">
-          <div className="col-md-4">
-            <h1>Test Form</h1>
-            <br />
-            <Form
-              schema={schema}
-              uiSchema={uiSchema}
-              formData={{date: "2015-08-02T00:00:00.000Z"}}
-              ArrayFieldTemplate={ArrayFieldTemplate}
-              widgets={widgets}
-              onChange={log("changed")}
-              onSubmit={log("submitted")}
-              onError={log("errors")}>
-            </Form>
-          </div>
+      <br /><br />
+      <div className="row">
+        <div className="col-md-4">
+          <h2>Test Form</h2>
+          <br />
+          <Form
+            schema={schema}
+            uiSchema={uiSchema}
+            formData={{date: "2015-08-02T00:00:00.000Z"}}
+            ArrayFieldTemplate={ArrayFieldTemplate}
+            widgets={widgets}
+            onChange={log("changed")}
+            onSubmit={log("submitted")}
+            onError={log("errors")}>
+          </Form>
         </div>
       </div>
     </div>
