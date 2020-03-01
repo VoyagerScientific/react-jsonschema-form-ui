@@ -1,0 +1,18 @@
+.field-array .array-item {
+  position: relative;
+  border: #eaeaea 1px solid;
+  margin: 0px 0px 20px;
+  padding: 20px 15px 0px;
+  background: #f9f9f9;
+}
+
+.field-array .array-item-toolbox{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.field-array .array-item-toolbox .btn-group .btn{
+  border-radius: 0;
+  font-size: 14px;
+}

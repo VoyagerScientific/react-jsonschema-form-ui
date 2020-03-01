@@ -48,6 +48,24 @@ const schema = {
     date: {
       title: "Date",
       type: "string"
+    },
+    array_template: {
+      type: "array",
+      title: "Custom Array Template",
+      minItems: 1,
+      items: {
+        type: "object",
+        properties: {
+          string: {
+            type: "string",
+            title: "String"
+          },
+          checkbox: {
+            type: "boolean",
+            title: "Checkbox"
+          }
+        }
+      }
     }
   }
 };

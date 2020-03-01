@@ -1,8 +1,9 @@
 import React from 'react';
 import AddButton from "react-jsonschema-form-bs4/lib/components/AddButton";
 import IconButton from "react-jsonschema-form-bs4/lib/components/IconButton";
-import "@fortawesome/fontawesome-free/css/all.css"
-
+import "@fortawesome/fontawesome-free/css/all.css";
+import "@fortawesome/fontawesome-free/js/all.js";
+import "./index.css";
 
 function ArrayFieldTitle({ TitleField, idSchema, title, required }) {
   if (!title) {
