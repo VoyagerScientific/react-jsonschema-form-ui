@@ -1,7 +1,6 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
-import { ArrayFieldTemplate } from '../../src/fields';
-import { CurrencyWidget, ReactDatePickerWidget, ReactSelectWidget } from '../../src/widgets';
+import { ArrayFieldTemplate, CurrencyWidget, ReactDatePickerWidget, ReactSelectWidget } from '../../src/index';
 import './App.css';
 
 const widgets = {
