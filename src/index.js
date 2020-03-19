@@ -1,3 +1,5 @@
+import "./app.css";
+
 // Fields
 export ArrayFieldTemplate from './fields/ArrayFieldTemplate';
 export HeadingField from './fields/HeadingField';
