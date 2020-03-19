@@ -1,4 +1,4 @@
-import "./app.css";
+import "../css/app.css";
 
 // Fields
 export ArrayFieldTemplate from './fields/ArrayFieldTemplate';
