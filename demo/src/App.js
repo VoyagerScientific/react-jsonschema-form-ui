@@ -1,12 +1,18 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
-import { ArrayFieldTemplate, CurrencyWidget, ReactDatePickerWidget, ReactSelectWidget } from '../../src/index';
+import { ArrayFieldTemplate, CurrencyWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from '../../src/index';
 import './App.css';
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
   ReactDatePickerWidget: ReactDatePickerWidget,
-  ReactSelectWidget: ReactSelectWidget
+  ReactSelectWidget: ReactSelectWidget,
+  StatesWidget: StatesWidget
+};
+
+const fields = {
+  RawHTMLField: RawHTMLField,
+  ReactSignatureCanvasField: ReactSignatureCanvasField
 };
 
 const log = (type) => console.log.bind(console, type);
@@ -66,6 +72,19 @@ const schema = {
           }
         }
       }
+    },
+    us_states: {
+      type: "string",
+      title: "US States"
+    },
+    signature: {
+      type: "string",
+      title: "Signer",
+      format: "data-url"
+    },
+    raw_html: {
+      type: "string",
+      title: "Raw HTML"
     }
   }
 };
@@ -96,6 +115,16 @@ const uiSchema = {
   },
   date: {
     "ui:widget": "ReactDatePickerWidget"
+  },
+  signature: {
+    "ui:field": "ReactSignatureCanvasField"
+  },
+  us_states: {
+    "ui:widget": "StatesWidget"
+  },
+  raw_html: {
+    "ui:field": "RawHTMLField",
+    "ui:options": {html: "<h1>Hi</h1>"}
   }
 };
 
@@ -113,6 +142,7 @@ function App() {
             formData={{date: "2015-08-02T00:00:00.000Z"}}
             ArrayFieldTemplate={ArrayFieldTemplate}
             widgets={widgets}
+            fields={fields}
             onChange={log("changed")}
             onSubmit={log("submitted")}
             onError={log("errors")}>
