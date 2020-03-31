@@ -8,7 +8,7 @@ class ReactSelectWidget extends Component {
     super(props)
     this.state = {
       ...props,
-      value: props.value ? {value: props.value, label: props.value} : null,
+      value: props.value && props.value.length ? {value: props.value, label: props.value} : null,
       inputValue: props.value,
       select_options: []
     }
@@ -20,9 +20,13 @@ class ReactSelectWidget extends Component {
         this.props.options.remote.paths.record.map((key, i) => { remoteData = remoteData[key] }); // This traverses the list of path names from the record array in the paths object.
         const select_options = remoteData.map((item, index) => {
           if(this.props.options.remote.paths){
+            let value = Object.assign({}, item);
+            let label = Object.assign({}, item);
+            this.props.options.remote.paths.value.map((key, i) => { value = value[key] });
+            this.props.options.remote.paths.label.map((key, i) => { label = label[key] });
             return {
-              value: item[this.props.options.remote.paths.value[0]],
-              label: item[this.props.options.remote.paths.label[0]][this.props.options.remote.paths.label[1]]
+              value: value,
+              label: label
             }
 
           }else{
