@@ -11,7 +11,6 @@ class ReactSignatureCanvasField extends Component{
   }
 
   componentDidMount(){
-    console.log("signature", this.state.formData)
     this.sigCanvas.fromDataURL(this.state.formData);
   }
 
