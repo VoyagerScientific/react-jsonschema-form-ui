@@ -8,37 +8,73 @@ class ReactSelectWidget extends Component {
     super(props)
     this.state = {
       ...props,
-      value: {value: props.value, label: props.value},
-      inputValue: props.value
+      value: props.value ? {value: props.value, label: props.value} : null,
+      inputValue: props.value,
+      select_options: []
     }
+  }
+
+  componentDidMount(){
+    if(this.props.options.remote){
+      this.getRemoteData().then(remoteData => {
+        this.props.options.remote.paths.record.map((key, i) => { remoteData = remoteData[key] }); // This traverses the list of path names from the record array in the paths object.
+        const select_options = remoteData.map((item, index) => {
+          if(this.props.options.remote.paths){
+            return {
+              value: item[this.props.options.remote.paths.value[0]],
+              label: item[this.props.options.remote.paths.label[0]][this.props.options.remote.paths.label[1]]
+            }
+
+          }else{
+            return item[Object.keys(remoteData)[0]]
+          }
+        });
+
+        this.setState({select_options: select_options});
+      });
+    };
   }
 
   entriesDataTransform() {
     let data = [];
-    const enumValues = this.props.schema.enum || this.props.schema.items.enum;
-    const enumNames = this.props.schema.enumNames;
-    if (enumNames && enumValues.length === enumNames.length) {
+
+    if(this.props.options.remote){
+      data = this.state.select_options;
+    }else if(this.props.schema.enum || this.props.schema.items.enum){
+      const enumValues = this.props.schema.enum || this.props.schema.items.enum;
+      const enumNames = this.props.schema.enumNames;
+
       data = enumValues.map((item, index) => {
+        let label = item;
+        if (enumNames && enumValues.length === enumNames.length)
+          label = enumNames[index];
+
         const obj = {
           value: item,
-          label: enumNames[index]
+          label: label
         }
         return obj
-      })
-    }else{
-      data = enumValues.map((item, index) => {
-        const obj = {
-          value: item,
-          label: item
-        }
-        return obj
-      })
+      });
     }
+
     return data
   }
 
+  async getRemoteData(){
+    const response = await fetch(this.state.options.remote.url, {
+      method: this.state.options.remote.method || "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        ...this.state.options.remote.headers
+      }
+    })
+
+    return await response.json(); // parses JSON response into native JavaScript objects
+  }
+
   getData() {
-    const data = this.entriesDataTransform()
+    const data = this.entriesDataTransform();
     const filteredData = value => data.filter(item => item.label.toLowerCase().includes(value.toLowerCase()));
     const options = value => new Promise(resolve => {
       setTimeout(() => resolve(filteredData(value)), 200);
@@ -79,7 +115,7 @@ class ReactSelectWidget extends Component {
     }else{
       return <AsyncSelect
                 cacheOptions
-                defaultOptions
+                defaultOptions={this.state.select_options.length ? this.state.select_options : true}
                 loadOptions={this.getData()}
                 onChange={this.onChange}
                 isClearable={isClearable}

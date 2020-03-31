@@ -47,6 +47,15 @@ const schema = {
       },
       uniqueItems: true
     },
+    test_react_select_remote: {
+      title: "Test React Select (Remote)",
+      type: "array",
+      items: {
+        type: "string",
+        enum: []
+      },
+      uniqueItems: true
+    },
     currency: {
       title: "Currency Demo",
       type: "number"
@@ -110,6 +119,22 @@ const uiSchema = {
   test_react_select_array: {
     "ui:widget": "ReactSelectWidget"
   },
+  test_react_select_remote: {
+    "ui:widget": "ReactSelectWidget",
+    "ui:options": {
+      "remote": {
+        "url": "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
+        "headers": {
+          "Authorization": "Bearer keyWYA1GjpYkevFTp"
+        },
+        "paths":{
+          "record": ["records"],
+          "value": ["id"],
+          "label": ["fields", "Name"]
+        }
+      }
+    }
+  },
   currency: {
     "ui:widget": "CurrencyWidget"
   },
@@ -139,7 +164,6 @@ function App() {
           <Form
             schema={schema}
             uiSchema={uiSchema}
-            formData={{date: "2015-08-02T00:00:00.000Z"}}
             ArrayFieldTemplate={ArrayFieldTemplate}
             widgets={widgets}
             fields={fields}
