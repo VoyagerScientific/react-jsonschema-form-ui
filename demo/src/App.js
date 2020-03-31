@@ -122,6 +122,7 @@ const uiSchema = {
   test_react_select_remote: {
     "ui:widget": "ReactSelectWidget",
     "ui:options": {
+      "isMulti": true,
       "remote": {
         "url": "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
         "headers": {
