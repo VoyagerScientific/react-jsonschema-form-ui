@@ -49,6 +49,8 @@ class ReactSelectWidget extends Component {
           });
         }
 
+        console.log("ReactSelectWidget Value", value)
+
         this.setState({select_options: select_options, value: value});
       });
     };
