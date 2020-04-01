@@ -39,7 +39,15 @@ class ReactSelectWidget extends Component {
           }
         });
 
-        const value = this.state.value.length ? this.state.value.map((obj)=> { return {value: obj.value, label: select_options.find(({value}) => value === obj.value).label} }) : this.state.value;
+        let value = this.state.value;
+        if(value && Array.isArray(value)){
+          value = this.state.value.map((obj)=> {
+            return {
+              value: obj.value,
+              label: select_options.find(({value}) => value === obj.value).label
+            }
+          });
+        }
 
         this.setState({select_options: select_options, value: value});
       });
