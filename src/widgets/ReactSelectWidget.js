@@ -6,9 +6,14 @@ class ReactSelectWidget extends Component {
 
   constructor(props){
     super(props)
+
+    let value = props.value && props.value.length ? {value: props.value, label: props.value} : null;
+    if(Array.isArray(props.value))
+      value = props.value.map((val, i) => {return {value: val, label: val} });
+
     this.state = {
       ...props,
-      value: props.value && props.value.length ? {value: props.value, label: props.value} : null,
+      value: value,
       inputValue: props.value,
       select_options: []
     }
@@ -34,7 +39,9 @@ class ReactSelectWidget extends Component {
           }
         });
 
-        this.setState({select_options: select_options});
+        const value = this.state.value.map((obj)=> { return {value: obj.value, label: select_options.find(({value}) => value === obj.value).label} });
+
+        this.setState({select_options: select_options, value: value});
       });
     };
   }
