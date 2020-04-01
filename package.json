@@ -1,6 +1,6 @@
 {
   "name": "react-jsonschema-form-ui",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "private": false,
   "description": "react-jsonschema-form-ui React component",
   "main": "lib/index.js",
