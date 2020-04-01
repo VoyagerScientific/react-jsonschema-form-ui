@@ -6,29 +6,26 @@ class ReactSelectWidget extends Component {
 
   constructor(props){
     super(props)
-
-    let value = props.value && props.value.length ? {value: props.value, label: props.value} : null;
-    if(Array.isArray(props.value))
-      value = props.value.map((val, i) => {return {value: val, label: val} });
-
     this.state = {
       ...props,
-      value: value,
+      value: Array.isArray(props.value) ? this._transformArraytoLabelsAndValues() : props.value ? {value: props.value, label: props.value} : null,
       inputValue: props.value,
       select_options: []
     }
   }
 
   componentDidMount(){
-    if(this.props.options.remote){
+
+    const remote_options = this.props.options.remote;
+    if(remote_options){
       this.getRemoteData().then(remoteData => {
-        this.props.options.remote.paths.record.map((key, i) => { remoteData = remoteData[key] }); // This traverses the list of path names from the record array in the paths object.
+        remote_options.paths.record.map((key, i) => { remoteData = remoteData[key] }); // This traverses the list of path names from the record array in the paths object.
         const select_options = remoteData.map((item, index) => {
-          if(this.props.options.remote.paths){
+          if(remote_options.paths){
             let value = Object.assign({}, item);
             let label = Object.assign({}, item);
-            this.props.options.remote.paths.value.map((key, i) => { value = value[key] });
-            this.props.options.remote.paths.label.map((key, i) => { label = label[key] });
+            remote_options.paths.value.map((key, i) => { value = value[key] });
+            remote_options.paths.label.map((key, i) => { label = label[key] });
             return {
               value: value,
               label: label
@@ -41,19 +38,37 @@ class ReactSelectWidget extends Component {
 
         let value = this.state.value;
         if(value && Array.isArray(value)){
-          value = this.state.value.map((obj)=> {
-            return {
-              value: obj.value,
-              label: select_options.find(({value}) => value === obj.value).label
-            }
-          });
+          value = this._setLabelsArrayValues(select_options);
         }
-
-        console.log("ReactSelectWidget Value", value)
 
         this.setState({select_options: select_options, value: value});
       });
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.value !== prevProps.value && this.props.options.remote) {
+      this.setState({value: this._setLabelsArrayValues()});
+    }
+  }
+
+  _transformArraytoLabelsAndValues(){
+    return this.props.value.map((val, i) => {return {value: val, label: val} });
+  }
+
+  _setLabelsArrayValues(select_options = null){
+    if (!select_options)
+      select_options = this.state.select_options;
+
+    const value = this._transformArraytoLabelsAndValues();
+
+    return value.map((obj)=> {
+      const option = select_options.find(({value}) => value === obj.value)
+      return {
+        value: obj.value,
+        label: option ? option.label : obj.value
+      }
+    });
   }
 
   entriesDataTransform() {
