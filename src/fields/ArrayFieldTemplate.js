@@ -1,5 +1,4 @@
 import React from 'react';
-import AddButton from "react-jsonschema-form-bs4/lib/components/AddButton";
 import IconButton from "react-jsonschema-form-bs4/lib/components/IconButton";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
@@ -42,7 +41,7 @@ function DefaultArrayItem(props) {
             {(props.hasMoveUp || props.hasMoveDown) && (
               <IconButton
                 icon="arrow-up"
-                className="array-item-move-up"
+                className="array-item-move-up d-print-none"
                 type="light"
                 tabIndex="-1"
                 style={btnStyle}
@@ -54,7 +53,7 @@ function DefaultArrayItem(props) {
             {(props.hasMoveUp || props.hasMoveDown) && (
               <IconButton
                 icon="arrow-down"
-                className="array-item-move-down"
+                className="array-item-move-down d-print-none"
                 type="light"
                 tabIndex="-1"
                 style={btnStyle}
@@ -112,11 +111,18 @@ function ArrayFieldTemplate(props) {
       </div>
 
       {props.canAdd && (
-        <AddButton
-          className="array-item-add"
-          onClick={props.onAddClick}
-          disabled={props.disabled || props.readonly}
-        />
+        <div className="row">
+          <p className={`col-6 array-item-add`}>
+            <IconButton
+              type="link"
+              icon="plus"
+              className="btn-add d-print-none"
+              tabIndex="0"
+              onClick={props.onAddClick}
+              disabled={props.disabled || props.readonly}
+            />
+          </p>
+        </div>
       )}
     </fieldset>
   );
