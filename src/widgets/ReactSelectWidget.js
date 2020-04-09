@@ -48,7 +48,11 @@ class ReactSelectWidget extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.value !== prevProps.value && this.props.options.remote) {
-      this.setState({value: this._setLabelsArrayValues()});
+      let value = this.state.value;
+      if(value && Array.isArray(value)){
+        value = this._setLabelsArrayValues();
+      }
+      this.setState({value: value});
     }
   }
 
