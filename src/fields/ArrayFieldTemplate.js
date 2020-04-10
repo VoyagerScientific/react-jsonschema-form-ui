@@ -116,7 +116,7 @@ function ArrayFieldTemplate(props) {
             <IconButton
               type="link"
               icon="plus"
-              className="btn-add d-print-none"
+              className="btn-sm btn-add d-print-none"
               tabIndex="0"
               onClick={props.onAddClick}
               disabled={props.disabled || props.readonly}
