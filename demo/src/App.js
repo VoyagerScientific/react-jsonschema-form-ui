@@ -78,6 +78,11 @@ const schema = {
           checkbox: {
             type: "boolean",
             title: "Checkbox"
+          },
+          select: {
+            type: "string",
+            enum: [],
+            title: "Remote Select"
           }
         }
       }
@@ -141,6 +146,27 @@ const uiSchema = {
   },
   date: {
     "ui:widget": "ReactDatePickerWidget"
+  },
+  array_template: {
+    items: {
+      select: {
+        "ui:widget": "ReactSelectWidget",
+        "ui:options": {
+          "isMulti": true,
+          "remote": {
+            "url": "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
+            "headers": {
+              "Authorization": "Bearer keyWYA1GjpYkevFTp"
+            },
+            "paths":{
+              "record": ["records"],
+              "value": ["id"],
+              "label": ["fields", "Name"]
+            }
+          }
+        }
+      }
+    }
   },
   signature: {
     "ui:field": "ReactSignatureCanvasField"
