@@ -15,12 +15,15 @@ class ReactSelectWidget extends Component {
   }
 
   componentDidMount(){
-
     const remote_options = this.props.options.remote;
-    if(remote_options){
+    if(remote_options && ((this.state.schema.items && !this.state.schema.items.enum) || (!this.state.schema.enum && this.state.schema.items))){
       this.getRemoteData().then(remoteData => {
-        remote_options.paths.record.map((key, i) => { remoteData = remoteData[key] }); // This traverses the list of path names from the record array in the paths object.
-        const select_options = remoteData.map((item, index) => {
+        const record_keys = remote_options.paths && remote_options.paths.record || [];
+
+        if(record_keys)
+          record_keys.map((key, i) => { remoteData = remoteData[key] }); // This traverses the list of path names from the record array in the paths object.
+
+        const select_options = Array.isArray(remoteData) ? remoteData.map((item, index) => {
           if(remote_options.paths){
             let value = Object.assign({}, item);
             let label = Object.assign({}, item);
@@ -34,7 +37,10 @@ class ReactSelectWidget extends Component {
           }else{
             return item[Object.keys(remoteData)[0]]
           }
-        });
+        }) : [];
+
+        if (!select_options.length)
+          console.warn("ReactSelectWidget: There's no options being generated from the remote data. Check that paths were set properly. ")
 
         let value = this.state.value;
         if(value && Array.isArray(value)){
@@ -80,7 +86,7 @@ class ReactSelectWidget extends Component {
 
     if(this.props.options.remote){
       data = this.state.select_options;
-    }else if(this.props.schema.enum || this.props.schema.items.enum){
+    }else if(this.props.schema.enum || (this.props.schema.items &&this.props.schema.items.enum)){
       const enumValues = this.props.schema.enum || this.props.schema.items.enum;
       const enumNames = this.props.schema.enumNames;
 
