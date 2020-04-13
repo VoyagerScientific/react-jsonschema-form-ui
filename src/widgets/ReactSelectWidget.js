@@ -16,7 +16,7 @@ class ReactSelectWidget extends Component {
 
   componentDidMount(){
     const remote_options = this.props.options.remote;
-    if(remote_options && ((this.state.schema.items && !this.state.schema.items.enum) || (!this.state.schema.enum && this.state.schema.items))){
+    if(remote_options && ((this.state.schema.items && !this.state.schema.items.enum) || !this.state.schema.enum)){
       this.getRemoteData().then(remoteData => {
         const record_keys = remote_options.paths && remote_options.paths.record || [];
 
