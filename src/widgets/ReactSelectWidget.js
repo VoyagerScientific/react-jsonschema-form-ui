@@ -16,7 +16,7 @@ class ReactSelectWidget extends Component {
 
   componentDidMount(){
     const remote_options = this.props.options.remote;
-    if(remote_options && this.state.select_options.length < 1){
+    if(remote_options && remote_options.url){
       this.getRemoteData().then(remoteData => {
         const record_keys = remote_options.paths && remote_options.paths.record || [];
 
