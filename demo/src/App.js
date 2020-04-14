@@ -149,7 +149,10 @@ const uiSchema = {
     "ui:widget": "CurrencyWidget"
   },
   date: {
-    "ui:widget": "ReactDatePickerWidget"
+    "ui:widget": "ReactDatePickerWidget",
+    "ui:options": {
+      "format": "YYYY-MM-DD"
+    }
   },
   array_template: {
     items: {

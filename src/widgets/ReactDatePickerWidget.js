@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import moment from 'moment';
 
 class ButtonInput extends React.Component {
 
@@ -41,9 +42,15 @@ class ReactDatePickerWidget extends Component{
           selected={Date.parse(this.state.value)}
           required={this.state.required}
           onChange={(date) => {
+
+            let value = date;
+
+            if(this.state.options && this.state.options.format)
+              value = moment(date).format(this.state.options.format)
+
             this.setState(
               {value: date},
-              () => this.state.onChange(this.state.value)
+              () => this.state.onChange(value)
             );
           }}
           strictParsing
