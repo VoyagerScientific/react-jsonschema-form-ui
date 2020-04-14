@@ -84,7 +84,7 @@ class ReactSelectWidget extends Component {
   entriesDataTransform() {
     let data = [];
 
-    if(this.props.options.remote){
+    if(this.props.options.remote && this.props.options.remote.url){
       data = this.state.select_options;
     }else if(this.props.schema.enum || (this.props.schema.items &&this.props.schema.items.enum)){
       const enumValues = this.props.schema.enum || this.props.schema.items.enum;

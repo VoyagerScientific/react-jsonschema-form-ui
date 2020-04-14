@@ -111,7 +111,11 @@ const uiSchema = {
     "ui:widget": "ReactSelectWidget",
     "ui:options": {
       "isSearchable": true,
-      "isClearable": true
+      "isClearable": true,
+      "remote": {
+        "headers": {},
+        "paths": {}
+      }
     }
   },
   test_react_select_createable: {
