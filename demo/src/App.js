@@ -154,7 +154,10 @@ const uiSchema = {
     "ui:widget": "CurrencyWidget"
   },
   percent: {
-    "ui:widget": "PercentWidget"
+    "ui:widget": "PercentWidget",
+    "ui:options": {
+      "digits": 0
+    }
   },
   date: {
     "ui:widget": "ReactDatePickerWidget",

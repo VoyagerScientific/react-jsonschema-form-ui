@@ -11,8 +11,7 @@ class PercentWidget extends Component{
 
 
   _handleChange(event){
-
-    const digits = this.state.options.digits || 2;
+    const digits = this.state.options.digits == undefined ? 2 : this.state.options.digits;
 
     let value = event.target.value.replace(/[^0-9.]/g, "");
     if(event.type === 'blur' && event.target.value)
