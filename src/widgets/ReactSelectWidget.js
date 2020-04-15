@@ -8,7 +8,7 @@ class ReactSelectWidget extends Component {
     super(props)
     this.state = {
       ...props,
-      value: Array.isArray(props.value) ? this._transformArraytoLabelsAndValues() : typeof props.value === 'object' ? props.value : props.value ? {value: props.value, label: props.value} : null,
+      value: Array.isArray(props.value) ? this._transformArraytoLabelsAndValues() : props.value ? {value: props.value, label: props.value} : null,
       inputValue: props.value,
       select_options: []
     }
