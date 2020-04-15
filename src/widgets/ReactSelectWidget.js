@@ -8,7 +8,7 @@ class ReactSelectWidget extends Component {
     super(props)
     this.state = {
       ...props,
-      value: Array.isArray(props.value) ? this._transformArraytoLabelsAndValues() : props.value ? {value: props.value, label: props.value} : null,
+      value: Array.isArray(props.value) ? this._transformArraytoLabelsAndValues() : typeof props.value === 'object' ? props.value : typeof props.value === 'string' ? {value: props.value, label: props.value} : null,
       inputValue: props.value,
       select_options: []
     }
@@ -17,38 +17,7 @@ class ReactSelectWidget extends Component {
   componentDidMount(){
     const remote_options = this.props.options.remote;
     if(remote_options && remote_options.url){
-      this.getRemoteData().then(remoteData => {
-        const record_keys = remote_options.paths && remote_options.paths.record || [];
-
-        if(record_keys)
-          record_keys.map((key, i) => { remoteData = remoteData[key] }); // This traverses the list of path names from the record array in the paths object.
-
-        const select_options = Array.isArray(remoteData) ? remoteData.map((item, index) => {
-          if(remote_options.paths){
-            let value = Object.assign({}, item);
-            let label = Object.assign({}, item);
-            remote_options.paths.value.map((key, i) => { value = value[key] });
-            remote_options.paths.label.map((key, i) => { label = label[key] });
-            return {
-              value: value,
-              label: label
-            }
-
-          }else{
-            return item[Object.keys(remoteData)[0]]
-          }
-        }) : [];
-
-        if (!select_options.length)
-          console.warn("ReactSelectWidget: There's no options being generated from the remote data. Check that paths were set properly. ")
-
-        let value = this.state.value;
-        if(value && Array.isArray(value)){
-          value = this._setLabelsArrayValues(select_options);
-        }
-
-        this.setState({select_options: select_options, value: value});
-      });
+      setTimeout(()=> this._setRemoteSelectOptions(), 10);
     };
   }
 
@@ -60,6 +29,50 @@ class ReactSelectWidget extends Component {
       }
       this.setState({value: value});
     }
+  }
+
+  _setRemoteSelectOptions(){
+    const remote_request = this.getRemoteData();
+    const remote_options = this.props.options.remote;
+    remote_request.then(response => {
+      if (response.status === 200){
+        response.json().then(remoteData => {
+          const record_keys = remote_options.paths && remote_options.paths.record || [];
+
+          if(record_keys)
+            record_keys.map((key, i) => { remoteData = remoteData[key] }); // This traverses the list of path names from the record array in the paths object.
+
+          const select_options = Array.isArray(remoteData) ? remoteData.map((item, index) => {
+            if(remote_options.paths){
+              let value = Object.assign({}, item);
+              let label = Object.assign({}, item);
+              remote_options.paths.value.map((key, i) => { value = value[key] });
+              remote_options.paths.label.map((key, i) => { label = label[key] });
+              return {
+                value: value,
+                label: label
+              }
+
+            }else{
+              return item[Object.keys(remoteData)[0]]
+            }
+          }) : [];
+
+          if (!select_options.length)
+            console.warn("ReactSelectWidget: There's no options being generated from the remote data. Check that paths were set properly. ")
+
+          let value = this.state.value;
+          if(value && Array.isArray(value)){
+            value = this._setLabelsArrayValues(select_options);
+          }else if (value){
+            const option = select_options.find((option) => option.value === value.value);
+            value = option;
+          }
+
+          this.setState({select_options: select_options, value: value});
+        });
+      }
+    });
   }
 
   _transformArraytoLabelsAndValues(){
@@ -116,7 +129,7 @@ class ReactSelectWidget extends Component {
       }
     })
 
-    return await response.json(); // parses JSON response into native JavaScript objects
+    return await response; // parses JSON response into native JavaScript objects
   }
 
   getData() {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Form from 'react-jsonschema-form';
 import { ArrayFieldTemplate, CurrencyWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from '../../src/index';
 import './App.css';
@@ -159,7 +159,7 @@ const uiSchema = {
       select: {
         "ui:widget": "ReactSelectWidget",
         "ui:options": {
-          "isMulti": true,
+          "isMulti": false,
           "remote": {
             "url": "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
             "headers": {
@@ -187,28 +187,42 @@ const uiSchema = {
   }
 };
 
-function App() {
-  return (
-    <div className="App">
-      <br /><br />
-      <div className="row">
-        <div className="col-md-4">
-          <h2>Test Form</h2>
-          <br />
-          <Form
-            schema={schema}
-            uiSchema={uiSchema}
-            ArrayFieldTemplate={ArrayFieldTemplate}
-            widgets={widgets}
-            fields={fields}
-            onChange={log("changed")}
-            onSubmit={log("submitted")}
-            onError={log("errors")}>
-          </Form>
+class FormComponent extends Component {
+
+  constructor(props){
+    super(props)
+    this.state = {
+      ...props
+    }
+  }
+
+  render(){
+    return (
+      <div className="App">
+        <br /><br />
+        <div className="row">
+          <div className="col-md-4">
+            <h2>Test Form</h2>
+            <br />
+            <Form
+              schema={this.state.schema}
+              uiSchema={this.state.uiSchema}
+              ArrayFieldTemplate={ArrayFieldTemplate}
+              widgets={widgets}
+              fields={fields}
+              onChange={log("changed")}
+              onSubmit={log("submitted")}
+              onError={log("errors")}>
+            </Form>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+}
+
+function App() {
+   return <FormComponent schema={schema} uiSchema={uiSchema} />
 }
 
 export default App;
