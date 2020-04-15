@@ -16,16 +16,17 @@ class CurrencyWidget extends Component{
     return (
       <input type="text"
         className="form-control currency"
+        style={{textAlign: "right"}}
         value={this.state.value}
         required={this.state.required}
         onBlur={(event) => {
-          this.state.onChange(accounting.unformat(event.target.value));
+          this.state.onChange(accounting.unformat(event.target.value) * 100);
           this.setState({value: accounting.formatMoney(event.target.value)})
         }}
         onChange={(event) => {
           this.setState(
             {value: event.target.value},
-            () => this.state.onChange(accounting.unformat(this.state.value))
+            () => this.state.onChange(accounting.unformat(this.state.value) * 100)
           );
         }}
       />

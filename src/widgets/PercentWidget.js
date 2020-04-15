@@ -4,17 +4,21 @@ class PercentWidget extends Component{
   constructor(props){
     super(props);
     this.state = {
-      ...props
+      ...props,
+      value: props.value && props.value * 100
     }
   }
 
 
   _handleChange(event){
+
+    const digits = this.state.options.digits || 2;
+
     let value = event.target.value.replace(/[^0-9.]/g, "");
     if(event.type === 'blur' && event.target.value)
-      value = parseFloat(value).toFixed(2);
+      value = parseFloat(value).toFixed(digits);
     this.setState({value: value});
-    this.state.onChange(value);
+    this.state.onChange(value/100);
   }
 
   render(){

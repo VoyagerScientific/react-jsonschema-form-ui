@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Form from 'react-jsonschema-form';
-import { ArrayFieldTemplate, CurrencyWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from '../../src/index';
+import { ArrayFieldTemplate, CurrencyWidget, PercentWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from '../../src/index';
 import './App.css';
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
+  PercentWidget: PercentWidget,
   ReactDatePickerWidget: ReactDatePickerWidget,
   ReactSelectWidget: ReactSelectWidget,
   StatesWidget: StatesWidget
@@ -58,6 +59,10 @@ const schema = {
     },
     currency: {
       title: "Currency Demo",
+      type: "number"
+    },
+    percent: {
+      title: "Percent",
       type: "number"
     },
     date: {
@@ -147,6 +152,9 @@ const uiSchema = {
   },
   currency: {
     "ui:widget": "CurrencyWidget"
+  },
+  percent: {
+    "ui:widget": "PercentWidget"
   },
   date: {
     "ui:widget": "ReactDatePickerWidget",
