@@ -21,8 +21,8 @@ class ReactSignatureCanvasField extends Component{
           ref={(ref) => { this.sigCanvas = ref }}
           penColor='black'
           canvasProps={{
-            width: 500,
-            height: 200,
+            width: this.props.options && this.props.options.width || 400,
+            height: this.props.options && this.props.options.height || 150,
             className: 'sigCanvas',
             style: {border: "#ddd 3px dashed", borderRadius: 4}
           }}
