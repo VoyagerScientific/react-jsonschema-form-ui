@@ -21,6 +21,7 @@ const log = (type) => console.log.bind(console, type);
 const schema = {
   type: "object",
   required: [],
+  // readOnly: true,
   properties: {
     test_react_select_without_enumNames: {
       title: "Test React Select (WITHOUT enumNames)",
