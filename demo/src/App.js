@@ -187,7 +187,11 @@ const uiSchema = {
     }
   },
   signature: {
-    "ui:field": "ReactSignatureCanvasField"
+    "ui:field": "ReactSignatureCanvasField",
+    "ui:options": {
+      "width": 300,
+      "height": 100
+    }
   },
   us_states: {
     "ui:widget": "StatesWidget"

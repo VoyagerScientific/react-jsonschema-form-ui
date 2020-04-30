@@ -16,13 +16,13 @@ class ReactSignatureCanvasField extends Component{
 
   render(){
     return (
-      <div className={this.state.classNames}>
+      <div>
         <SignatureCanvas
           ref={(ref) => { this.sigCanvas = ref }}
           penColor='black'
           canvasProps={{
-            width: this.props.options && this.props.options.width || 400,
-            height: this.props.options && this.props.options.height || 150,
+            width: this.props.uiSchema["ui:options"] && this.props.uiSchema["ui:options"].width || 400,
+            height: this.props.uiSchema["ui:options"] && this.props.uiSchema["ui:options"].height || 150,
             className: 'sigCanvas',
             style: {border: "#ddd 3px dashed", borderRadius: 4}
           }}
