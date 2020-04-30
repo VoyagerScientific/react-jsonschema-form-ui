@@ -140,7 +140,7 @@ const uiSchema = {
       "remote": {
         "url": "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
         "headers": {
-          "Authorization": "Bearer keyWYA1GjpYkevFTp"
+          "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
         },
         "paths":{
           "record": ["records"],
@@ -174,7 +174,7 @@ const uiSchema = {
           "remote": {
             "url": "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
             "headers": {
-              "Authorization": "Bearer keyWYA1GjpYkevFTp"
+              "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
             },
             "paths":{
               "record": ["records"],
