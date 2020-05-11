@@ -152,7 +152,10 @@ const uiSchema = {
     }
   },
   currency: {
-    "ui:widget": "CurrencyWidget"
+    "ui:widget": "CurrencyWidget",
+    "ui:options": {
+      "precision": 2
+    }
   },
   percent: {
     "ui:widget": "PercentWidget",
