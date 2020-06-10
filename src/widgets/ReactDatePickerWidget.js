@@ -10,7 +10,7 @@ class ButtonInput extends React.Component {
     return (
       <a
         href="javascript:void(0);"
-        className="btn btn-primary"
+        className="btn btn-sm btn-secondary"
         onClick={this.props.onClick}>
         {this.props.value || "Choose Date"}
       </a>
