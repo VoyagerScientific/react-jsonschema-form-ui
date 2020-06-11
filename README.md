@@ -4,7 +4,48 @@
 [![npm package][npm-badge]][npm]
 [![Coveralls][coveralls-badge]][coveralls]
 
-Describe react-jsonschema-form-ui here.
+#### Add to your project
+`yarn add react-jsonschema-form-ui`
+
+**or**
+
+`npm install react-jsonschema-form-ui`
+
+**then**
+
+```
+import {
+  ArrayFieldTemplate, 
+  CurrencyWidget, 
+  PercentWidget, 
+  RawHTMLField, 
+  ReactDatePickerWidget, 
+  ReactSelectWidget, 
+  ReactSignatureCanvasField, 
+  StatesWidget
+} from 'react-jsonschema-form-ui';
+
+const widgets = {
+  CurrencyWidget: CurrencyWidget,
+  PercentWidget: PercentWidget,
+  ReactDatePickerWidget: ReactDatePickerWidget,
+  ReactSelectWidget: ReactSelectWidget,
+  StatesWidget: StatesWidget
+};
+
+const fields = {
+  RawHTMLField: RawHTMLField,
+  ReactSignatureCanvasField: ReactSignatureCanvasField
+};
+```
+
+### Development
+
+#### Install
+`yarn install`
+
+#### Start
+`yarn start`
 
 [build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
 [build]: https://travis-ci.org/user/repo
