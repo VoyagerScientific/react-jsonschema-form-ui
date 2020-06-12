@@ -231,7 +231,9 @@ class FormComponent extends Component {
               fields={fields}
               onChange={log("changed")}
               onSubmit={log("submitted")}
-              onError={log("errors")}>
+              onError={log("errors")}
+              // disabled={true}
+            >
             </Form>
           </div>
         </div>

@@ -170,8 +170,9 @@ class ReactSelectWidget extends Component {
                 isMulti={isMulti}
                 isSearchable={isSearchable}
                 value={this.state.value}
+                isDisabled={this.state.disabled || this.state.readonly}
               />
-    }else{
+    } else {
       return <AsyncSelect
                 cacheOptions
                 defaultOptions={this.state.select_options.length ? this.state.select_options : true}
@@ -181,6 +182,7 @@ class ReactSelectWidget extends Component {
                 isMulti={isMulti}
                 isSearchable={isSearchable}
                 value={this.state.value}
+                isDisabled={this.state.disabled || this.state.readonly}
               />
     }
   }

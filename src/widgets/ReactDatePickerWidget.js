@@ -54,6 +54,7 @@ class ReactDatePickerWidget extends Component{
             );
           }}
           strictParsing
+          disabled={this.state.disabled || this.state.readonly}
         />
       </div>
     );

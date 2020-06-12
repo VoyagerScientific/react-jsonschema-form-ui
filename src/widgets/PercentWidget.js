@@ -34,6 +34,7 @@ class PercentWidget extends Component{
           onChange={(event) => {
             this._handleChange(event);
           }}
+          disabled={this.state.disabled || this.state.readonly}
         />
         <div className="input-group-append">
           <span className="input-group-text">%</span>

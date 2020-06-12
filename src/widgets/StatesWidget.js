@@ -8,13 +8,16 @@ const StatesWidget = (props) => {
       className="form-control"
       value={props.value}
       required={props.required}
-      onChange={(event) => props.onChange(event.target.value)} >
+      onChange={(event) => props.onChange(event.target.value)}
+      disabled={props.disabled || props.readonly}
+      >
         <option value=""> </option>
       { state_abbreviations.map((state)=>{
         return (
           <option key={state} value={state}>{state}</option>
         );
       })}
+
     </select>
   );
 }
