@@ -3,5 +3,14 @@ module.exports = {
   npm: {
     esModules: true,
     umd: false
+  },
+  karma: {
+    extra: {
+      client: {
+        mocha: {
+          timeout: 100000
+        }
+      },
+    }
   }
 }

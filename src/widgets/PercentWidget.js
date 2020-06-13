@@ -1,39 +1,42 @@
 import React, { Component } from 'react';
 
-class PercentWidget extends Component{
-  constructor(props){
+class PercentWidget extends Component {
+  constructor(props) {
     super(props);
+    this.input = React.createRef();
     this.state = {
       ...props,
       value: props.value && props.value * 100
     }
   }
 
+  _handleChange = (isBlurred) => (event) => {
+    const { options, readonly, value } = this.state;
+    const digits = options.digits == undefined ? 2 : options.digits;
 
-  _handleChange(event){
-    const digits = this.state.options.digits == undefined ? 2 : this.state.options.digits;
+    let newValue = event.target.value.replace(/[^0-9.]/g, "");
+    if (isBlurred)
+      newValue = parseFloat(newValue).toFixed(digits);
 
-    let value = event.target.value.replace(/[^0-9.]/g, "");
-    if(event.type === 'blur' && event.target.value)
-      value = parseFloat(value).toFixed(digits);
-    this.setState({value: value});
-    this.state.onChange(value/100);
+    if (!readonly) {
+      this.setState({ value: newValue });
+      this.state.onChange(newValue / 100);
+    }
   }
 
-  render(){
+  render() {
+    const { readonly, value } = this.state;
     return (
       <div className="input-group">
-        <input type="text"
+        <input
+          ref={el => this.input = el}
           className="form-control percent"
-          style={{textAlign: "right"}}
-          value={this.state.value}
+          style={{ textAlign: "right" }}
+          value={value || ""}
+          readOnly={readonly}
           required={this.state.required}
-          onBlur={(event) => {
-            this._handleChange(event);
-          }}
-          onChange={(event) => {
-            this._handleChange(event);
-          }}
+          onBlur={this._handleChange(true)}
+          onChange={this._handleChange(false)}
         />
         <div className="input-group-append">
           <span className="input-group-text">%</span>

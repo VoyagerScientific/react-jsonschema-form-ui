@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import Form from 'react-jsonschema-form';
-import { ArrayFieldTemplate, CurrencyWidget, PercentWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from '../../src/index';
+import {
+  ArrayFieldTemplate,
+  CurrencyWidget,
+  PercentWidget,
+  RawHTMLField,
+  ReactDatePickerWidget,
+  ReactSelectWidget,
+  ReactSignatureCanvasField,
+  StatesWidget
+} from '../../src/index';
 import './App.css';
 
 const widgets = {
@@ -21,7 +30,7 @@ const log = (type) => console.log.bind(console, type);
 const schema = {
   type: "object",
   required: [],
-  // readOnly: true,
+  readOnly: false,
   properties: {
     test_react_select_without_enumNames: {
       title: "Test React Select (WITHOUT enumNames)",
@@ -60,7 +69,7 @@ const schema = {
     },
     currency: {
       title: "Currency Demo",
-      type: "number"
+      type: "number",
     },
     percent: {
       title: "Percent",
@@ -110,7 +119,7 @@ const schema = {
 };
 
 const uiSchema = {
-  test_react_select_with_enumNames:{
+  test_react_select_with_enumNames: {
     "ui:widget": "ReactSelectWidget"
   },
   test_react_select_without_enumNames: {
@@ -143,7 +152,7 @@ const uiSchema = {
         "headers": {
           "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
         },
-        "paths":{
+        "paths": {
           "record": ["records"],
           "value": ["id"],
           "label": ["fields", "Name"]
@@ -154,7 +163,8 @@ const uiSchema = {
   currency: {
     "ui:widget": "CurrencyWidget",
     "ui:options": {
-      "precision": 2
+      "precision": 2,
+      "readOnly": true,
     }
   },
   percent: {
@@ -180,7 +190,7 @@ const uiSchema = {
             "headers": {
               "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
             },
-            "paths":{
+            "paths": {
               "record": ["records"],
               "value": ["id"],
               "label": ["fields", "Name"]
@@ -202,20 +212,20 @@ const uiSchema = {
   },
   raw_html: {
     "ui:field": "RawHTMLField",
-    "ui:options": {html: "<h1>Hi</h1>"}
+    "ui:options": { html: "<h1>Hi</h1>" }
   }
 };
 
 class FormComponent extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       ...props
     }
   }
 
-  render(){
+  render() {
     return (
       <div className="App">
         <br /><br />
@@ -241,7 +251,7 @@ class FormComponent extends Component {
 }
 
 function App() {
-   return <FormComponent schema={schema} uiSchema={uiSchema} />
+  return <FormComponent schema={schema} uiSchema={uiSchema} />
 }
 
 export default App;

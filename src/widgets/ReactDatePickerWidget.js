@@ -6,7 +6,7 @@ import moment from 'moment';
 
 class ButtonInput extends React.Component {
 
-  render () {
+  render() {
     return (
       <a
         href="javascript:void(0);"
@@ -25,8 +25,8 @@ ButtonInput.propTypes = {
 
 
 
-class ReactDatePickerWidget extends Component{
-  constructor(props){
+class ReactDatePickerWidget extends Component {
+  constructor(props) {
     super(props);
     this.state = {
       ...props
@@ -34,22 +34,24 @@ class ReactDatePickerWidget extends Component{
   }
 
 
-  render(){
+  render() {
+    const { readonly } = this.state;
     return (
-      <div style={{display: "block"}}>
+      <div style={{ display: "block" }}>
         <DatePicker
           customInput={<ButtonInput />}
           selected={Date.parse(this.state.value)}
           required={this.state.required}
+          readOnly={readonly}
           onChange={(date) => {
 
             let value = date;
 
-            if(this.state.options && this.state.options.format)
+            if (this.state.options && this.state.options.format)
               value = moment(date).format(this.state.options.format)
 
             this.setState(
-              {value: date},
+              { value: date },
               () => this.state.onChange(value)
             );
           }}

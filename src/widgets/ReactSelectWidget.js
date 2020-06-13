@@ -1,49 +1,51 @@
 import React, { Component } from 'react';
 import AsyncSelect from 'react-select/async';
 import AsyncCreatable from 'react-select/async-creatable';
+import PropTypes from 'prop-types';
 
 class ReactSelectWidget extends Component {
 
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
+    this.input = React.createRef();
     this.state = {
       ...props,
-      value: Array.isArray(props.value) ? this._transformArraytoLabelsAndValues() : props.value ? {value: props.value, label: props.value} : null,
+      value: Array.isArray(props.value) ? this._transformArraytoLabelsAndValues() : props.value ? { value: props.value, label: props.value } : null,
       inputValue: props.value,
       select_options: []
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const remote_options = this.props.options.remote;
-    if(remote_options && remote_options.url){
-      setTimeout(()=> this._setRemoteSelectOptions(), 10);
+    if (remote_options && remote_options.url) {
+      setTimeout(() => this._setRemoteSelectOptions(), 10);
     };
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.value !== prevProps.value && this.props.options.remote) {
       let value = this.state.value;
-      if(value && Array.isArray(value)){
+      if (value && Array.isArray(value)) {
         value = this._setLabelsArrayValues();
       }
-      this.setState({value: value});
+      this.setState({ value: value });
     }
   }
 
-  _setRemoteSelectOptions(){
+  _setRemoteSelectOptions() {
     const remote_request = this.getRemoteData();
     const remote_options = this.props.options.remote;
     remote_request.then(response => {
-      if (response.status === 200){
+      if (response.status === 200) {
         response.json().then(remoteData => {
           const record_keys = remote_options.paths && remote_options.paths.record || [];
 
-          if(record_keys)
+          if (record_keys)
             record_keys.map((key, i) => { remoteData = remoteData[key] }); // This traverses the list of path names from the record array in the paths object.
 
           const select_options = Array.isArray(remoteData) ? remoteData.map((item, index) => {
-            if(remote_options.paths){
+            if (remote_options.paths) {
               let value = Object.assign({}, item);
               let label = Object.assign({}, item);
               remote_options.paths.value.map((key, i) => { value = value[key] });
@@ -53,7 +55,7 @@ class ReactSelectWidget extends Component {
                 label: label
               }
 
-            }else{
+            } else {
               return item[Object.keys(remoteData)[0]]
             }
           }) : [];
@@ -62,31 +64,31 @@ class ReactSelectWidget extends Component {
             console.warn("ReactSelectWidget: There's no options being generated from the remote data. Check that paths were set properly. ")
 
           let value = this.state.value;
-          if(value && Array.isArray(value)){
+          if (value && Array.isArray(value)) {
             value = this._setLabelsArrayValues(select_options);
-          }else if (value){
+          } else if (value) {
             const option = select_options.find((option) => option.value === value.value);
             value = option;
           }
 
-          this.setState({select_options: select_options, value: value});
+          this.setState({ select_options: select_options, value: value });
         });
       }
     });
   }
 
-  _transformArraytoLabelsAndValues(){
-    return this.props.value.map((val, i) => {return {value: val, label: val} });
+  _transformArraytoLabelsAndValues() {
+    return this.props.value.map((val, i) => { return { value: val, label: val } });
   }
 
-  _setLabelsArrayValues(select_options = null){
+  _setLabelsArrayValues(select_options = null) {
     if (!select_options)
       select_options = this.state.select_options;
 
     const value = this._transformArraytoLabelsAndValues();
 
-    return value.map((obj)=> {
-      const option = select_options.find(({value}) => value === obj.value)
+    return value.map((obj) => {
+      const option = select_options.find(({ value }) => value === obj.value)
       return {
         value: obj.value,
         label: option ? option.label : obj.value
@@ -97,9 +99,9 @@ class ReactSelectWidget extends Component {
   entriesDataTransform() {
     let data = [];
 
-    if(this.props.options.remote && this.props.options.remote.url){
+    if (this.props.options.remote && this.props.options.remote.url) {
       data = this.state.select_options;
-    }else if(this.props.schema.enum || (this.props.schema.items &&this.props.schema.items.enum)){
+    } else if (this.props.schema.enum || (this.props.schema.items && this.props.schema.items.enum)) {
       const enumValues = this.props.schema.enum || this.props.schema.items.enum;
       const enumNames = this.props.schema.enumNames;
 
@@ -119,7 +121,7 @@ class ReactSelectWidget extends Component {
     return data
   }
 
-  async getRemoteData(){
+  async getRemoteData() {
     const response = await fetch(this.state.options.remote.url, {
       method: this.state.options.remote.method || "GET",
       headers: {
@@ -142,7 +144,7 @@ class ReactSelectWidget extends Component {
   }
 
   onChange = e => {
-    if(!e)
+    if (!e)
       return false;
 
     let value = undefined;
@@ -153,37 +155,56 @@ class ReactSelectWidget extends Component {
       value = e.value
       this.props.onChange(value);
     }
-    this.setState({value: e}); // The value always needs to be in this format: {value: value, label: label}
+    this.setState({ value: e }); // The value always needs to be in this format: {value: value, label: label}
     return true
   }
 
   render() {
+    const { readonly } = this.state;
     const { isClearable, isSearchable, isCreateable } = this.props.options;
     const isMulti = this.props.options.isMulti || this.props.schema.type === "array" || false;
     if (isCreateable) {
       return <AsyncCreatable
-                cacheOptions
-                defaultOptions
-                loadOptions={this.getData()}
-                onChange={this.onChange}
-                isClearable={isClearable}
-                isMulti={isMulti}
-                isSearchable={isSearchable}
-                value={this.state.value}
-              />
-    }else{
+        ref={el => this.input = el}
+        cacheOptions
+        defaultOptions
+        loadOptions={this.getData()}
+        onChange={this.onChange}
+        isClearable={isClearable}
+        isMulti={isMulti}
+        isSearchable={isSearchable}
+        value={this.state.value}
+        isDisabled={readonly}
+      />
+    } else {
       return <AsyncSelect
-                cacheOptions
-                defaultOptions={this.state.select_options.length ? this.state.select_options : true}
-                loadOptions={this.getData()}
-                onChange={this.onChange}
-                isClearable={isClearable}
-                isMulti={isMulti}
-                isSearchable={isSearchable}
-                value={this.state.value}
-              />
+        ref={el => this.input = el}
+        cacheOptions
+        defaultOptions={this.state.select_options.length ? this.state.select_options : true}
+        loadOptions={this.getData()}
+        onChange={this.onChange}
+        isClearable={isClearable}
+        isMulti={isMulti}
+        isSearchable={isSearchable}
+        value={this.state.value}
+        isDisabled={readonly}
+      />
     }
   }
 }
+
+ReactSelectWidget.propTypes = {
+  options: PropTypes.object,
+};
+
+ReactSelectWidget.defaultProps = {
+  type: 'string',
+  options: {
+    isClearable: true,
+  },
+  schema: {
+    type: 'string',
+  }
+};
 
 export default ReactSelectWidget;

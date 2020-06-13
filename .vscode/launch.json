@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Dev Server",
+        "request": "launch",
+        "sourceMapPathOverrides": {
+          "webpack:///src/*": "${webRoot}/*"
+        },
+        "type": "chrome",
+        "url": "http://localhost:3000",
+        "webRoot": "${workspaceRoot}/src",
+      },
+      {
+        "name": "Debug Karma Tests",
+        "request": "launch",
+        "type": "chrome",
+        "sourceMapPathOverrides": {
+          "webpack:///*": "${workspaceRoot}/*",
+        },
+        "sourceMaps": true,
+        "url": "http://localhost:9876/debug.html"
+      }
+    ]
+}
