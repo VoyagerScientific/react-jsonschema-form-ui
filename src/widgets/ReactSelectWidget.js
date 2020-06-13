@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AsyncSelect from 'react-select/async';
 import AsyncCreatable from 'react-select/async-creatable';
+import 'whatwg-fetch';
 
 class ReactSelectWidget extends Component {
 

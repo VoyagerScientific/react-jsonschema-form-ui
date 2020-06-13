@@ -47,7 +47,8 @@ class CurrencyWidget extends Component{
             () => this.state.onChange(accounting.unformat(this.state.value).toFixed(this.precision) * 100)
           );
         }}
-        disabled={this.state.disabled || this.state.readonly}
+        disabled={this.state.disabled}
+        readOnly={this.state.readonly}
       />
     );
   }

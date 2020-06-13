@@ -9,7 +9,8 @@ const StatesWidget = (props) => {
       value={props.value}
       required={props.required}
       onChange={(event) => props.onChange(event.target.value)}
-      disabled={props.disabled || props.readonly}
+      disabled={props.disabled}
+      readOnly={props.readonly}
       >
         <option value=""> </option>
       { state_abbreviations.map((state)=>{
