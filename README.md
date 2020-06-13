@@ -1,4 +1,4 @@
-# react-jsonschema-form-ui
+# React Json Schema Form UI
 
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
@@ -46,6 +46,10 @@ const fields = {
 
 #### Start
 `yarn start`
+
+# Sponsored by 
+## [<img src="https://responsevault.com/images/ResponseVault-Logo.svg" width=300>](https://responsevault.com/)
+
 
 [build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
 [build]: https://travis-ci.org/user/repo
