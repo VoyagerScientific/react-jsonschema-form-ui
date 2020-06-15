@@ -5,7 +5,7 @@ export ArrayFieldTemplate from './fields/ArrayFieldTemplate';
 export HeadingField from './fields/HeadingField';
 export ReactSignatureCanvasField from './fields/ReactSignatureCanvasField';
 export RawHTMLField from './fields/RawHTMLField';
-export ReactPhotoGalleryField from './fields/ReactPhotoGalleryField';
+export ReactPhotoGalleryField from './fields/ReactPhotoGalleryField/index';
 
 // Widgets
 export CurrencyWidget from './widgets/CurrencyWidget';

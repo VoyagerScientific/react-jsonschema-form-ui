@@ -52,7 +52,12 @@ html {
 @media print {
   .no-print,
   .dropzone,
+  br,
   button[type="submit"] {
     display: none;
+  }
+  .react-gallery .img-wrap img {
+    width: 100% !important;
+    height: 100% !important;
   }
 }

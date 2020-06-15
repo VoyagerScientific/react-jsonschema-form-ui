@@ -9,8 +9,8 @@ import {
   ReactSelectWidget,
   ReactSignatureCanvasField,
   StatesWidget,
+  ReactPhotoGalleryField,
 } from '../../src/index'
-import GalleryForm from './GalleryForm'
 import './App.css'
 
 const widgets = {
@@ -23,6 +23,7 @@ const widgets = {
 
 const fields = {
   RawHTMLField: RawHTMLField,
+  ReactPhotoGalleryField: ReactPhotoGalleryField,
   ReactSignatureCanvasField: ReactSignatureCanvasField
 };
 
@@ -115,7 +116,15 @@ const schema = {
     raw_html: {
       type: "string",
       title: "Raw HTML"
-    }
+    },
+    react_photo_gallery: {
+      title: "Photo Gallery",
+      type: "object",
+      required: ['attachments'],
+      properties: {
+        attachments: { type: "array" }
+      },
+    },
   }
 };
 
@@ -212,9 +221,12 @@ const uiSchema = {
   },
   raw_html: {
     "ui:field": "RawHTMLField",
-    "ui:options": {html: "<h1>Hi</h1>"}
+    "ui:options": { html: "<h1>Hi</h1>" }
+  },
+  react_photo_gallery: {
+    "ui:field": "ReactPhotoGalleryField",
   }
-};
+}
 
 class FormComponent extends Component {
 
@@ -229,30 +241,26 @@ class FormComponent extends Component {
     return (
       <div className="App">
         <br /><br />
-        <div className="row">
-          <div className="col-md-4">
-            <h2>Test Form</h2>
-            <br />
-            <Form
-              schema={this.state.schema}
-              uiSchema={this.state.uiSchema}
-              ArrayFieldTemplate={ArrayFieldTemplate}
-              widgets={widgets}
-              fields={fields}
-              onChange={log("changed")}
-              onSubmit={log("submitted")}
-              onError={log("errors")}>
-            </Form>
-          </div>
-        </div>
+        <h2 className="text-center">Test Form</h2>
+        <br />
+        <Form
+          schema={this.state.schema}
+          uiSchema={this.state.uiSchema}
+          ArrayFieldTemplate={ArrayFieldTemplate}
+          widgets={widgets}
+          fields={fields}
+          onChange={log("changed")}
+          onSubmit={log("submitted")}
+          onError={log("errors")}>
+        </Form>
+        <br />
       </div>
-    );
+    )
   }
 }
 
 function App() {
-  //  return <FormComponent schema={schema} uiSchema={uiSchema} />
-   return <GalleryForm />
+  return <FormComponent schema={schema} uiSchema={uiSchema} />
 }
 
 export default App
