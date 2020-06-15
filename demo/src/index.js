@@ -10,7 +10,7 @@ class Demo extends Component {
     return (
       <div className="container">
         <br /><br />
-        <h1>React JSON-Schema UI Fields &amp; Widgets</h1>
+        <h1 className="no-print">React JSON-Schema UI Fields &amp; Widgets</h1>
         <App />
       </div>
     )

@@ -1,7 +1,17 @@
-import React, { Component } from 'react';
-import Form from 'react-jsonschema-form';
-import { ArrayFieldTemplate, CurrencyWidget, PercentWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from '../../src/index';
-import './App.css';
+import React, { Component } from 'react'
+import Form from 'react-jsonschema-form'
+import {
+  ArrayFieldTemplate,
+  CurrencyWidget,
+  PercentWidget,
+  RawHTMLField,
+  ReactDatePickerWidget,
+  ReactSelectWidget,
+  ReactSignatureCanvasField,
+  StatesWidget,
+} from '../../src/index'
+import GalleryForm from './GalleryForm'
+import './App.css'
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
@@ -241,7 +251,8 @@ class FormComponent extends Component {
 }
 
 function App() {
-   return <FormComponent schema={schema} uiSchema={uiSchema} />
+  //  return <FormComponent schema={schema} uiSchema={uiSchema} />
+   return <GalleryForm />
 }
 
-export default App;
+export default App
