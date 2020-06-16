@@ -9,6 +9,7 @@ class ButtonInput extends React.Component {
   render () {
     return (
       <a
+        href="#!"
         className="btn btn-sm btn-secondary"
         onClick={(e) => {
           e.preventDefault()
