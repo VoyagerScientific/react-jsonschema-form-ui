@@ -7,6 +7,10 @@ html {
 }
 
 /* drone zone style */
+.react-gallery {
+  page-break-inside: avoid
+}
+
 .react-gallery .dropzone {
   background-color: #f9f9f9;
   display: flex;
@@ -26,7 +30,7 @@ html {
 }
 
 .react-gallery .img-wrap {
-  position: relative;
+  position: absolute;
   margin: 2px;
   border: 1px solid gray;
 }
@@ -50,14 +54,11 @@ html {
 }
 
 @media print {
-  .no-print,
-  .dropzone,
   br,
   button[type="submit"] {
     display: none;
   }
-  .react-gallery .img-wrap img {
-    width: 100% !important;
-    height: 100% !important;
+  .react-gallery .img-wrap {
+    border: none;
   }
 }

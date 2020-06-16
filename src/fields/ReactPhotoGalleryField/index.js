@@ -61,7 +61,7 @@ function ReactPhotoGalleryField(props) {
           onAcceptedFiles={onAcceptedFiles}
         />
       )}
-      <Gallery photos={attachments} columns={2} direction={attachments.length > 1 ? "column" : "row"} />
+      <Gallery photos={attachments} renderImage={_renderPhoto} columns={2} direction={attachments.length > 1 ? "column" : "row"} />
     </div>
   )
 }

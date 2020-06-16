@@ -9,7 +9,7 @@ const selectedImgStyle = {
 }
 
 const PhotoItem = (props) => {
-  const { photo, onRemove, index } = props
+  const { photo, onRemove, index, top, left } = props
   const [isHovered, setIsHovered] = useState(false)
 
   const _onMouseEnter = () => setIsHovered(true)
@@ -24,7 +24,7 @@ const PhotoItem = (props) => {
   return (
     <div
       className="img-wrap"
-      style={{ height: height, width: width }}
+      style={{ height, width, top, left }}
       onMouseEnter={_onMouseEnter}
       onMouseLeave={_onMouseLeave}
     >

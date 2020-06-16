@@ -13,7 +13,7 @@ function ReactDropZoneWidget(props) {
   return (
     <Dropzone onDrop={_onDrop} accept="image/*" disabled={isReading}>
       {({ getRootProps, getInputProps, isDragActive }) => (
-        <section className="no-print">
+        <section className="d-print-none">
           <div className={`dropzone ${isDragActive ? 'active' : ''}`} {...getRootProps()}>
             <input {...getInputProps()} />
             {isReading ? (
