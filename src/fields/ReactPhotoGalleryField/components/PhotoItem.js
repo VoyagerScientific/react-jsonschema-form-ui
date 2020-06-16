@@ -9,7 +9,7 @@ const selectedImgStyle = {
 }
 
 const PhotoItem = (props) => {
-  const { photo, onRemove, index, top, left } = props
+  const { photo, onRemove, index, top, left, isColumn } = props
   const [isHovered, setIsHovered] = useState(false)
 
   const _onMouseEnter = () => setIsHovered(true)
@@ -24,7 +24,7 @@ const PhotoItem = (props) => {
   return (
     <div
       className="img-wrap"
-      style={{ height, width, top, left }}
+      style={{ height, width, top, left, position: isColumn ? 'absolute' : 'relative' }}
       onMouseEnter={_onMouseEnter}
       onMouseLeave={_onMouseLeave}
     >

@@ -41,16 +41,18 @@ function ReactPhotoGalleryField(props) {
     onChange(newFormData)
   }
 
+  const attachments = formData.attachments || []
+  const isDisabled = props.readonly || props.readOnly || props.disabled
+  const isColumnLayout = attachments.length > 1
+
   const _renderPhoto = item => (
     <PhotoItem
       {...item}
       key={item.index}
+      isColumn={isColumnLayout}
       onRemove={onRemoveFile}
     />
   )
-
-  const attachments = formData.attachments || []
-  const isDisabled = props.readonly || props.readOnly || props.disabled
 
   return (
     <div className="react-gallery">
@@ -61,7 +63,7 @@ function ReactPhotoGalleryField(props) {
           onAcceptedFiles={onAcceptedFiles}
         />
       )}
-      <Gallery photos={attachments} renderImage={_renderPhoto} columns={2} direction={attachments.length > 1 ? "column" : "row"} />
+      <Gallery photos={attachments} renderImage={_renderPhoto} columns={2} direction={isColumnLayout ? "column" : "row"} />
     </div>
   )
 }
