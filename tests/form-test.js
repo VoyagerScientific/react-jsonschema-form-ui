@@ -1,7 +1,9 @@
+import expect from 'expect';
 import React, { Component } from 'react';
 import Form from 'react-jsonschema-form';
-import { ArrayFieldTemplate, CurrencyWidget, PercentWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from '../../src/index';
-import './App.css';
+import {render, unmountComponentAtNode} from 'react-dom';
+
+import { ArrayFieldTemplate, CurrencyWidget, PercentWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from 'src/';
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
@@ -21,7 +23,6 @@ const log = (type) => console.log.bind(console, type);
 const schema = {
   type: "object",
   required: [],
-  // readOnly: true,
   properties: {
     test_react_select_without_enumNames: {
       title: "Test React Select (WITHOUT enumNames)",
@@ -207,7 +208,6 @@ const uiSchema = {
 };
 
 class FormComponent extends Component {
-
   constructor(props){
     super(props)
     this.state = {
@@ -234,9 +234,6 @@ class FormComponent extends Component {
               onError={log("errors")}
               // disabled={true}
             >
-              <div>
-                <button type="submit" class="btn btn-info" disabled={this.state.schema.readOnly}>Submit</button>
-              </div>
             </Form>
           </div>
         </div>
@@ -245,8 +242,34 @@ class FormComponent extends Component {
   }
 }
 
-function App() {
-   return <FormComponent schema={schema} uiSchema={uiSchema} />
-}
+describe('FormComponent', () => {
+  let node;
 
-export default App;
+  beforeEach(() => {
+    node = document.createElement('div');
+  })
+
+  afterEach(() => {
+    unmountComponentAtNode(node);
+  })
+
+  it('Show form normal mode', () => {
+    render(<FormComponent schema={schema} uiSchema={uiSchema} />, node, () => {
+      expect(node.innerHTML).toNotContain('No Signature');
+
+      expect(node.innerHTML).toContain('Test React Select (WITHOUT enumNames)');
+    })
+  })
+
+  it('Show form readyOnly mode', () => {
+    render(<FormComponent schema={{...schema, readOnly: true}} uiSchema={uiSchema} />, node, () => {
+      expect(node.innerHTML).toContain('No Signature');
+
+      const inputElements = node.getElementsByTagName('input');
+      const inputList = Array.prototype.slice.call(inputElements);
+      inputList.forEach((element) => {
+        expect(element.hasAttribute('disabled') || element.hasAttribute('readonly') ).toBeTruthy();
+      });
+    })
+  })
+})
