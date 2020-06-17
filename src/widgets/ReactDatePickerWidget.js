@@ -15,6 +15,7 @@ class ButtonInput extends React.Component {
       <a
         className="btn btn-sm btn-secondary"
         onClick={this.handleClick}>
+        href="#!"
         {this.props.value || "Choose Date"}
       </a>
     )
@@ -57,6 +58,8 @@ class ReactDatePickerWidget extends Component{
             );
           }}
           strictParsing
+          disabled={this.state.disabled}
+          readOnly={this.state.readonly}
         />
       </div>
     );

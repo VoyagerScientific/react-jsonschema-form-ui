@@ -1,17 +1,9 @@
-import React, { Component } from 'react'
-import Form from 'react-jsonschema-form'
-import {
-  ArrayFieldTemplate,
-  CurrencyWidget,
-  PercentWidget,
-  RawHTMLField,
-  ReactDatePickerWidget,
-  ReactSelectWidget,
-  ReactSignatureCanvasField,
-  StatesWidget,
-  ReactPhotoGalleryField,
-} from '../../src/index'
-import './App.css'
+import expect from 'expect';
+import React, { Component } from 'react';
+import Form from 'react-jsonschema-form';
+import {render, unmountComponentAtNode} from 'react-dom';
+
+import { ArrayFieldTemplate, CurrencyWidget, PercentWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from 'src/';
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
@@ -23,7 +15,6 @@ const widgets = {
 
 const fields = {
   RawHTMLField: RawHTMLField,
-  ReactPhotoGalleryField: ReactPhotoGalleryField,
   ReactSignatureCanvasField: ReactSignatureCanvasField
 };
 
@@ -32,7 +23,6 @@ const log = (type) => console.log.bind(console, type);
 const schema = {
   type: "object",
   required: [],
-  // readOnly: true,
   properties: {
     test_react_select_without_enumNames: {
       title: "Test React Select (WITHOUT enumNames)",
@@ -116,15 +106,7 @@ const schema = {
     raw_html: {
       type: "string",
       title: "Raw HTML"
-    },
-    react_photo_gallery: {
-      title: "Photo Gallery",
-      type: "object",
-      required: ['attachments'],
-      properties: {
-        attachments: { type: "array" }
-      },
-    },
+    }
   }
 };
 
@@ -221,15 +203,11 @@ const uiSchema = {
   },
   raw_html: {
     "ui:field": "RawHTMLField",
-    "ui:options": { html: "<h1>Hi</h1>" }
-  },
-  react_photo_gallery: {
-    "ui:field": "ReactPhotoGalleryField",
+    "ui:options": {html: "<h1>Hi</h1>"}
   }
-}
+};
 
 class FormComponent extends Component {
-
   constructor(props){
     super(props)
     this.state = {
@@ -241,29 +219,57 @@ class FormComponent extends Component {
     return (
       <div className="App">
         <br /><br />
-        <h2 className="text-center">Test Form</h2>
-        <br />
-        <Form
-          schema={this.state.schema}
-          uiSchema={this.state.uiSchema}
-          ArrayFieldTemplate={ArrayFieldTemplate}
-          widgets={widgets}
-          fields={fields}
-          onChange={log("changed")}
-          onSubmit={log("submitted")}
-          onError={log("errors")}>
-            <div>
-              <button type="submit" class="btn btn-info" disabled={this.state.schema.readOnly}>Submit</button>
-            </div>
-        </Form>
-        <br />
+        <div className="row">
+          <div className="col-md-4">
+            <h2>Test Form</h2>
+            <br />
+            <Form
+              schema={this.state.schema}
+              uiSchema={this.state.uiSchema}
+              ArrayFieldTemplate={ArrayFieldTemplate}
+              widgets={widgets}
+              fields={fields}
+              onChange={log("changed")}
+              onSubmit={log("submitted")}
+              onError={log("errors")}
+              // disabled={true}
+            >
+            </Form>
+          </div>
+        </div>
       </div>
-    )
+    );
   }
 }
 
-function App() {
-  return <FormComponent schema={schema} uiSchema={uiSchema} />
-}
+describe('FormComponent', () => {
+  let node;
 
-export default App
+  beforeEach(() => {
+    node = document.createElement('div');
+  })
+
+  afterEach(() => {
+    unmountComponentAtNode(node);
+  })
+
+  it('Show form normal mode', () => {
+    render(<FormComponent schema={schema} uiSchema={uiSchema} />, node, () => {
+      expect(node.innerHTML).toNotContain('No Signature');
+
+      expect(node.innerHTML).toContain('Test React Select (WITHOUT enumNames)');
+    })
+  })
+
+  it('Show form readyOnly mode', () => {
+    render(<FormComponent schema={{...schema, readOnly: true}} uiSchema={uiSchema} />, node, () => {
+      expect(node.innerHTML).toContain('No Signature');
+
+      const inputElements = node.getElementsByTagName('input');
+      const inputList = Array.prototype.slice.call(inputElements);
+      inputList.forEach((element) => {
+        expect(element.hasAttribute('disabled') || element.hasAttribute('readonly') ).toBeTruthy();
+      });
+    })
+  })
+})

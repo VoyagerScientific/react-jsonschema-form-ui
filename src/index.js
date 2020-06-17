@@ -1,15 +1,15 @@
 import "../css/app.css";
 
 // Fields
-export ArrayFieldTemplate from './fields/ArrayFieldTemplate';
-export HeadingField from './fields/HeadingField';
-export ReactSignatureCanvasField from './fields/ReactSignatureCanvasField';
-export RawHTMLField from './fields/RawHTMLField';
-export ReactPhotoGalleryField from './fields/ReactPhotoGalleryField/index';
+export { default as ArrayFieldTemplate } from './fields/ArrayFieldTemplate';
+export { default as HeadingField } from './fields/HeadingField';
+export { default as ReactSignatureCanvasField } from './fields/ReactSignatureCanvasField';
+export { default as RawHTMLField } from './fields/RawHTMLField';
+export { default as ReactPhotoGalleryField } from './fields/ReactPhotoGalleryField/index';        
 
 // Widgets
-export CurrencyWidget from './widgets/CurrencyWidget';
-export PercentWidget from './widgets/PercentWidget';
-export ReactDatePickerWidget from './widgets/ReactDatePickerWidget';
-export ReactSelectWidget from './widgets/ReactSelectWidget';
-export StatesWidget from './widgets/StatesWidget';
+export { default as CurrencyWidget } from './widgets/CurrencyWidget';
+export { default as PercentWidget } from './widgets/PercentWidget';
+export { default as ReactDatePickerWidget } from './widgets/ReactDatePickerWidget';
+export { default as ReactSelectWidget } from './widgets/ReactSelectWidget';
+export { default as StatesWidget } from './widgets/StatesWidget';
