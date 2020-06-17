@@ -55,7 +55,7 @@ class CurrencyWidget extends Component {
   }
 
   render() {
-    const { readonly } = this.state;
+    const { readonly } = this.props;
     return (
       <input type="text"
         ref={el => this.input = el}

@@ -32,6 +32,7 @@
     "react-dropzone": "^10.2.1",
     "react-jsonschema-form": "^1.8.1",
     "react-jsonschema-form-bs4": "^1.7.1",
+    "react-jss": "^10.3.0",
     "react-select": "^3.0.8",
     "react-signature-canvas": "^1.0.3"
   },

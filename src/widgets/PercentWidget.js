@@ -25,7 +25,8 @@ class PercentWidget extends Component {
   }
 
   render() {
-    const { readonly, value } = this.state;
+    const { readonly } = this.props;
+    const { value } = this.state;
     return (
       <div className="input-group">
         <input

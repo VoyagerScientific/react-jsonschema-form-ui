@@ -35,7 +35,7 @@ class ReactDatePickerWidget extends Component {
 
 
   render() {
-    const { readonly } = this.state;
+    const { readonly } = this.props;
     return (
       <div style={{ display: "block" }}>
         <DatePicker

@@ -217,14 +217,6 @@ const uiSchema = {
 };
 
 class FormComponent extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props
-    }
-  }
-
   render() {
     return (
       <div className="App">
@@ -234,8 +226,8 @@ class FormComponent extends Component {
             <h2>Test Form</h2>
             <br />
             <Form
-              schema={this.state.schema}
-              uiSchema={this.state.uiSchema}
+              schema={this.props.schema}
+              uiSchema={this.props.uiSchema}
               ArrayFieldTemplate={ArrayFieldTemplate}
               widgets={widgets}
               fields={fields}
@@ -250,8 +242,56 @@ class FormComponent extends Component {
   }
 }
 
-function App() {
-  return <FormComponent schema={schema} uiSchema={uiSchema} />
+class App extends Component {
+  state = {
+    schema,
+  };
+
+  schema = {
+    title: "Form Settings",
+    type: "object",
+    properties: {
+      readOnly: {
+        type: "boolean",
+        title: "Form is read-only",
+        enum: [true, false],
+      },
+    },
+  };
+
+  uiSchema = {
+    readOnly: {
+      "ui:widget": "checkbox",
+      "ui:enumDisabled": [true],
+    },
+  };
+
+  handleSchemaChange = ({ formData }) => {
+    this.setState({ schema: formData });
+  }
+
+  renderHeaderForm() {
+    const { schema: formState } = this.state;
+    return (
+      <Form
+        schema={this.schema}
+        uiSchema={this.uiSchema}
+        ArrayFieldTemplate={ArrayFieldTemplate}
+        formData={formState}
+        onChange={this.handleSchemaChange}
+      />
+    );
+  }
+
+  render() {
+    const { schema: formState } = this.state;
+    return (
+      <React.Fragment>
+        {this.renderHeaderForm()}
+        <FormComponent schema={formState} uiSchema={uiSchema} />
+      </React.Fragment>
+    );
+  };
 }
 
 export default App;

@@ -160,7 +160,7 @@ class ReactSelectWidget extends Component {
   }
 
   render() {
-    const { readonly } = this.state;
+    const { readonly } = this.props;
     const { isClearable, isSearchable, isCreateable } = this.props.options;
     const isMulti = this.props.options.isMulti || this.props.schema.type === "array" || false;
     if (isCreateable) {
