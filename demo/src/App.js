@@ -23,6 +23,10 @@ const schema = {
   required: [],
   // readOnly: true,
   properties: {
+    textarea: {
+      title: "Textarea auto resize content",
+      type: "string",
+    },
     test_react_select_without_enumNames: {
       title: "Test React Select (WITHOUT enumNames)",
       type: "string",
@@ -110,6 +114,13 @@ const schema = {
 };
 
 const uiSchema = {
+  textarea: {
+    "ui:widget": "textarea",
+    "ui:options": {
+      rows: 4,
+      className: 'textarea-autosize-height',
+    },
+  },
   test_react_select_with_enumNames:{
     "ui:widget": "ReactSelectWidget"
   },
@@ -212,6 +223,47 @@ class FormComponent extends Component {
     super(props)
     this.state = {
       ...props
+    }
+  }
+
+  componentDidMount() {
+    const { uiSchema: { textarea = {} } } = this.state
+    const options = textarea["ui:options"] || {}
+
+    if (options.className.includes('textarea-autosize-height')) {
+      if (window.attachEvent) {
+        this.observer = function (element, event, handler) {
+          element.attachEvent('on' + event, handler)
+        }
+      } else {
+        this.observer = function (element, event, handler) {
+          element.addEventListener(event, handler, false)
+        }
+      }
+      this.initListener()
+    }
+  }
+
+  resize = (element) => () => {
+    element.style.height = 'auto'
+    element.style.height = element.scrollHeight + 'px'
+  }
+  
+  /* 0-timeout to get the already changed text */
+  delayedResize = (element) => () => {
+    window.setTimeout(this.resize(element), 0)
+  }
+
+  initListener() {
+    const elements = document.getElementsByTagName('textarea')
+    for (let index = 0; index < elements.length; index++) {
+      const element = elements[index];
+      this.observer(element, 'change', this.resize(element))
+      this.observer(element, 'cut', this.delayedResize(element))
+      this.observer(element, 'paste', this.delayedResize(element))
+      this.observer(element, 'drop', this.delayedResize(element))
+      this.observer(element, 'keydown', this.resize(element))
+      this.resize(element)()
     }
   }
 
