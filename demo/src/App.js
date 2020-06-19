@@ -3,6 +3,8 @@ import Form from 'react-jsonschema-form';
 import { ArrayFieldTemplate, CurrencyWidget, PercentWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from '../../src/index';
 import './App.css';
 
+import { initListenerAutoResize } from '../../src/utils/helpers';
+
 const widgets = {
   CurrencyWidget: CurrencyWidget,
   PercentWidget: PercentWidget,
@@ -23,6 +25,10 @@ const schema = {
   required: [],
   // readOnly: true,
   properties: {
+    textarea: {
+      title: "Textarea auto resize content",
+      type: "string",
+    },
     test_react_select_without_enumNames: {
       title: "Test React Select (WITHOUT enumNames)",
       type: "string",
@@ -110,6 +116,13 @@ const schema = {
 };
 
 const uiSchema = {
+  textarea: {
+    "ui:widget": "textarea",
+    "ui:options": {
+      rows: 4,
+      className: 'textarea-autosize-height',
+    },
+  },
   test_react_select_with_enumNames:{
     "ui:widget": "ReactSelectWidget"
   },
@@ -212,6 +225,15 @@ class FormComponent extends Component {
     super(props)
     this.state = {
       ...props
+    }
+  }
+
+  componentDidMount() {
+    const { uiSchema: { textarea = {} } } = this.state
+    const options = textarea["ui:options"] || {}
+
+    if (options.className.includes('textarea-autosize-height')) {
+      initListenerAutoResize()
     }
   }
 
