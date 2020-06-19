@@ -3,6 +3,8 @@ import Form from 'react-jsonschema-form';
 import { ArrayFieldTemplate, CurrencyWidget, PercentWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from '../../src/index';
 import './App.css';
 
+import { initListenerAutoResize } from '../../src/utils/helpers';
+
 const widgets = {
   CurrencyWidget: CurrencyWidget,
   PercentWidget: PercentWidget,
@@ -231,39 +233,7 @@ class FormComponent extends Component {
     const options = textarea["ui:options"] || {}
 
     if (options.className.includes('textarea-autosize-height')) {
-      if (window.attachEvent) {
-        this.observer = function (element, event, handler) {
-          element.attachEvent('on' + event, handler)
-        }
-      } else {
-        this.observer = function (element, event, handler) {
-          element.addEventListener(event, handler, false)
-        }
-      }
-      this.initListener()
-    }
-  }
-
-  resize = (element) => () => {
-    element.style.height = 'auto'
-    element.style.height = element.scrollHeight + 'px'
-  }
-  
-  /* 0-timeout to get the already changed text */
-  delayedResize = (element) => () => {
-    window.setTimeout(this.resize(element), 0)
-  }
-
-  initListener() {
-    const elements = document.getElementsByTagName('textarea')
-    for (let index = 0; index < elements.length; index++) {
-      const element = elements[index];
-      this.observer(element, 'change', this.resize(element))
-      this.observer(element, 'cut', this.delayedResize(element))
-      this.observer(element, 'paste', this.delayedResize(element))
-      this.observer(element, 'drop', this.delayedResize(element))
-      this.observer(element, 'keydown', this.resize(element))
-      this.resize(element)()
+      initListenerAutoResize()
     }
   }
 
