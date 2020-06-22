@@ -257,7 +257,7 @@ class FormComponent extends Component {
               // disabled={true}
             >
               <div>
-                <button type="submit" class="btn btn-info" disabled={this.state.schema.readOnly}>Submit</button>
+                <button type="submit" className="btn btn-info" disabled={this.state.schema.readOnly}>Submit</button>
               </div>
             </Form>
           </div>
