@@ -15,7 +15,7 @@ class ButtonInput extends React.Component {
           e.preventDefault()
           this.props.onClick(e)
         }}>
-        {this.props.value || "Choose Date"}
+        {this.props.value || (<span className="d-print-none">Choose Date</span>)}
       </a>
     )
   }
