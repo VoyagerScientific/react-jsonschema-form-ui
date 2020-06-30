@@ -26,7 +26,6 @@ function initListenerAutoResize() {
     const elements = document.getElementsByTagName('textarea')
     for (let index = 0; index < elements.length; index++) {
       const element = elements[index]
-      element.className += ' textarea-autosize-height'
       observer(element, 'change', resize(element))
       observer(element, 'cut', delayedResize(element))
       observer(element, 'paste', delayedResize(element))

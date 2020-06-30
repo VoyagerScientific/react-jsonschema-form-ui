@@ -119,8 +119,7 @@ const uiSchema = {
   textarea: {
     "ui:widget": "textarea",
     "ui:options": {
-      rows: 4,
-      className: 'textarea-autosize-height',
+      rows: 4
     },
   },
   test_react_select_with_enumNames:{
@@ -229,12 +228,7 @@ class FormComponent extends Component {
   }
 
   componentDidMount() {
-    const { uiSchema: { textarea = {} } } = this.state
-    const options = textarea["ui:options"] || {}
-
-    if (options.className.includes('textarea-autosize-height')) {
-      initListenerAutoResize()
-    }
+    initListenerAutoResize()
   }
 
   render(){

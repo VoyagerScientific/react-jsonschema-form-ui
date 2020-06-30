@@ -2,15 +2,13 @@ html {
   font-size: 14px;
 }
 
-textarea.textarea-autosize-height {
-  -webkit-transition: height 0.15s ease;
-  -moz-transition: height 0.15s ease;
-  transition: height 0.15s ease;
+textarea {
+  transition-property: height !important;
   overflow-y: hidden;
 }
 
 @media print {
-  .textarea-autosize-height {
+  textarea {
     resize: none;
   }
 }
