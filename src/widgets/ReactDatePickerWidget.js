@@ -9,14 +9,14 @@ class ButtonInput extends React.Component {
     e.preventDefault()
     this.props.onClick(e)
   }
-  
+
   render() {
     return (
       <a
         className="btn btn-sm btn-secondary"
+        href={"#!"}
         onClick={this.handleClick}>
-        href="#!"
-        {this.props.value || "Choose Date"}
+        {this.props.value || (<span className="d-print-none">Choose Date</span>)}
       </a>
     )
   }

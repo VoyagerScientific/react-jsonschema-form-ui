@@ -26,7 +26,7 @@ class CurrencyWidget extends Component{
     this.state = {
       ...props,
       precision: this.precision,
-      value: accounting.formatMoney(props.value)
+      value: accounting.formatMoney(props.value/100)
     }
   }
 

@@ -163,6 +163,7 @@ class ReactSelectWidget extends Component {
     const isMulti = this.props.options.isMulti || this.props.schema.type === "array" || false;
     if (isCreateable) {
       return <AsyncCreatable
+                classNamePrefix="react-select"
                 cacheOptions
                 defaultOptions
                 loadOptions={this.getData()}
@@ -175,6 +176,7 @@ class ReactSelectWidget extends Component {
               />
     } else {
       return <AsyncSelect
+                classNamePrefix="react-select"
                 cacheOptions
                 defaultOptions={this.state.select_options.length ? this.state.select_options : true}
                 loadOptions={this.getData()}

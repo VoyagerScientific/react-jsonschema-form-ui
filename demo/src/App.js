@@ -9,14 +9,18 @@ import {
   ReactSelectWidget,
   ReactSignatureCanvasField,
   StatesWidget,
+  ReactDropZoneWidget,
   ReactPhotoGalleryField,
 } from '../../src/index'
 import './App.css'
+
+import { initListenerAutoResize } from '../../src/utils/helpers';
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
   PercentWidget: PercentWidget,
   ReactDatePickerWidget: ReactDatePickerWidget,
+  ReactDropZoneWidget: ReactDropZoneWidget,
   ReactSelectWidget: ReactSelectWidget,
   StatesWidget: StatesWidget
 };
@@ -34,6 +38,10 @@ const schema = {
   required: [],
   // readOnly: true,
   properties: {
+    textarea: {
+      title: "Textarea auto resize content",
+      type: "string",
+    },
     test_react_select_without_enumNames: {
       title: "Test React Select (WITHOUT enumNames)",
       type: "string",
@@ -129,6 +137,12 @@ const schema = {
 };
 
 const uiSchema = {
+  textarea: {
+    "ui:widget": "textarea",
+    "ui:options": {
+      rows: 4
+    },
+  },
   test_react_select_with_enumNames:{
     "ui:widget": "ReactSelectWidget"
   },
@@ -237,26 +251,35 @@ class FormComponent extends Component {
     }
   }
 
+  componentDidMount() {
+    initListenerAutoResize()
+  }
+
   render(){
     return (
       <div className="App">
         <br /><br />
-        <h2 className="text-center">Test Form</h2>
-        <br />
-        <Form
-          schema={this.state.schema}
-          uiSchema={this.state.uiSchema}
-          ArrayFieldTemplate={ArrayFieldTemplate}
-          widgets={widgets}
-          fields={fields}
-          onChange={log("changed")}
-          onSubmit={log("submitted")}
-          onError={log("errors")}>
-            <div>
-              <button type="submit" class="btn btn-info" disabled={this.state.schema.readOnly}>Submit</button>
-            </div>
-        </Form>
-        <br />
+        <div className="row">
+          <div className="col-md-6">
+            <h2>Test Form</h2>
+            <br />
+            <Form
+              schema={this.state.schema}
+              uiSchema={this.state.uiSchema}
+              ArrayFieldTemplate={ArrayFieldTemplate}
+              widgets={widgets}
+              fields={fields}
+              onChange={log("changed")}
+              onSubmit={log("submitted")}
+              onError={log("errors")}
+              // disabled={true}
+            >
+              <div>
+                <button type="submit" className="btn btn-info" disabled={this.state.schema.readOnly}>Submit</button>
+              </div>
+            </Form>
+          </div>
+        </div>
       </div>
     )
   }

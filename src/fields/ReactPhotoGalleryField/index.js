@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Gallery from 'react-photo-gallery'
 
-import ReactDropZone from './components/ReactDropZone'
+import {ReactDropZoneWidget} from '../../index'
 import PhotoItem from './components/PhotoItem'
 
 function readFile(file, callback) {
@@ -58,9 +58,10 @@ function ReactPhotoGalleryField(props) {
     <div className="react-gallery">
       <h2>{props.schema.title}</h2>
       {!isDisabled && (
-        <ReactDropZone
+        <ReactDropZoneWidget
           isReading={isReading}
           onAcceptedFiles={onAcceptedFiles}
+          className={"d-print-none"}
         />
       )}
       <Gallery photos={attachments} renderImage={_renderPhoto} columns={2} direction={isColumnLayout ? "column" : "row"} />

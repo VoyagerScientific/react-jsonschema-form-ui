@@ -6,6 +6,11 @@ html {
   outline: 0;
 }
 
+textarea {
+  transition-property: height !important;
+  overflow-y: hidden;
+}
+
 /* drone zone style */
 .react-gallery {
   page-break-inside: avoid
@@ -58,7 +63,12 @@ html {
   button[type="submit"] {
     display: none;
   }
+  
   .react-gallery .img-wrap {
     border: none;
+  }
+
+  textarea {
+    resize: none;
   }
 }
