@@ -41,6 +41,8 @@ function ReactPhotoGalleryField(props) {
     onChange(newFormData)
   }
 
+  const UploadComponent = props.uploadComponent || ReactDropZoneWidget;
+
   const attachments = formData.attachments || []
   const isDisabled = props.readonly || props.readOnly || props.disabled
   const isColumnLayout = attachments.length > 1
@@ -58,7 +60,7 @@ function ReactPhotoGalleryField(props) {
     <div className="react-gallery">
       <h2>{props.schema.title}</h2>
       {!isDisabled && (
-        <ReactDropZoneWidget
+        <UploadComponent
           isReading={isReading}
           onAcceptedFiles={onAcceptedFiles}
           className={"d-print-none"}
