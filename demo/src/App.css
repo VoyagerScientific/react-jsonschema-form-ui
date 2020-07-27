@@ -2,12 +2,72 @@ html {
   font-size: 14px;
 }
 
+*:focus {
+  outline: 0;
+}
+
 textarea {
   transition-property: height !important;
   overflow-y: hidden;
 }
 
+/* drone zone style */
+.react-gallery {
+  page-break-inside: avoid
+}
+
+.react-gallery .dropzone {
+  background-color: #f9f9f9;
+  display: flex;
+  border: 2px #999 dashed;
+  margin: 2px;
+  border-radius: 4px;
+  text-align: center;
+  height: 100px;
+}
+
+.dropzone.active {
+  border: 2px #20c997 solid;
+}
+
+.react-gallery .dropzone p {
+  margin: auto;
+}
+
+.react-gallery .img-wrap {
+  position: absolute;
+  margin: 2px;
+  border: 1px solid gray;
+}
+
+.react-gallery .img-wrap:hover {
+  border: 1px solid #20c997;
+}
+
+.react-gallery .img-wrap .ic-close {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  background-color: #20c997;
+  color: white;
+  display: block;
+  height: 24px;
+  width: 24px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
 @media print {
+  br,
+  button[type="submit"] {
+    display: none;
+  }
+  
+  .react-gallery .img-wrap {
+    border: none;
+  }
+
   textarea {
     resize: none;
   }

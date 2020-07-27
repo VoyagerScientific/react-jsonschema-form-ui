@@ -5,16 +5,17 @@ import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
 
 class ButtonInput extends React.Component {
+  handleClick = (e) => {
+    e.preventDefault()
+    this.props.onClick(e)
+  }
 
-  render () {
+  render() {
     return (
       <a
-        href="#!"
         className="btn btn-sm btn-secondary"
-        onClick={(e) => {
-          e.preventDefault()
-          this.props.onClick(e)
-        }}>
+        href={"#!"}
+        onClick={this.handleClick}>
         {this.props.value || (<span className="d-print-none">Choose Date</span>)}
       </a>
     )

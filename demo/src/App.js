@@ -1,7 +1,18 @@
-import React, { Component } from 'react';
-import Form from 'react-jsonschema-form';
-import { ArrayFieldTemplate, CurrencyWidget, PercentWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from '../../src/index';
-import './App.css';
+import React, { Component } from 'react'
+import Form from 'react-jsonschema-form'
+import {
+  ArrayFieldTemplate,
+  CurrencyWidget,
+  PercentWidget,
+  RawHTMLField,
+  ReactDatePickerWidget,
+  ReactSelectWidget,
+  ReactSignatureCanvasField,
+  StatesWidget,
+  ReactDropZoneWidget,
+  ReactPhotoGalleryField,
+} from '../../src/index'
+import './App.css'
 
 import { initListenerAutoResize } from '../../src/utils/helpers';
 
@@ -9,12 +20,14 @@ const widgets = {
   CurrencyWidget: CurrencyWidget,
   PercentWidget: PercentWidget,
   ReactDatePickerWidget: ReactDatePickerWidget,
+  ReactDropZoneWidget: ReactDropZoneWidget,
   ReactSelectWidget: ReactSelectWidget,
   StatesWidget: StatesWidget
 };
 
 const fields = {
   RawHTMLField: RawHTMLField,
+  ReactPhotoGalleryField: ReactPhotoGalleryField,
   ReactSignatureCanvasField: ReactSignatureCanvasField
 };
 
@@ -111,7 +124,15 @@ const schema = {
     raw_html: {
       type: "string",
       title: "Raw HTML"
-    }
+    },
+    react_photo_gallery: {
+      title: "Photo Gallery",
+      type: "object",
+      required: ['attachments'],
+      properties: {
+        attachments: { type: "array" }
+      },
+    },
   }
 };
 
@@ -214,9 +235,12 @@ const uiSchema = {
   },
   raw_html: {
     "ui:field": "RawHTMLField",
-    "ui:options": {html: "<h1>Hi</h1>"}
+    "ui:options": { html: "<h1>Hi</h1>" }
+  },
+  react_photo_gallery: {
+    "ui:field": "ReactPhotoGalleryField",
   }
-};
+}
 
 class FormComponent extends Component {
 
@@ -236,7 +260,7 @@ class FormComponent extends Component {
       <div className="App">
         <br /><br />
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-6">
             <h2>Test Form</h2>
             <br />
             <Form
@@ -257,12 +281,12 @@ class FormComponent extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
 function App() {
-   return <FormComponent schema={schema} uiSchema={uiSchema} />
+  return <FormComponent schema={schema} uiSchema={uiSchema} />
 }
 
-export default App;
+export default App
