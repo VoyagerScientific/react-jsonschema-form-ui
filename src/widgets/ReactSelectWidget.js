@@ -77,6 +77,8 @@ class ReactSelectWidget extends Component {
   }
 
   _transformArraytoLabelsAndValues(){
+    if(this.props.value == undefined)
+      return [];
     return this.props.value.map((val, i) => {return {value: val, label: val} });
   }
 
