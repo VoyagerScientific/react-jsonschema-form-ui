@@ -24,6 +24,7 @@ class PercentWidget extends Component{
     return (
       <div className="input-group">
         <input type="text"
+          id={this.props.id}
           className="form-control percent"
           style={{textAlign: "right"}}
           value={this.state.value}
