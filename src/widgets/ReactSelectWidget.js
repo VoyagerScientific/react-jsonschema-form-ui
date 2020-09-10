@@ -167,7 +167,7 @@ class ReactSelectWidget extends Component {
       return <AsyncCreatable
                 classNamePrefix="react-select"
                 cacheOptions
-                defaultOptions
+                defaultOptions={this.state.select_options.length ? this.state.select_options : true}
                 loadOptions={this.getData()}
                 onChange={this.onChange}
                 isClearable={isClearable}
