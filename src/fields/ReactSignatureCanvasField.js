@@ -8,7 +8,8 @@ class ReactSignatureCanvasField extends Component{
     this.state = {
       ...props,
       width: props.uiSchema["ui:options"] && props.uiSchema["ui:options"].width || 400,
-      height: props.uiSchema["ui:options"] && props.uiSchema["ui:options"].height || 150
+      height: props.uiSchema["ui:options"] && props.uiSchema["ui:options"].height || 150,
+      value: props.formData || ""
     }
   }
 
@@ -23,6 +24,7 @@ class ReactSignatureCanvasField extends Component{
     const confirmed = confirm("Clear the signature?")
     if(confirmed){
       this.sigCanvas.clear();
+      this.setState({value: ""});
       this.state.onChange();
     }else{
       return false;
@@ -45,8 +47,9 @@ class ReactSignatureCanvasField extends Component{
                   style: {border: "#ddd 3px dashed", borderRadius: 4}
                 }}
                 backgroundColor="#fafafa"
-                onEnd={(value) => this.state.onChange(this.sigCanvas.toDataURL(value))}
+                onEnd={(value) => {this.state.onChange(this.sigCanvas.toDataURL(value)); this.setState({value: this.sigCanvas.toDataURL(value)}); }}
               />
+              <input type="text" style={{border: 0, height: 1, width: 1}} value={this.state.value} onChange={(event)=> {return this.state.value}} readonly required={this.state.required} />
               { this.sigCanvas && !this.sigCanvas.isEmpty() ?
               <button
                 className="btn btn-secondary d-print-none"
