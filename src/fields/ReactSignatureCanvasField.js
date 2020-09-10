@@ -49,7 +49,7 @@ class ReactSignatureCanvasField extends Component{
                 backgroundColor="#fafafa"
                 onEnd={(value) => {this.state.onChange(this.sigCanvas.toDataURL(value)); this.setState({value: this.sigCanvas.toDataURL(value)}); }}
               />
-              <input type="text" style={{border: 0, height: 1, width: 1}} value={this.state.value} onChange={(event)=> {return this.state.value}} readonly required={this.state.required} />
+              <input type="text" style={{border: 0, height: 1, width: 1}} value={this.state.value} onChange={(event)=> {return this.state.value}} readOnly required={this.state.required} />
               { this.sigCanvas && !this.sigCanvas.isEmpty() ?
               <button
                 className="btn btn-secondary d-print-none"
