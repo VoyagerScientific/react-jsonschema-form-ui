@@ -199,7 +199,10 @@ const uiSchema = {
   date: {
     "ui:widget": "ReactDatePickerWidget",
     "ui:options": {
-      "format": "YYYY-MM-DD"
+      "format": {
+        "data": "MM-DD-YYYY",
+        "display": "DD/MM/YYYY"
+      }
     }
   },
   array_template: {

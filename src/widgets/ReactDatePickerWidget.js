@@ -11,12 +11,15 @@ class ButtonInput extends React.Component {
   }
 
   render() {
+    let value = this.props.value;
+    if(value && this.props.displayFormat)
+      value = moment(this.props.value).format(this.props.displayFormat)
     return (
       <a
         className="btn btn-sm btn-secondary"
         href={"#!"}
         onClick={this.handleClick}>
-        {this.props.value || (<span className="d-print-none">Choose Date</span>)}
+        {value || (<span className="d-print-none">Choose Date</span>)}
       </a>
     )
   }
@@ -35,22 +38,40 @@ class ReactDatePickerWidget extends Component{
     this.state = {
       ...props
     }
+
+    this.dataFormat = null;
+    this.displayFormat = "MM/DD/YYYY";
+
+    if(this.state.options && this.state.options.format){
+      if(typeof this.state.options.format === 'object' && this.state.options.format !== null){
+        this.dataFormat = this.state.options.format.data;
+        this.displayFormat = this.state.options.format.display;
+      }else{
+        this.dataFormat = this.state.options.format;
+        this.displayFormat = this.state.options.format;
+      }
+    }
   }
 
 
   render(){
+
+    let selected = null;
+    if(this.state.value)
+      selected = moment(this.state.value, this.dataFormat).toDate();
+
     return (
       <div style={{display: "block"}}>
         <DatePicker
-          customInput={<ButtonInput />}
-          selected={Date.parse(this.state.value)}
+          customInput={<ButtonInput displayFormat={this.displayFormat} />}
+          selected={selected}
           required={this.state.required}
           onChange={(date) => {
 
             let value = date;
 
-            if(this.state.options && this.state.options.format)
-              value = moment(date).format(this.state.options.format)
+            if(this.dataFormat)
+              value = moment(date).format(this.dataFormat);
 
             this.setState(
               {value: date},
