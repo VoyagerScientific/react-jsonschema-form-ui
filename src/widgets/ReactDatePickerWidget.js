@@ -81,6 +81,15 @@ class ReactDatePickerWidget extends Component{
           strictParsing
           disabled={this.state.disabled}
           readOnly={this.state.readonly}
+          isClearable
+        />
+        <input
+          name={this.props.id}
+          style={{position: "absolute", border: 0, width: 1, height: 1}}
+          type="text"
+          onChange={(event)=> {return this.state.value}}
+          required={this.props.required}
+          value={this.state.value || ""} 
         />
       </div>
     );
