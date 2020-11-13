@@ -4,13 +4,21 @@ import VideoStream from './video_stream';
 import Worker from 'worker-loader!./qr_decode.worker.js';
 
 const wrapperStyles = {
-  display: 'flex',
-  height: '100%',
   overflowY: 'hidden',
+  maxWidth: 640,
+  margin: 'auto'
 };
 
 class QRReader extends Component {
   webWorker = null;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...props,
+      showPlaceholder: true
+    };
+  }
 
   componentWillMount() {
     this.webWorker = new Worker();
@@ -32,6 +40,7 @@ class QRReader extends Component {
 
     if (this.props.shouldDecode) {
       this.drawVideoFrame();
+      this.setState({showPlaceholder: false});
     }
   }
 
@@ -55,6 +64,9 @@ class QRReader extends Component {
   render() {
     return (
       <div className={this.props.className} style={{ ...wrapperStyles, ...this.props.style }}>
+        {this.state.showPlaceholder ?
+          <span><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></span>
+        : null}
         <VideoStream
           onFrame={this.onFrame}
           onInit={this.onVideoStreamInit}

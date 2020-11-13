@@ -19,6 +19,7 @@ class VideoStream extends Component {
     try {
       await this.startCamera();
     } catch (e) {
+      console.log(e)
       message = `Browser camera init error: ${e}`;
       initSuccess = false;
     }

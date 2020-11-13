@@ -44,7 +44,7 @@
   "devDependencies": {
     "nwb": "0.25.x",
     "react": "^16.13.0",
-    "react-dom": "^16.13.0",
+    "react-dom": "^17.0.1",
     "worker-loader": "^3.0.5"
   },
   "author": "Matt Monihan",
