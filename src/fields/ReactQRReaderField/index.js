@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import QRReader from "./qr_reader";
+import QRReader from 'react-qr-reader';
+import './qrreader.css';
 
 class ReactQRReaderField extends Component{
 
@@ -13,21 +14,64 @@ class ReactQRReaderField extends Component{
     };
   }
 
+  handleScan = data => {
+    if (data) {
+      console.log(data);
+      this.props.onChange(data);
+      this.setState({showScanner: false, value: data});
+    }
+  }
+  handleError = err => {
+    console.error(err);
+  }
+
+  supportsWebRTCMedia = () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+      return false;
+    }else
+      return true;
+  }
+
+  isiOS = () => {
+    return [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+    ].includes(navigator.platform)
+    // iPad on iOS 13 detection
+    || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+  }
+
   _getQRReader(){
     return ReactDOM.createPortal(
       (
         <div style={{
           position: 'fixed',
-          top: 10,
-          bottom: 10,
-          left: 10,
-          right: 10,
+          top: 0,
           width: '100%',
           height: '100%',
           backgroundColor: 'rgba(255, 255, 255, 0.5)'
         }}>
-          <QRReader onCode={code => {console.log(code); this.props.onChange(code.data), this.setState({showScanner: false, value: code.data})}} />
-          <button style={{maxWidth: 640, margin: 'auto'}} onClick={() => this.setState({showScanner: false})} className="btn btn-block btn-secondary">Close</button>
+          <QRReader
+            delay={500}
+            onError={this.handleError}
+            onScan={this.handleScan}
+            className={"QRReader_container"}
+            style={{ width: '100%'}}
+            facingMode={'environment'}
+           />
+          <button style={{
+            width: '100%',
+            position: 'absolute',
+            bottom: 0,
+            borderRadius: 0,
+            margin: 'auto',
+            zIndex: 10}}
+            onClick={() => this.setState({showScanner: false})}
+            className="btn btn-block btn-secondary">Close</button>
         </div>
       ),
       document.getElementsByTagName("body")[0]
@@ -44,7 +88,11 @@ class ReactQRReaderField extends Component{
           {this.state.value &&
             <span className="mr-2">{this.state.value}</span>
           }
-          <button onClick={() => this.setState({showScanner: true})} className="btn btn-sm btn-secondary">Scan</button>
+          { this.isiOS() && !this.supportsWebRTCMedia() ?
+            <button className="btn btn-sm btn-outline-danger" onClick={()=> alert("This browser does not support the camera. On iPhone, use Safari.")}>QR</button>
+          :
+            <button onClick={() => this.setState({showScanner: true})} className="btn btn-sm btn-secondary">QR</button>
+          }
           {this.state.value &&
             <button onClick={() => {
               const clearValue = confirm("Are you sure?");
