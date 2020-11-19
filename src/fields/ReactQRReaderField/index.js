@@ -88,7 +88,7 @@ class ReactQRReaderField extends Component{
             <span className="mr-2">{this.state.value}</span>
           }
           { this.isiOS() && !this.supportsWebRTCMedia() ?
-            <button className="btn btn-sm btn-outline-danger" onClick={()=> alert("This browser does not support the camera. On iPhone, use Safari.")}>QR</button>
+            <button className="btn btn-sm btn-outline-danger" onClick={(e)=> {e.preventDefault(); alert("This browser does not support the camera. On iPhone, use Safari.")}}>QR</button>
           :
             <button onClick={() => this.setState({showScanner: true})} className="btn btn-sm btn-secondary">QR</button>
           }
