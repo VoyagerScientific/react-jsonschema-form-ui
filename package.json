@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
+    "@zxing/library": "^0.18.3",
     "accounting": "^0.4.1",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",

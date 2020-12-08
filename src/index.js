@@ -7,6 +7,7 @@ export { default as ReactSignatureCanvasField } from './fields/ReactSignatureCan
 export { default as RawHTMLField } from './fields/RawHTMLField';
 export { default as ReactPhotoGalleryField } from './fields/ReactPhotoGalleryField/index';
 export { default as ReactQRReaderField } from './fields/ReactQRReaderField/index';
+export { default as ReactScannerField } from './fields/ReactScannerField/index';
 
 // Widgets
 export { default as CurrencyWidget } from './widgets/CurrencyWidget';
