@@ -40,8 +40,7 @@
     "react-select": "^3.0.8",
     "react-signature-canvas": "^1.0.3",
     "video-canvas": "^4.0.3",
-    "whatwg-fetch": "^3.5.0",
-    "worker-loader": "^3.0.5"
+    "whatwg-fetch": "^3.5.0"
   },
   "peerDependencies": {
     "react": "16.x"
