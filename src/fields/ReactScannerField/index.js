@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import QRReader from "./qr_reader";
+import Scanner from "./scanner";
 import { BrowserMultiFormatReader } from '@zxing/library';
 
 const styles = {
@@ -38,7 +38,7 @@ class ReactScannerField extends Component {
     this.setState({ showScanner: true });
   }
 
-  _getQRReader() {
+  _getScanner() {
     return ReactDOM.createPortal(
       (
         <div style={{
@@ -48,7 +48,7 @@ class ReactScannerField extends Component {
           height: '100%',
           backgroundColor: 'rgba(255, 255, 255, 0.5)'
         }}>
-          <QRReader
+          <Scanner
             codeReader={this.codeReader}
             codeType="datamatrix"
             onCode={this.handleChange} />
@@ -63,7 +63,7 @@ class ReactScannerField extends Component {
     return (
       <span>
         {this.state.showScanner ?
-          this._getQRReader()
+          this._getScanner()
           :
           <span>
             {this.state.value &&
