@@ -39,6 +39,7 @@
     "react-qr-reader": "^2.2.1",
     "react-select": "^3.0.8",
     "react-signature-canvas": "^1.0.3",
+    "video-canvas": "^4.0.3",
     "whatwg-fetch": "^3.5.0",
     "worker-loader": "^3.0.5"
   },

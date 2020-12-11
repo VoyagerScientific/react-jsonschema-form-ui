@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
-import VideoStream from './video_stream';
-// import Worker from 'worker-loader!./qr_decode.worker.js';
-import ScannerWorker from 'worker-loader!./scanner_decode.worker.js';
-import { BrowserQRCodeReader } from '@zxing/library';
-const codeReader = new BrowserQRCodeReader();
+import videoCanvas from 'video-canvas';
 
 const wrapperStyles = {
   overflowY: 'hidden',
@@ -12,7 +8,18 @@ const wrapperStyles = {
   width: '100%',
 };
 
-class QRReader extends Component {
+const styles = {
+  fullScreen: {
+    width: '100vw',
+    height: '100vh',
+    background: 'aqua',
+    position: 'fixed',
+    top: '0px',
+    left: '0px',
+  }
+};
+
+class CodeReader extends Component {
   webWorker = null;
 
   constructor(props) {
@@ -23,92 +30,79 @@ class QRReader extends Component {
     };
   }
 
-  componentWillMount() {
-    if(this.props.codeType === 'datamatrix'){
-      this.webWorker = new ScannerWorker();
-    }else{
-      this.webWorker = new Worker();
-    }
-
-    this.webWorker.addEventListener('message', this.onFrameDecoded);
-  }
+  handleSuccess = (result) => {
+    console.log(result.text);
+    this.props.codeReader.stopStreams();
+    this.props.onCode(result.text);
+  };
 
   componentWillUnmount() {
-    if (this.webWorker !== null) {
-      this.webWorker.terminate();
-      this.webWorker = null;
-    }
+    this.props.codeReader.stopStreams();
   }
 
-  onVideoStreamInit = (state, drawFrame) => {
-    if (this.props.onInit) {
-      this.props.onInit(state);
-    }
-    this.drawVideoFrame = drawFrame;
-
-    if (this.props.shouldDecode) {
-      this.drawVideoFrame();
-      this.setState({showPlaceholder: false});
-    }
-  }
-
-  onFrame = async (frameData) => {
-    const {data, width, height} = frameData
-    const img_data = new ImageData(data, width, height);
-
-    var canvas = document.createElement("canvas");
-    canvas.width = 100;
-    canvas.height = 100;
-    var ctx = canvas.getContext("2d");
-    ctx.fillStyle = "red";
-    ctx.fillRect(0, 0, 100, 100);
-
-    var img = document.createElement("img");
-    img.src = canvas.toDataURL("image/png");
-    console.log(img)
-    try{
-      const result = await codeReader.decodeFromImage(img);
-    }catch(e){
-      console.log(e);
-      return
-    }
-
-    // this.webWorker.postMessage(frameData);
-  }
-  drawVideoFrame = () => { }
-
-  onFrameDecoded = (event) => {
-    const code = event.data;
-    if (code) {
-      const { data } = code;
-      if (this.props.onCode && data.length > 0) {
-        this.props.onCode(code);
-      }
-    }
-
-    if (this.props.shouldDecode) {
-      this.drawVideoFrame();
-    }
+  handleError = (err) => {
+    console.log(err);
   };
+
+  async componentDidMount() {
+    const videoInputDevices = await this.props.codeReader.listVideoInputDevices();
+    this.setState({ devices: videoInputDevices });
+
+    const firstDeviceId = videoInputDevices[0].deviceId;
+    this.props.codeReader
+      .decodeOnceFromVideoDevice(firstDeviceId, 'video')
+      .then(this.handleSuccess)
+      .catch(this.handleError);
+
+    const video = document.querySelector('video');
+    videoCanvas(video, {
+      canvas: document.querySelector('#video-canvas'),
+      drawCall: function (ctx, video) {
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        const aspectWidth = (ctx.canvas.width / ctx.canvas.offsetWidth);
+        const aspectHeight = (ctx.canvas.height / ctx.canvas.offsetHeight);
+        ctx.drawImage(video,
+          ((ctx.canvas.offsetWidth - video.videoWidth) / 2) * aspectWidth,
+          ((ctx.canvas.offsetHeight - video.videoHeight) / 2) * aspectHeight,
+          aspectWidth * video.videoWidth,
+          aspectHeight * video.videoHeight,
+        );
+        ctx.beginPath();
+        const rectangleWidth = aspectWidth * (video.videoWidth - 250);
+        const rectangleHeight = aspectHeight * (video.videoHeight - 100);
+        ctx.lineWidth = 10;
+        ctx.strokeStyle  = 'rgba(100,100,100,0.5)';
+        ctx.rect(
+          ((ctx.canvas.offsetWidth - ctx.canvas.width + 250) / 2) * aspectWidth,
+          ((ctx.canvas.offsetHeight - ctx.canvas.height + 100) / 2) * aspectHeight,
+          rectangleWidth,
+          rectangleHeight);
+        ctx.stroke();
+      }
+    })
+  }
 
   render() {
     return (
       <div className={this.props.className} style={{ ...wrapperStyles, ...this.props.style }}>
         {this.state.showPlaceholder ?
           <span><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></span>
-        : null}
-        <VideoStream
-          onFrame={this.onFrame}
-          onInit={this.onVideoStreamInit}
-          rearCamera={this.props.rearCamera}
-          style={this.props.videoStyle}
-        />
+          : null}
+        <video
+          id="video"
+          style={{ display: 'none' }}
+        ></video>
+        <canvas
+          id="video-canvas"
+          style={styles.fullScreen}
+        ></canvas>
       </div>
     );
   }
 }
 
-QRReader.propTypes = {
+CodeReader.propTypes = {
   onInit: PropTypes.func,
   shouldDecode: PropTypes.bool,
   onCode: PropTypes.func,
@@ -118,7 +112,7 @@ QRReader.propTypes = {
   className: PropTypes.string,
 };
 
-QRReader.defaultProps = {
+CodeReader.defaultProps = {
   onInit: () => { },
   shouldDecode: true,
   onCode: () => { },
@@ -128,4 +122,4 @@ QRReader.defaultProps = {
   className: undefined,
 };
 
-export default QRReader;
+export default CodeReader;
