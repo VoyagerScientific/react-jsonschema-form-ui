@@ -20,7 +20,6 @@ const styles = {
 };
 
 class CodeReader extends Component {
-  webWorker = null;
 
   constructor(props) {
     super(props);
@@ -31,7 +30,6 @@ class CodeReader extends Component {
   }
 
   handleSuccess = (result) => {
-    console.log(result.text);
     this.props.codeReader.stopStreams();
     this.props.onCode(result.text);
   };
