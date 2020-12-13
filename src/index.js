@@ -8,6 +8,7 @@ export { default as RawHTMLField } from './fields/RawHTMLField';
 export { default as ReactPhotoGalleryField } from './fields/ReactPhotoGalleryField/index';
 export { default as ReactQRReaderField } from './fields/ReactQRReaderField/index';
 export { default as ReactScannerField } from './fields/ReactScannerField/index';
+export { default as ReactTreeSelectField } from './fields/ReactTreeSelectField';
 
 // Widgets
 export { default as CurrencyWidget } from './widgets/CurrencyWidget';

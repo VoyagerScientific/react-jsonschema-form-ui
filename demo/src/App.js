@@ -12,8 +12,10 @@ import {
   ReactDropZoneWidget,
   ReactPhotoGalleryField,
   ReactQRReaderField,
-  ReactScannerField
-} from '../../src/index'
+  ReactScannerField,
+  ReactTreeSelectField  
+} from '../../src/index';
+import treeOptions from './tree-options';
 import './App.css'
 
 import { initListenerAutoResize } from '../../src/utils/helpers';
@@ -32,7 +34,8 @@ const fields = {
   ReactPhotoGalleryField: ReactPhotoGalleryField,
   ReactSignatureCanvasField: ReactSignatureCanvasField,
   ReactQRReaderField: ReactQRReaderField,
-  ReactScannerField: ReactScannerField
+  ReactScannerField: ReactScannerField,
+  ReactTreeSelectField: ReactTreeSelectField,
 };
 
 const log = (type) => console.log.bind(console, type);
@@ -144,6 +147,11 @@ const schema = {
     react_scanner: {
       title: 'Scanner',
       type: 'string'
+    },
+    react_tree_select: {
+      title: 'Tree Select',
+      type: 'array',
+      options: treeOptions
     }
   }
 };
@@ -260,8 +268,11 @@ const uiSchema = {
   },
   react_scanner: {
     "ui:field": "ReactScannerField"
+  },
+  react_tree_select: {
+    "ui:field": "ReactTreeSelectField",
   }
-}
+};
 
 class FormComponent extends Component {
 
