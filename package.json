@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
+    "@zxing/library": "^0.18.3",
     "accounting": "^0.4.1",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
@@ -38,8 +39,8 @@
     "react-qr-reader": "^2.2.1",
     "react-select": "^3.0.8",
     "react-signature-canvas": "^1.0.3",
-    "whatwg-fetch": "^3.5.0",
-    "worker-loader": "^3.0.5"
+    "video-canvas": "^4.0.3",
+    "whatwg-fetch": "^3.5.0"
   },
   "peerDependencies": {
     "react": "16.x"

@@ -12,6 +12,7 @@ import {
   ReactDropZoneWidget,
   ReactPhotoGalleryField,
   ReactQRReaderField,
+  ReactScannerField
 } from '../../src/index'
 import './App.css'
 
@@ -30,7 +31,8 @@ const fields = {
   RawHTMLField: RawHTMLField,
   ReactPhotoGalleryField: ReactPhotoGalleryField,
   ReactSignatureCanvasField: ReactSignatureCanvasField,
-  ReactQRReaderField: ReactQRReaderField
+  ReactQRReaderField: ReactQRReaderField,
+  ReactScannerField: ReactScannerField
 };
 
 const log = (type) => console.log.bind(console, type);
@@ -137,6 +139,10 @@ const schema = {
     },
     react_qr_reader: {
       title: 'QR Reader',
+      type: 'string'
+    },
+    react_scanner: {
+      title: 'Scanner',
       type: 'string'
     }
   }
@@ -251,6 +257,9 @@ const uiSchema = {
   },
   react_qr_reader: {
     "ui:field": "ReactQRReaderField"
+  },
+  react_scanner: {
+    "ui:field": "ReactScannerField"
   }
 }
 
