@@ -274,6 +274,10 @@ const uiSchema = {
   }
 };
 
+const formData = {
+  "react_tree_select": ["parent"]
+}
+
 class FormComponent extends Component {
 
   constructor(props){
@@ -287,6 +291,11 @@ class FormComponent extends Component {
     initListenerAutoResize()
   }
 
+  handleSubmit = (formData) => {
+    alert(`submitted data is ${JSON.stringify(formData)}`);
+    console.log("submitted", formData);
+  }
+
   render(){
     return (
       <div className="App">
@@ -296,13 +305,14 @@ class FormComponent extends Component {
             <h2>Test Form</h2>
             <br />
             <Form
+              formData={formData}
               schema={this.state.schema}
               uiSchema={this.state.uiSchema}
               ArrayFieldTemplate={ArrayFieldTemplate}
               widgets={widgets}
               fields={fields}
               onChange={log("changed")}
-              onSubmit={log("submitted")}
+              onSubmit={this.handleSubmit}
               onError={log("errors")}
               // disabled={true}
             >
