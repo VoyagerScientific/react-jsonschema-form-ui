@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import videoCanvas from 'video-canvas';
+import DeviceHelper from '../../helpers/device';
 
 const wrapperStyles = {
   overflowY: 'hidden',
@@ -43,12 +44,13 @@ class CodeReader extends Component {
   };
 
   async componentDidMount() {
-    const videoInputDevices = await this.props.codeReader.listVideoInputDevices();
-    this.setState({ devices: videoInputDevices });
+    const devices = await DeviceHelper.getVideoInputDevices();
+    const rearCamera = DeviceHelper.getRearCamera(devices);
+    this.setState({ devices: devices });
 
-    const firstDeviceId = videoInputDevices[0].deviceId;
+    const selectedDevice = rearCamera;
     this.props.codeReader
-      .decodeOnceFromVideoDevice(firstDeviceId, 'video')
+      .decodeOnceFromVideoDevice(selectedDevice, 'video')
       .then(this.handleSuccess)
       .catch(this.handleError);
 

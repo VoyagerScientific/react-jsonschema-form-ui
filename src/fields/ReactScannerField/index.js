@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Scanner from "./scanner";
 import { BrowserMultiFormatReader } from '@zxing/library';
+import DeviceHelper from '../../helpers/device';
 
 const styles = {
   closeButton: {
@@ -34,7 +35,9 @@ class ReactScannerField extends Component {
     this.setState({ showScanner: false });
   }
 
-  handleScannerOpen = () => {
+  handleScannerOpen = async () => {
+    const devices = await DeviceHelper.getVideoInputDevices();
+    console.log(devices);
     this.setState({ showScanner: true });
   }
 
