@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import Scanner from "./scanner";
 import { BrowserMultiFormatReader } from '@zxing/library';
 import DeviceHelper from '../../helpers/device';
+import CenteredModal from '../../components/CenteredModal';
+import { Spinner } from 'react-bootstrap';
+import classNames from 'classnames';
 
 const styles = {
   closeButton: {
@@ -20,7 +23,8 @@ class ReactScannerField extends Component {
     this.state = {
       ...props,
       showScanner: false,
-      value: null
+      value: null,
+      showModal: false,
     };
   }
 
@@ -36,9 +40,37 @@ class ReactScannerField extends Component {
   }
 
   handleScannerOpen = async () => {
+    const isVideoAccessDenied = await DeviceHelper.isVideoAccessDenied();
+    const isVideoAccessAsked = await DeviceHelper.isVideoAccessAsked();
+
+    if (isVideoAccessDenied) {
+      return this.setState({ isShowVideoAccessDenied: true });
+    }
+
+    if (isVideoAccessAsked) {
+      try {
+        this.setState({ handleShowVideoAccessAsked: true });
+        await DeviceHelper.askVideoAccess();
+        this.setState({ isShowVideoAccessDenied: false, isShowVideoAccessAsked: false });
+      } catch(error) {
+        return this.setState({ isShowVideoAccessDenied: true, isShowVideoAccessAsked: false });
+      }
+    }
+    
     const devices = await DeviceHelper.getVideoInputDevices();
-    console.log(devices);
-    this.setState({ showScanner: true });
+    if (devices.length > 0) {
+      this.setState({ showScanner: true, devices });
+    } else {
+      return this.setState({ isShowVideoDevicesEmpty: true });
+    }
+  }
+  
+  handleShowVideoDevicesEmpty = () => {
+    return this.setState({ isShowVideoDevicesEmpty: false });
+  }
+
+  handleShowVideoAccessDenied = () => {
+    return this.setState({ isShowVideoAccessDenied: false });
   }
 
   _getScanner() {
@@ -62,9 +94,50 @@ class ReactScannerField extends Component {
     );
   }
 
+  renderDisabledCameraPermissionPrompt() {
+    return <div>
+      <p>Make sure that you allowed us to use the cameras</p>
+    </div>
+  }
+
+  renderLoaderWhileAsking() {
+    return <div>
+      <Spinner animation="border" />
+    </div>
+  }
+
+  renderEmptyDevices() {
+    return <div>
+      { DeviceHelper.isIOSDevice() && (
+        <p>Cannot detect camera because your phone is an IOS Device. You may only try this on Safari Browser. Only devices with WebRTC are allowed to use this feature</p>
+      )}
+      { !DeviceHelper.isIOSDevice() &&
+        <p>Your device doesn't support cameras. Please find a device with at least one camera input</p>
+      }
+    </div>
+  }
+
   render() {
     return (
       <span>
+        <CenteredModal
+          title="You disabled your camera"
+          onHide={this.handleShowVideoAccessDenied}
+          show={this.state.isShowVideoAccessDenied}>
+          {this.renderDisabledCameraPermissionPrompt()}
+        </CenteredModal>
+        <CenteredModal
+          title="Please wait..."
+          onHide={this.handleShowVideoAccessAsked}
+          show={this.state.isShowVideoAccessAsked}>
+          {this.renderLoaderWhileAsking()}
+        </CenteredModal>
+        <CenteredModal
+          title={DeviceHelper.isIOSDevice() ? "You are running on IOS" : "You have no camera"}
+          onHide={this.handleShowVideoDevicesEmpty}
+          show={this.state.isShowVideoDevicesEmpty}>
+          {this.renderEmptyDevices()}
+        </CenteredModal>
         {this.state.showScanner ?
           this._getScanner()
           :
@@ -72,7 +145,12 @@ class ReactScannerField extends Component {
             {this.state.value &&
               <span className="mr-2">{this.state.value}</span>
             }
-            <button onClick={this.handleScannerOpen} className="btn btn-sm btn-secondary">Scan</button>
+            <button onClick={this.handleScannerOpen} className={classNames({
+              btn: true,
+              "btn-sm": true,
+              "btn-secondary": !DeviceHelper.isIOSDevice(),
+              "btn-danger": DeviceHelper.isIOSDevice()
+            })}>Scan</button>
             {this.state.value &&
               <button onClick={() => {
                 const clearValue = confirm("Are you sure?");
