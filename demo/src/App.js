@@ -12,6 +12,7 @@ import {
   ReactDropZoneWidget,
   ReactPhotoGalleryField,
   ReactQRReaderField,
+  ReactScannerField,
   ReactTreeSelectField  
 } from '../../src/index';
 import treeOptions from './tree-options';
@@ -33,6 +34,7 @@ const fields = {
   ReactPhotoGalleryField: ReactPhotoGalleryField,
   ReactSignatureCanvasField: ReactSignatureCanvasField,
   ReactQRReaderField: ReactQRReaderField,
+  ReactScannerField: ReactScannerField,
   ReactTreeSelectField: ReactTreeSelectField,
 };
 
@@ -140,6 +142,10 @@ const schema = {
     },
     react_qr_reader: {
       title: 'QR Reader',
+      type: 'string'
+    },
+    react_scanner: {
+      title: 'Scanner',
       type: 'string'
     },
     react_tree_select: {
@@ -259,6 +265,9 @@ const uiSchema = {
   },
   react_qr_reader: {
     "ui:field": "ReactQRReaderField"
+  },
+  react_scanner: {
+    "ui:field": "ReactScannerField"
   },
   react_tree_select: {
     "ui:field": "ReactTreeSelectField",
