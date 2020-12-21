@@ -26,11 +26,6 @@ class ReactTreeSelectField extends Component {
     this.props.onChange(value); 
   }
 
-  componentDidMount() {
-    if (!this.state.readonly && this.sigCanvas)
-      this.sigCanvas.fromDataURL(this.state.formData);
-  }
-
   render() {
     const { schema, formData } = this.props;
     const valueOptions = this.getOptionsFromValue(formData, schema.options);
