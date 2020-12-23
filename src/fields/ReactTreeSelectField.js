@@ -17,24 +17,33 @@ class ReactTreeSelectField extends Component {
     }
   }
 
-  handleFetchChildren = async (...args) => {
+  handleFetchChildren = async (args) => {
     const remoteOptions = _.get(this.props, 'uiSchema.ui:options.remote.data') || [];
     if (!_.isEmpty(remoteOptions)) {
       const levelZeroOption = remoteOptions[0];
       const response = await axios.get(levelZeroOption.url);
       const responseData = response.data;
-      const options = this.getOptionsFromResponseData(levelZeroOption, responseData);
+      const options = this.getOptionsFromResponseData(levelZeroOption, responseData, args.option);
+      if (args.option) {
+        args.option.children = _.map(options, (o) => o.value);
+      }
       return options;
     }
     return [];
   }
 
-  getOptionsFromResponseData(option, responseData) {
+  getOptionsFromResponseData(option, responseData, parent) {
     const records = _.get(responseData, option.record.join('.'), []);
     return _.map(records, (record) => {
       const label = _.get(record, option.label.join('.'));
       const value = _.get(record, option.value.join('.'));
-      return { label, value, children: [""] };
+      return {
+        label,
+        value: `${parent ? parent.value : 0}-${value}`,
+        children: [""],
+        parent: parent ? parent.value : null,
+        depth: parent ? parent.depth + 1 : 0,
+      };
     });
   }
 
@@ -45,7 +54,7 @@ class ReactTreeSelectField extends Component {
       const selectedOptions = (options || []).filter(option => {
         return (value || []).some(term => term === option.value);
       });
-      return selectedOptions;  
+      return selectedOptions;
     }
   }
 
@@ -69,10 +78,6 @@ class ReactTreeSelectField extends Component {
           value={valueOptions}
           fetchOptions={this.handleFetchChildren}
           onChange={this.handleChange}
-          formComponent={({ options }) => {
-            console.log(options);
-            return <form />
-          }}
         />
       </div>
     );
