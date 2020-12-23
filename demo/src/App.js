@@ -13,7 +13,7 @@ import {
   ReactPhotoGalleryField,
   ReactQRReaderField,
   ReactScannerField,
-  ReactTreeSelectField  
+  ReactTreeSelectField
 } from '../../src/index';
 import treeOptions from './tree-options';
 import './App.css'
@@ -152,6 +152,11 @@ const schema = {
       title: 'Tree Select',
       type: 'array',
       options: treeOptions
+    },
+    react_remote_tree_select  : {
+      title: 'Tree Select Remote',
+      type: 'array',
+      options: treeOptions
     }
   }
 };
@@ -163,7 +168,7 @@ const uiSchema = {
       rows: 4
     },
   },
-  test_react_select_with_enumNames:{
+  test_react_select_with_enumNames: {
     "ui:widget": "ReactSelectWidget"
   },
   test_react_select_without_enumNames: {
@@ -196,7 +201,7 @@ const uiSchema = {
         "headers": {
           "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
         },
-        "paths":{
+        "paths": {
           "record": ["records"],
           "value": ["id"],
           "label": ["fields", "Name"]
@@ -236,7 +241,7 @@ const uiSchema = {
             "headers": {
               "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
             },
-            "paths":{
+            "paths": {
               "record": ["records"],
               "value": ["id"],
               "label": ["fields", "Name"]
@@ -271,6 +276,30 @@ const uiSchema = {
   },
   react_tree_select: {
     "ui:field": "ReactTreeSelectField",
+  },
+  react_remote_tree_select: {
+    "ui:field": "ReactTreeSelectField",
+    "ui:options": {
+      remote: {
+        data: [
+          {
+            id: 1,
+            url: "https://run.mocky.io/v3/9602bc55-5152-44de-9cd6-90b06537db57",
+            record: ["parents"],
+            label: ["name"],
+            value: ["value"]
+          },
+          {
+            id: 2,
+            parent: 1,
+            url: "https://domain.com/path/${parent}",
+            record: ["childs"],
+            label: ["parent_name"],
+            value: ["id"]
+          }
+        ]
+      }
+    }
   }
 };
 
@@ -280,7 +309,7 @@ const formData = {
 
 class FormComponent extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       ...props
@@ -296,7 +325,7 @@ class FormComponent extends Component {
     console.log("submitted", formData);
   }
 
-  render(){
+  render() {
     return (
       <div className="App">
         <br /><br />
@@ -314,7 +343,7 @@ class FormComponent extends Component {
               onChange={log("changed")}
               onSubmit={this.handleSubmit}
               onError={log("errors")}
-              // disabled={true}
+            // disabled={true}
             >
               <div>
                 <button type="submit" className="btn btn-info" disabled={this.state.schema.readOnly}>Submit</button>
