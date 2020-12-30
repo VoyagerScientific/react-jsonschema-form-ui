@@ -3,6 +3,7 @@ import { IntelligentTreeSelect } from 'intelligent-tree-select';
 import axios from 'axios';
 import _ from 'lodash';
 import "intelligent-tree-select/lib/styles.css";
+import Tree from '../objects/tree';
 
 class ReactTreeSelectField extends Component {
 
@@ -15,36 +16,12 @@ class ReactTreeSelectField extends Component {
       height: props.uiSchema["ui:options"] && props.uiSchema["ui:options"].height || 150,
       value: props.formData || ""
     }
+    const remoteOptions = _.get(props, 'uiSchema.ui:options.remote.data') || [];
+    this.tree = new Tree(remoteOptions, this.select);
   }
 
   handleFetchChildren = async (args) => {
-    const remoteOptions = _.get(this.props, 'uiSchema.ui:options.remote.data') || [];
-    if (!_.isEmpty(remoteOptions)) {
-      const levelZeroOption = remoteOptions[0];
-      const response = await axios.get(levelZeroOption.url);
-      const responseData = response.data;
-      const options = this.getOptionsFromResponseData(levelZeroOption, responseData, args.option);
-      if (args.option) {
-        args.option.children = _.map(options, (o) => o.value);
-      }
-      return options;
-    }
-    return [];
-  }
-
-  getOptionsFromResponseData(option, responseData, parent) {
-    const records = _.get(responseData, option.record.join('.'), []);
-    return _.map(records, (record) => {
-      const label = _.get(record, option.label.join('.'));
-      const value = _.get(record, option.value.join('.'));
-      return {
-        label,
-        value: `${parent ? parent.value : 0}-${value}`,
-        children: [""],
-        parent: parent ? parent.value : null,
-        depth: parent ? parent.depth + 1 : 0,
-      };
-    });
+    return this.tree.getChildOptions(args.option);
   }
 
   getOptionsFromValue(value) {

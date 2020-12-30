@@ -284,18 +284,26 @@ const uiSchema = {
         data: [
           {
             id: 1,
-            url: "https://run.mocky.io/v3/9602bc55-5152-44de-9cd6-90b06537db57",
-            record: ["parents"],
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes",
+            record: ["items"],
             label: ["name"],
-            value: ["value"]
+            value: ["id"]
           },
           {
             id: 2,
+            parent: 3,
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances/{{parent[1]}}/parts",
+            record: ["parts"],
+            label: ["item"],
+            value: ["partCode"]
+          },
+          {
+            id: 3,
             parent: 1,
-            url: "https://domain.com/path/${parent}",
-            record: ["childs"],
-            label: ["parent_name"],
-            value: ["id"]
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances",
+            record: ["items"],
+            label: ["appliance"],
+            value: ["code"]
           }
         ]
       }
