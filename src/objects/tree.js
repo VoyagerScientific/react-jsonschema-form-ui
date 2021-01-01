@@ -47,7 +47,8 @@ class Tree {
         parentOption.children = _.map(options, (o) => o.value);
       }
 
-      const treeOptions = _.map(options, (o) => new TreeOption(o));
+      const treeOptions = _.map(options, (o) => new TreeOption(o).withParent(parentTreeOption));
+      parentTreeOption.withChildren(treeOptions);
       this.options.push(...treeOptions);
       return options;
     }
@@ -87,6 +88,7 @@ class Tree {
       const value = _.get(record, selectedReference.value.join('.'));
       return {
         label,
+        id: record.id,
         value: value,
         children: isParentInLastDepth ? [] : [""],
         parent: parent ? parent.value : null,

@@ -36,12 +36,20 @@ class ReactTreeSelectField extends Component {
   }
 
   handleChange = (valueOptions) => {
-    const value = valueOptions.map(option => option.value);
-    this.props.onChange(value);
+    const isMulti = _.get(this.props, 'uiSchema.ui:options.isMulti', false);
+    if (!isMulti) {
+      const value = _.get(valueOptions, 'value');
+      this.props.onChange(value ? [value] : []);
+    } else {
+      const value = valueOptions.map(option => option.value);
+      this.props.onChange(value);
+    }
   }
 
   render() {
     const { schema, formData } = this.props;
+    const isMulti = _.get(this.props, 'uiSchema.ui:options.isMulti', false);
+    const isCreateable = _.get(this.props, 'uiSchema.ui:options.isCreateable', false);
     const valueOptions = this.getOptionsFromValue(formData, schema.options);
     return (
       <div>
@@ -50,9 +58,10 @@ class ReactTreeSelectField extends Component {
           ref={select => {
             this.select.current = select;
           }}
-          showSettings={false}
+          showSettings={isCreateable}
+          multi={isMulti}
           options={schema.options || []}
-          value={valueOptions}
+          value={isMulti ? valueOptions : _.get(valueOptions, '0')}
           fetchOptions={this.handleFetchChildren}
           onChange={this.handleChange}
         />

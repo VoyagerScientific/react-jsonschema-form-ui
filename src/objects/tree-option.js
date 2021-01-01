@@ -15,10 +15,10 @@ class TreeOption {
     return this;
   }
 
-  getParentValues(values = [this.value]) {
+  getParentValues(values = [this.id]) {
     if (this.parent) {
-      const parentValue = this.parent.value;
-      return this.parent.getParentValues([...values, parentValue]);
+      const parentValue = this.parent.id;
+      return this.parent.getParentValues([parentValue, ...values]);
     }
     return values;
   }

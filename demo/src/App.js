@@ -280,7 +280,9 @@ const uiSchema = {
   react_remote_tree_select: {
     "ui:field": "ReactTreeSelectField",
     "ui:options": {
-      remote: {
+      "isCreateable": false,
+      "isMulti": true,
+      "remote": {
         data: [
           {
             id: 1,

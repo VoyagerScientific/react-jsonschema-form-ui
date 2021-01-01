@@ -4912,7 +4912,7 @@ inquirer@7.1.0:
     strip-ansi "^6.0.0"
     through "^2.3.6"
 
-intelligent-tree-select@^0.7.7:
+intelligent-tree-select@^0.7.9:
   version "0.7.9"
   resolved "https://registry.yarnpkg.com/intelligent-tree-select/-/intelligent-tree-select-0.7.9.tgz#d0aefc1880eab0373112938331eff61100e6e246"
   integrity sha512-lkRrm+5k8DEKFlZfzAeuZVcyF7n3NLbeadAYvDLyej2CNPLiCohAx2b5Pero+DcsdNghrx1YSuo+ICwrz127QA==
