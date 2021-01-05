@@ -35,7 +35,8 @@ class ReactTreeSelectField extends Component {
     }
   }
 
-  handleChange = (valueOptions) => {
+  handleChange = (valueOptions, ...args) => {
+    console.log(args);
     const isMulti = _.get(this.props, 'uiSchema.ui:options.isMulti', false);
     if (!isMulti) {
       const value = _.get(valueOptions, 'value');
@@ -44,6 +45,10 @@ class ReactTreeSelectField extends Component {
       const value = valueOptions.map(option => option.value);
       this.props.onChange(value);
     }
+  }
+
+  handleInputChange = (...args) => {
+    console.log(args);
   }
 
   render() {
@@ -64,6 +69,7 @@ class ReactTreeSelectField extends Component {
           value={isMulti ? valueOptions : _.get(valueOptions, '0')}
           fetchOptions={this.handleFetchChildren}
           onChange={this.handleChange}
+          onInputChange={this.handleInputChange}
         />
       </div>
     );
