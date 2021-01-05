@@ -1,8 +1,9 @@
 import _ from 'lodash'
 
 class TreeOption {
-  constructor(raw) {
+  constructor(raw, isEnd) {
     _.merge(this, raw);
+    this.isEnd = isEnd;
   }
 
   withParent(parent) {

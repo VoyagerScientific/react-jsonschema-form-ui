@@ -37,20 +37,26 @@ class Tree {
         option.children = [];
         return [];
       }
+      const currentDepth = parentOption.depth + 1;
+      const selectedReference = this.references[currentDepth];
 
-      const selectedReference = this.references[parentOption.depth + 1];
+      if (!selectedReference) {
+        parentOption.isEnd = true;
+        return [];
+      }
+
       const parentValues = parentTreeOption.getParentValues();
       const derivedUrl = MustacheHelper.getCompiledText(selectedReference.url, { parent: parentValues });
       const options = await this.getDerivedOptions(derivedUrl, selectedReference, parentOption);
-
+      const isEnd = currentDepth + 1 === this.references.length;
       if (parentOption) {
         parentOption.children = _.map(options, (o) => o.value);
       }
 
-      const treeOptions = _.map(options, (o) => new TreeOption(o).withParent(parentTreeOption));
+      const treeOptions = _.map(options, (o) => new TreeOption(o, isEnd).withParent(parentTreeOption));
       parentTreeOption.withChildren(treeOptions);
       this.options.push(...treeOptions);
-      return options;
+      return treeOptions;
     }
     return [];
   }
