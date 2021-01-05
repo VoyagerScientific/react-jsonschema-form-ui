@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
-import { IntelligentTreeSelect } from 'intelligent-tree-select';
-import axios from 'axios';
+import { IntelligentTreeSelect } from 'intelligent-tree-select'
 import _ from 'lodash';
 import "intelligent-tree-select/lib/styles.css";
 import Tree from '../objects/tree';
+import { Button } from 'react-bootstrap';
+import { components } from 'react-select';
+import ResultItem from 'intelligent-tree-select/lib/components/resultItem';
+class Option extends Component {
+  handleClick = () => {
+
+  }
+
+  render() {
+    return (
+      <div content={'Customise your option component!'}>
+        <ResultItem settings={this.props} {...this.props} {...this.props.option} />
+      </div>
+  );
+  }
+};
 
 class ReactTreeSelectField extends Component {
 
@@ -35,8 +50,10 @@ class ReactTreeSelectField extends Component {
     }
   }
 
-  handleChange = (valueOptions) => {
+  handleChange = (valueOptions, ...args) => {
     const isMulti = _.get(this.props, 'uiSchema.ui:options.isMulti', false);
+    const remoteDataLength = (_.get(this.props, 'uiSchema.io:options.remote.data') || []).length;
+    console.log(args);
     if (!isMulti) {
       const value = _.get(valueOptions, 'value');
       this.props.onChange(value ? [value] : []);
@@ -55,6 +72,7 @@ class ReactTreeSelectField extends Component {
       <div>
         <div>{schema.title}</div>
         <IntelligentTreeSelect
+        optionRenderer={(optionProps) => <Option {...optionProps} />}
           ref={select => {
             this.select.current = select;
           }}
