@@ -52,22 +52,42 @@ class ReactTreeSelectField extends Component {
     console.log(args);
   }
 
+  isRemote() {
+    const remoteOptions = _.get(this.props, 'uiSchema.ui:options.remote.data') || [];
+    return remoteOptions.length > 0;
+  }
+
+  getSchemaOptions() {
+    const { schema } = this.props;
+    if (this.isRemote()) {
+      return schema.options;
+    } else {
+      return _.map(schema.options, (opt) => {
+        if (opt.children.length  === 0) {
+          opt.isEnd = true;
+        }
+        return opt;
+      });
+    }
+  }
+
   render() {
     const { schema, formData } = this.props;
     const isMulti = _.get(this.props, 'uiSchema.ui:options.isMulti', false);
     const isCreateable = _.get(this.props, 'uiSchema.ui:options.isCreateable', false);
-    const valueOptions = this.getOptionsFromValue(formData, schema.options);
+    const schemaOptions = this.getSchemaOptions();
+    const valueOptions = this.getOptionsFromValue(formData, schemaOptions);
     return (
       <div>
         <div>{schema.title}</div>
         <IntelligentTreeSelect
-        optionRenderer={(optionProps) => <ReactTreeSelectFieldOption {...optionProps} select={this.select}/>}
+          optionRenderer={(optionProps) => <ReactTreeSelectFieldOption {...optionProps} select={this.select}/>}
           ref={select => {
             this.select.current = select;
           }}
           showSettings={isCreateable}
           multi={isMulti}
-          options={schema.options || []}
+          options={schemaOptions || []}
           value={isMulti ? valueOptions : _.get(valueOptions, '0')}
           fetchOptions={this.handleFetchChildren}
           onChange={this.handleChange}

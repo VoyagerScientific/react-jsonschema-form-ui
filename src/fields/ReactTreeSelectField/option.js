@@ -18,6 +18,7 @@ class ReactTreeSelectFieldOption extends Component {
   handleToggle = () => {
     this.props.focusOption(this.props.option);
     this.props.toggleOption(this.props.option);
+    this.props.select.current.forceUpdate();
   }
 
   isOptionSelected = () => {
