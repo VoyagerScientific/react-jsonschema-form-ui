@@ -13,12 +13,13 @@ import {
   ReactPhotoGalleryField,
   ReactQRReaderField,
   ReactScannerField,
-  ReactTreeSelectField  
+  ReactTreeSelectField
 } from '../../src/index';
 import treeOptions from './tree-options';
 import './App.css'
 
 import { initListenerAutoResize } from '../../src/utils/helpers';
+import ReactFormulaField from './../../src/fields/ReactFormulaField/index';
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
@@ -36,6 +37,7 @@ const fields = {
   ReactQRReaderField: ReactQRReaderField,
   ReactScannerField: ReactScannerField,
   ReactTreeSelectField: ReactTreeSelectField,
+  ReactFormulaField: ReactFormulaField,
 };
 
 const log = (type) => console.log.bind(console, type);
@@ -152,6 +154,25 @@ const schema = {
       title: 'Tree Select',
       type: 'array',
       options: treeOptions
+    },
+    react_formula_field: {
+      "title": "Calculations",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "a": {
+            "type": "number"
+          },
+          "b": {
+            "type": "number"
+          },
+          "c": {
+            "type": "number",
+            "readOnly": true
+          }
+        }
+      }
     }
   }
 };
@@ -163,7 +184,7 @@ const uiSchema = {
       rows: 4
     },
   },
-  test_react_select_with_enumNames:{
+  test_react_select_with_enumNames: {
     "ui:widget": "ReactSelectWidget"
   },
   test_react_select_without_enumNames: {
@@ -196,7 +217,7 @@ const uiSchema = {
         "headers": {
           "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
         },
-        "paths":{
+        "paths": {
           "record": ["records"],
           "value": ["id"],
           "label": ["fields", "Name"]
@@ -236,7 +257,7 @@ const uiSchema = {
             "headers": {
               "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
             },
-            "paths":{
+            "paths": {
               "record": ["records"],
               "value": ["id"],
               "label": ["fields", "Name"]
@@ -271,16 +292,29 @@ const uiSchema = {
   },
   react_tree_select: {
     "ui:field": "ReactTreeSelectField",
+  },
+  react_formula_field: {
+    "ui:field": "ReactFormulaField",
+    "ui:options": {
+      "formulas": {
+         "c": "a[i]+b[i]"
+     }
+    }
   }
 };
 
 const formData = {
-  "react_tree_select": ["parent"]
+  "react_tree_select": ["child1"],
+  "react_formula_field": [
+    { a: 1, b: 2 },
+    { a: 2, b: 4 },
+    { a: 3, b: 6 },
+  ]
 }
 
 class FormComponent extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       ...props
@@ -296,7 +330,7 @@ class FormComponent extends Component {
     console.log("submitted", formData);
   }
 
-  render(){
+  render() {
     return (
       <div className="App">
         <br /><br />
@@ -314,7 +348,7 @@ class FormComponent extends Component {
               onChange={log("changed")}
               onSubmit={this.handleSubmit}
               onError={log("errors")}
-              // disabled={true}
+            // disabled={true}
             >
               <div>
                 <button type="submit" className="btn btn-info" disabled={this.state.schema.readOnly}>Submit</button>

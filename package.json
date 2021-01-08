@@ -22,10 +22,13 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
+    "@handsontable/react": "^4.0.0",
     "@zxing/library": "^0.18.3",
     "accounting": "^0.4.1",
     "bootstrap": "^4.4.1",
     "classnames": "^2.2.6",
+    "handsontable": "^8.2.0",
+    "hyperformula": "^0.4.0",
     "intelligent-tree-select": "^0.7.7",
     "jquery": "^3.4.1",
     "jsqr": "^1.3.1",
