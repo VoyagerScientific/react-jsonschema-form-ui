@@ -44,13 +44,25 @@ class ReactFormulaField extends React.Component {
     console.log("sdfsdfsdfsdf");
   }
 
+
+  createColDef(headers) {
+    const colDef = _.reduce(headers, (result, header) => {
+      result[header.header] = {
+        editable: header.readOnly,
+      }
+      return result;
+    }, {});
+    return colDef;
+  }
+
   renderTable() {
     const headers = this.getHeaders(this.props);
+    const colDef = this.createColDef(headers);
     return (
       <div className="ag-theme-alpine" style={{ height: 400, width: 600 }}>
       <AgGridReact
         groupSelectsChildren={true}
-        defaultColDef={{ editable: true }}
+        defaultColDef={colDef}
         onGridReady={this.handleGridReady}
         rowData={this.props.formData}
         editType="fullRow"
