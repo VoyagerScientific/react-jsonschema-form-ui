@@ -1,5 +1,12 @@
 import HyperFormula from "hyperformula";
 
+function toColumnName(num) {
+  for (var ret = '', a = 1, b = 26; (num -= a) >= 0; a = b, b *= 26) {
+    ret = String.fromCharCode(parseInt((num % b) / a) + 65) + ret;
+  }
+  return ret;
+}
+
 class HyperFormulaBuilder {
   constructor() {
     this.hyperformula = HyperFormula.buildEmpty({
@@ -21,6 +28,12 @@ class HyperFormulaBuilder {
 
   getConvertedValues() {
     return this.hyperformula.getSheetValues(this.sheetId);
+  }
+
+
+  getComputedValue(headerName, rowIndex) {
+    const indexOfHeader = _.findIndex(this.headers, (header) => header.header === headerName);
+    return this.hyperformula.getCellValue({ col: indexOfHeader, row: rowIndex + 2, sheet: this.sheetId });
   }
 
   getRow(obj, index) {

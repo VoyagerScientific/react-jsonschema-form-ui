@@ -1,14 +1,16 @@
 import React from 'react';
 import _ from 'lodash';
 import HyperFormulaBuilder from './../../components/hyperformula/builder';
-import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import ReactFormulaAgGridTable from './ag-grid-table';
+import { Button, Col, Row } from 'react-bootstrap';
 
 class ReactFormulaField extends React.Component {
   constructor(props) {
     super(props);
     this.builder = new HyperFormulaBuilder();
+    this.state = {
+      headers: []
+    };
   }
 
   componentDidMount() {
@@ -17,17 +19,7 @@ class ReactFormulaField extends React.Component {
     this.setState({ headers });
   }
 
-  handleChange = (change, source) => {
-    if (source === "edit") {
-      const [row, column, old, newValue] = change[0];
-      const currentHeader = this.state.headers[column];
-      const currentValue = this.props.formData[row];
-      currentValue[currentHeader.header] = newValue;
-      this.props.onChange(this.props.formData);
-    }
-  }
-
-  getHeaders(props) {
+  getHeaders() {
     const properties = _.get(this.props, 'schema.items.properties', {});
     const headers = _.toPairs(properties);
     return _.map(headers, ([headerKey, headerObject]) => {
@@ -40,59 +32,31 @@ class ReactFormulaField extends React.Component {
     });
   }
 
-  handleGridReady = () => {
-    console.log("sdfsdfsdfsdf");
+  handleChange = (values) => {
+    const { onChange } = this.props;
+    onChange && onChange(values);
   }
-
-
-  createColDef(headers) {
-    const colDef = _.reduce(headers, (result, header) => {
-      result[header.header] = {
-        editable: header.readOnly,
-      }
-      return result;
-    }, {});
-    return colDef;
-  }
-
-  renderTable() {
-    const headers = this.getHeaders(this.props);
-    const colDef = this.createColDef(headers);
-    return (
-      <div className="ag-theme-alpine" style={{ height: 400, width: 600 }}>
-      <AgGridReact
-        groupSelectsChildren={true}
-        defaultColDef={colDef}
-        onGridReady={this.handleGridReady}
-        rowData={this.props.formData}
-        editType="fullRow"
-        onChange={this.handleChange}
-      >{_.map(headers, (header) => <AgGridColumn field={header.header} />)}
-      </AgGridReact>
-      </div>
-    )
-  }
-
 
   render() {
     this.builder.withDataObjects(this.props.formData);
-    const convertedData = this.builder && this.builder.getConvertedValues() || this.data;
     return (
       <div>
-        {/* { this.builder && (
-          <HotTable settings={
-            {
-              data: this.builder.rows,
-              colHeaders: true,
-              rowHeaders: true,
-              contextMenu: true,
-              formulas: true,
-              afterChange: this.handleChange,
-            }
-          } width="600" height="300" />
-        )} */}
-        Hello
-        {this.builder && this.renderTable()}
+        <Row>
+          <Col>
+            <Button>Add Item</Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {this.builder &&
+              <ReactFormulaAgGridTable
+                builder={this.builder}
+                headers={this.state.headers}
+                value={this.props.formData}
+                onChange={this.handleChange}
+              />}
+          </Col>
+        </Row>
       </div>
     );
   }
