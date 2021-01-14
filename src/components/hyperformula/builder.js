@@ -33,7 +33,12 @@ class HyperFormulaBuilder {
 
   getComputedValue(headerName, rowIndex) {
     const indexOfHeader = _.findIndex(this.headers, (header) => header.header === headerName);
-    return this.hyperformula.getCellValue({ col: indexOfHeader, row: rowIndex + 2, sheet: this.sheetId });
+    return this.hyperformula.getCellValue({ col: indexOfHeader, row: rowIndex + 0, sheet: this.sheetId });
+  }
+
+  getValue(headerName, rowIndex) {
+    const indexOfHeader = _.findIndex(this.headers, (header) => header.header === headerName);
+    return this.hyperformula.getCellFormula({ col: indexOfHeader, row: rowIndex + 0, sheet: this.sheetId });
   }
 
   getRow(obj, index) {
@@ -53,7 +58,7 @@ class HyperFormulaBuilder {
 
   withDataObjects(dataObjects) {
     this.rows = this.getRows(dataObjects);
-    this.hyperformula.setCellContents({ row: 1, col: 0, sheet: 0 }, this.rows);
+    this.hyperformula.setCellContents({ row: 0, col: 0, sheet: 0 }, this.rows);
     return this;
   }
 }
