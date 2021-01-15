@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import HyperFormulaBuilder from './../../components/hyperformula/builder';
 import ReactFormulaAgGridTable from './ag-grid-table';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, Row, Container } from 'react-bootstrap';
 
 class ReactFormulaField extends React.Component {
   constructor(props) {
@@ -39,11 +39,12 @@ class ReactFormulaField extends React.Component {
 
   render() {
     this.builder.withDataObjects(this.props.formData);
+    const label = _.get(this.props, 'schema.title',"");
     return (
       <div>
         <Row>
           <Col>
-            <Button>Add Item</Button>
+            {label}
           </Col>
         </Row>
         <Row>

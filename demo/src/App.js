@@ -304,7 +304,7 @@ const uiSchema = {
 };
 
 const formData = {
-  "react_tree_select": ["child1"],
+  "react_tree_select": ["child1", "child2", "child3"],
   "react_formula_field": [
     { a: 1, b: 2 },
     { a: 2, b: 4 },

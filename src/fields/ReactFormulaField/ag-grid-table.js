@@ -3,8 +3,8 @@ import _ from 'lodash';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import { Container, Row, Col, Form } from 'react-bootstrap';
-import { classNames } from 'classnames';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import DeleteRowRenderer from './delete-row-renderer';
 
 class ReactFormulaAgGridTable extends React.Component {
   state = {
@@ -15,12 +15,28 @@ class ReactFormulaAgGridTable extends React.Component {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
   }
-  
+
   handleRowChange = (event) => {
     const { onChange } = this.props;
     onChange && onChange(this.props.value);
     this.props.builder.withDataObjects(this.props.value);
     this.refreshAll();
+  }
+
+  handleCellValueChange = (event) => {
+    const { onChange } = this.props;
+    onChange && onChange(this.props.value);
+    this.props.builder.withDataObjects(this.props.value);
+    this.refreshAll();
+  }
+
+  handleDeleteRow = (event, rowIndex) => {
+    const trimmedData = _.reject(this.props.value, (item, index) => index === rowIndex);
+    this.props.onChange(trimmedData);
+  }
+
+  handleAddRow = () => {
+    this.props.onChange([...this.props.value, {}]);
   }
 
   refreshAll = () => {
@@ -31,7 +47,7 @@ class ReactFormulaAgGridTable extends React.Component {
   };
 
   componentDidUpdate() {
-    if( this.gridApi) {
+    if (this.gridApi) {
       this.refreshAll();
     }
   }
@@ -51,18 +67,27 @@ class ReactFormulaAgGridTable extends React.Component {
   }
 
   createColumnDefs(headers) {
-    const columnDefs = _.map(headers, (header) => {
+    let columnDefs = _.map(headers, (header) => {
       const additionalProps = header.readOnly ? {
         cellRenderer: 'cellRenderer',
         cellRendererParams: { header },
-      }: {};
+      } : {};
       return {
         field: header.header,
         editable: !!!header.readOnly,
         ...additionalProps
       };
     });
-    return columnDefs;
+    const defaultDefs = [{
+      cellRenderer: 'deleteRowRenderer',
+      cellRendererParams: { onClick: this.handleDeleteRow },
+      width: 100,
+    }];
+    return [...columnDefs, ...defaultDefs];
+  }
+
+  resizeColumns(params) {
+    params.api.sizeColumnsToFit();
   }
 
   renderSwitch() {
@@ -75,8 +100,25 @@ class ReactFormulaAgGridTable extends React.Component {
           type="checkbox"
           id="customSwitch1"
           checked={isFormulaDisplayed} />
-        <Form.Check.Label className="custom-control-label" for="customSwitch1">Allow us to contact you?</Form.Check.Label>
+        <Form.Check.Label className="custom-control-label" for="customSwitch1">Show Formula</Form.Check.Label>
       </Form.Check>
+    );
+  }
+
+  renderMenuItems() {
+    return (
+      <Row className="align-items-center justify-content-md-end">
+        <Col sm="auto">
+          {this.renderSwitch()}
+        </Col>
+        <Col sm="auto">
+          <Button
+            onClick={this.handleAddRow}
+            variant="link"
+            size="sm"
+          >Add Item</Button>
+        </Col>
+      </Row>
     );
   }
 
@@ -85,28 +127,30 @@ class ReactFormulaAgGridTable extends React.Component {
     return (
       <Container>
         <Row>
-          <Col>
-            {this.renderSwitch()}
-          </Col>
+          <div className="ag-theme-alpine" style={{ height: 400, width: '100%' }}>
+            <AgGridReact
+              groupSelectsChildren={true}
+              columnDefs={columnDefs}
+              rowData={this.props.value}
+              gridOptions={{
+                onRowValueChanged: this.handleRowChange,
+                onCellValueChanged: this.handleCellValueChange,
+                components: {
+                  'cellRenderer': this.cellRenderer,
+                },
+                frameworkComponents: {
+                  'deleteRowRenderer': DeleteRowRenderer
+                }
+              }}
+              onFirstDataRendered={this.resizeColumns}
+              onGridReady={this.handleGridReady}
+            >
+              <AgGridColumn field="$delete" />
+              {_.map(this.props.headers, (header) => <AgGridColumn field={header.header} />)}
+            </AgGridReact>
+          </div>
         </Row>
-      <Row>
-      <div className="ag-theme-alpine" style={{ height: 400, width: '100%' }}>
-        <AgGridReact
-          groupSelectsChildren={true}
-          columnDefs={columnDefs}
-          rowData={this.props.value}
-          gridOptions={{
-            onRowValueChanged: this.handleRowChange,
-            components: {
-              'cellRenderer': this.cellRenderer,
-            },
-          }}
-          onGridReady={this.handleGridReady}
-          editType="fullRow"
-        >{_.map(this.props.headers, (header) => <AgGridColumn field={header.header} />)}
-        </AgGridReact>
-      </div>
-      </Row>
+        {this.renderMenuItems()}
       </Container>
     )
   }
