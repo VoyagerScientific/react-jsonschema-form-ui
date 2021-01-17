@@ -190,7 +190,10 @@ const uiSchema = {
     }
   },
   test_react_select_array: {
-    "ui:widget": "ReactSelectWidget"
+    "ui:widget": "ReactSelectWidget",
+    "ui:options": {
+      "isList": true,
+    }
   },
   test_react_select_remote: {
     "ui:widget": "ReactSelectWidget",
