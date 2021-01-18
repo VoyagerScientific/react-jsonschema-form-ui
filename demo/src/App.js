@@ -13,7 +13,7 @@ import {
   ReactPhotoGalleryField,
   ReactQRReaderField,
   ReactScannerField,
-  ReactTreeSelectField  
+  ReactTreeSelectField
 } from '../../src/index';
 import treeOptions from './tree-options';
 import './App.css'
@@ -152,6 +152,11 @@ const schema = {
       title: 'Tree Select',
       type: 'array',
       options: treeOptions
+    },
+    react_remote_tree_select  : {
+      title: 'Tree Select Remote',
+      type: 'array',
+      options: treeOptions
     }
   }
 };
@@ -163,7 +168,7 @@ const uiSchema = {
       rows: 4
     },
   },
-  test_react_select_with_enumNames:{
+  test_react_select_with_enumNames: {
     "ui:widget": "ReactSelectWidget"
   },
   test_react_select_without_enumNames: {
@@ -185,7 +190,10 @@ const uiSchema = {
     }
   },
   test_react_select_array: {
-    "ui:widget": "ReactSelectWidget"
+    "ui:widget": "ReactSelectWidget",
+    "ui:options": {
+      "isList": true,
+    }
   },
   test_react_select_remote: {
     "ui:widget": "ReactSelectWidget",
@@ -196,7 +204,7 @@ const uiSchema = {
         "headers": {
           "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
         },
-        "paths":{
+        "paths": {
           "record": ["records"],
           "value": ["id"],
           "label": ["fields", "Name"]
@@ -236,7 +244,7 @@ const uiSchema = {
             "headers": {
               "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
             },
-            "paths":{
+            "paths": {
               "record": ["records"],
               "value": ["id"],
               "label": ["fields", "Name"]
@@ -271,6 +279,40 @@ const uiSchema = {
   },
   react_tree_select: {
     "ui:field": "ReactTreeSelectField",
+  },
+  react_remote_tree_select: {
+    "ui:field": "ReactTreeSelectField",
+    "ui:options": {
+      "isCreateable": false,
+      "isMulti": true,
+      "remote": {
+        data: [
+          {
+            id: 1,
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes",
+            record: ["items"],
+            label: ["name"],
+            value: ["id"]
+          },
+          {
+            id: 2,
+            parent: 3,
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances/{{parent[1]}}/parts",
+            record: ["parts"],
+            label: ["item"],
+            value: ["partCode"]
+          },
+          {
+            id: 3,
+            parent: 1,
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances",
+            record: ["items"],
+            label: ["appliance"],
+            value: ["code"]
+          }
+        ]
+      }
+    }
   }
 };
 
@@ -280,7 +322,7 @@ const formData = {
 
 class FormComponent extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       ...props
@@ -296,7 +338,7 @@ class FormComponent extends Component {
     console.log("submitted", formData);
   }
 
-  render(){
+  render() {
     return (
       <div className="App">
         <br /><br />
@@ -314,7 +356,7 @@ class FormComponent extends Component {
               onChange={log("changed")}
               onSubmit={this.handleSubmit}
               onError={log("errors")}
-              // disabled={true}
+            // disabled={true}
             >
               <div>
                 <button type="submit" className="btn btn-info" disabled={this.state.schema.readOnly}>Submit</button>
