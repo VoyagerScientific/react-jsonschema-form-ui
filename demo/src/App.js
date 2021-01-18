@@ -19,6 +19,7 @@ import treeOptions from './tree-options';
 import './App.css'
 
 import { initListenerAutoResize } from '../../src/utils/helpers';
+import ReactFormulaField from './../../src/fields/ReactFormulaField/index';
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
@@ -36,6 +37,7 @@ const fields = {
   ReactQRReaderField: ReactQRReaderField,
   ReactScannerField: ReactScannerField,
   ReactTreeSelectField: ReactTreeSelectField,
+  ReactFormulaField: ReactFormulaField,
 };
 
 const log = (type) => console.log.bind(console, type);
@@ -157,6 +159,25 @@ const schema = {
       title: 'Tree Select Remote',
       type: 'array',
       options: treeOptions
+    },
+    react_formula_field: {
+      "title": "Calculations",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "a": {
+            "type": "number"
+          },
+          "b": {
+            "type": "number"
+          },
+          "c": {
+            "type": "number",
+            "readOnly": true
+          }
+        }
+      }
     }
   }
 };
@@ -280,6 +301,13 @@ const uiSchema = {
   react_tree_select: {
     "ui:field": "ReactTreeSelectField",
   },
+  react_formula_field: {
+    "ui:field": "ReactFormulaField",
+    "ui:options": {
+      "formulas": {
+         "c": "a[i]+b[i]"
+     }
+  },
   react_remote_tree_select: {
     "ui:field": "ReactTreeSelectField",
     "ui:options": {
@@ -317,7 +345,12 @@ const uiSchema = {
 };
 
 const formData = {
-  "react_tree_select": ["parent"]
+  "react_tree_select": ["child1", "child2", "child3"],
+  "react_formula_field": [
+    { a: 1, b: 2 },
+    { a: 2, b: 4 },
+    { a: 3, b: 6 },
+  ]
 }
 
 class FormComponent extends Component {
