@@ -80,10 +80,16 @@ class ReactFormulaAgGridTable extends React.Component {
     });
     const defaultDefs = [{
       cellRenderer: 'deleteRowRenderer',
-      cellRendererParams: { onClick: this.handleDeleteRow },
+      cellRendererParams: { onClick: this.handleDeleteRow, confirmRemove: this.props.confirmRemove  },
       width: 100,
     }];
-    return [...columnDefs, ...defaultDefs];
+
+    let allColumnDefs = [...columnDefs];
+
+    if(this.props.removable)
+      allColumnDefs.push(...defaultDefs);
+
+    return allColumnDefs;
   }
 
   resizeColumns(params) {
@@ -93,7 +99,7 @@ class ReactFormulaAgGridTable extends React.Component {
   renderSwitch() {
     const { isFormulaDisplayed } = this.state;
     return (
-      <Form.Check type="checkbox" label="Check me out" className="custom-control custom-switch">
+      <Form.Check type="checkbox" label="Check me out" className="custom-control custom-switch d-print-none">
         <Form.Check.Input
           onChange={this.handleToggleDisplayFormula}
           className="custom-control-input"
@@ -107,7 +113,7 @@ class ReactFormulaAgGridTable extends React.Component {
 
   renderMenuItems() {
     return (
-      <Row className="align-items-center justify-content-md-end">
+      <Row className="align-items-center justify-content-md-end d-print-none">
         <Col sm="auto">
           {this.renderSwitch()}
         </Col>

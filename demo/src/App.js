@@ -306,7 +306,9 @@ const uiSchema = {
     "ui:options": {
       "formulas": {
          "c": "a[i]+b[i]"
-     }
+      },
+      "confirmRemove": true,
+      "removable": true
     }
   },
   react_remote_tree_select: {
