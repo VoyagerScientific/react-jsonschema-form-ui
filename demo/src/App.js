@@ -299,14 +299,19 @@ const uiSchema = {
     "ui:field": "ReactScannerField"
   },
   react_tree_select: {
-    "ui:field": "ReactTreeSelectField",
+    "ui:field": "ReactTreeSelectField"
   },
   react_formula_field: {
     "ui:field": "ReactFormulaField",
     "ui:options": {
       "formulas": {
          "c": "a[i]+b[i]"
-     }
+      },
+      "confirmRemove": true,
+      "removable": true,
+      "height": 200,
+      "width": "100%"
+    }
   },
   react_remote_tree_select: {
     "ui:field": "ReactTreeSelectField",
