@@ -39,6 +39,7 @@ class ReactTreeSelectFieldOption extends Component {
           md="auto"
           onClick={this.handleToggle}
           style={{ padding: '0 5px', margin: 0 }}
+          className={"btn"}
           >
             {(fetching && `${this.props.focusedOptionIndex}` === `${this.props.optionIndex}`) && (<Spinner size="sm" animation="border" />)}
             {!(fetching && `${this.props.focusedOptionIndex}` === `${this.props.optionIndex}`) && !this.props.option.isEnd && (
@@ -52,6 +53,7 @@ class ReactTreeSelectFieldOption extends Component {
         <Col
           xs="auto"
           style={{ padding: 0, margin: 0, fontWeight: isSelected ? 'bold': 'normal' }}
+          className={"btn"}
           onClick={this.handleClick}
         >{this.props.option.label}</Col>
       </Row>
