@@ -57,6 +57,8 @@ class ReactFormulaField extends React.Component {
                 onChange={this.handleChange}
                 confirmRemove={this.props.uiSchema["ui:options"].confirmRemove || false}
                 removable={this.props.uiSchema["ui:options"].removable === undefined ? true : this.props.uiSchema["ui:options"].removable}
+                height={this.props.uiSchema["ui:options"].height}
+                width={this.props.uiSchema["ui:options"].width}
               />}
           </Col>
         </Row>

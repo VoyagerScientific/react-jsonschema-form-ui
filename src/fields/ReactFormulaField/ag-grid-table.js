@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import DeleteRowRenderer from './delete-row-renderer';
 
@@ -133,7 +133,7 @@ class ReactFormulaAgGridTable extends React.Component {
     return (
       <Container>
         <Row>
-          <div className="ag-theme-alpine" style={{ height: 400, width: '100%' }}>
+          <div className="ag-theme-balham" style={{ height: (this.props.height || 400), width: (this.props.width || '100%') }}>
             <AgGridReact
               groupSelectsChildren={true}
               columnDefs={columnDefs}

@@ -308,7 +308,9 @@ const uiSchema = {
          "c": "a[i]+b[i]"
       },
       "confirmRemove": true,
-      "removable": true
+      "removable": true,
+      "height": 200,
+      "width": "100%"
     }
   },
   react_remote_tree_select: {

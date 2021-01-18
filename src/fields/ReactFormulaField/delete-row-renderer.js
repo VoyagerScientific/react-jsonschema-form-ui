@@ -5,7 +5,6 @@ import FontAwesome from "react-fontawesome";
 class DeleteRowRenderer extends React.Component {
   
   handleClick = (event) => {
-    console.log(this.props)
     if(this.props.confirmRemove && !window.confirm("Are you sure?"))
       return false;
 
@@ -19,6 +18,7 @@ class DeleteRowRenderer extends React.Component {
         size="sm"
         onClick={this.handleClick}
         variant="link"><FontAwesome 
+        className={"d-print-none"}
         name={"times-circle"} color="#000000" /></Button>
     )
   }
