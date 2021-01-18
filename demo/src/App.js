@@ -155,6 +155,11 @@ const schema = {
       type: 'array',
       options: treeOptions
     },
+    react_remote_tree_select  : {
+      title: 'Tree Select Remote',
+      type: 'array',
+      options: treeOptions
+    },
     react_formula_field: {
       "title": "Calculations",
       "type": "array",
@@ -206,7 +211,10 @@ const uiSchema = {
     }
   },
   test_react_select_array: {
-    "ui:widget": "ReactSelectWidget"
+    "ui:widget": "ReactSelectWidget",
+    "ui:options": {
+      "isList": true,
+    }
   },
   test_react_select_remote: {
     "ui:widget": "ReactSelectWidget",
@@ -299,6 +307,39 @@ const uiSchema = {
       "formulas": {
          "c": "a[i]+b[i]"
      }
+  },
+  react_remote_tree_select: {
+    "ui:field": "ReactTreeSelectField",
+    "ui:options": {
+      "isCreateable": false,
+      "isMulti": true,
+      "remote": {
+        data: [
+          {
+            id: 1,
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes",
+            record: ["items"],
+            label: ["name"],
+            value: ["id"]
+          },
+          {
+            id: 2,
+            parent: 3,
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances/{{parent[1]}}/parts",
+            record: ["parts"],
+            label: ["item"],
+            value: ["partCode"]
+          },
+          {
+            id: 3,
+            parent: 1,
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances",
+            record: ["items"],
+            label: ["appliance"],
+            value: ["code"]
+          }
+        ]
+      }
     }
   }
 };

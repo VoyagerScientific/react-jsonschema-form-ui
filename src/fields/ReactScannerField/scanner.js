@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import videoCanvas from 'video-canvas';
-import DeviceHelper from '../../helpers/device';
 
 const wrapperStyles = {
   overflowY: 'hidden',
@@ -44,13 +43,12 @@ class CodeReader extends Component {
   };
 
   async componentDidMount() {
-    const devices = await DeviceHelper.getVideoInputDevices();
-    const rearCamera = DeviceHelper.getRearCamera(devices);
-    this.setState({ devices: devices });
+    const videoInputDevices = await this.props.codeReader.listVideoInputDevices();
+    this.setState({ devices: videoInputDevices });
 
-    const selectedDevice = rearCamera;
+    const firstDeviceId = videoInputDevices[0].deviceId;
     this.props.codeReader
-      .decodeOnceFromVideoDevice(selectedDevice, 'video')
+      .decodeOnceFromVideoDevice(firstDeviceId, 'video')
       .then(this.handleSuccess)
       .catch(this.handleError);
 
@@ -58,10 +56,7 @@ class CodeReader extends Component {
     videoCanvas(video, {
       canvas: document.querySelector('#video-canvas'),
       drawCall: function (ctx, video) {
-        ctx.canvas.width  = window.innerWidth;
-        ctx.canvas.height = window.innerHeight;      
         ctx.fillStyle = "#fff";
-
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         const aspectWidth = (ctx.canvas.width / ctx.canvas.offsetWidth);
         const aspectHeight = (ctx.canvas.height / ctx.canvas.offsetHeight);
@@ -72,14 +67,13 @@ class CodeReader extends Component {
           aspectHeight * video.videoHeight,
         );
         ctx.beginPath();
-        const offsetSide = Math.min(ctx.canvas.offsetWidth, ctx.canvas.offsetHeight, video.videoWidth, video.videoHeight) * 0.75;
-        const rectangleWidth = aspectWidth * offsetSide;
-        const rectangleHeight = aspectHeight * offsetSide;
+        const rectangleWidth = aspectWidth * (video.videoWidth - 250);
+        const rectangleHeight = aspectHeight * (video.videoHeight - 100);
         ctx.lineWidth = 10;
         ctx.strokeStyle  = 'rgba(100,100,100,0.5)';
         ctx.rect(
-          ((ctx.canvas.offsetWidth - offsetSide) / 2) * aspectWidth,
-          ((ctx.canvas.offsetHeight - offsetSide) / 2) * aspectHeight,
+          ((ctx.canvas.offsetWidth - ctx.canvas.width + 250) / 2) * aspectWidth,
+          ((ctx.canvas.offsetHeight - ctx.canvas.height + 100) / 2) * aspectHeight,
           rectangleWidth,
           rectangleHeight);
         ctx.stroke();

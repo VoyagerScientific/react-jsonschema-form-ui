@@ -163,9 +163,14 @@ class ReactSelectWidget extends Component {
   render() {
     const { isClearable, isSearchable, isCreateable } = this.props.options;
     const isMulti = this.props.options.isMulti || this.props.schema.type === "array" || false;
+    const isList = _.get(this.props, 'options.isList', false);
     if (isCreateable) {
       return <AsyncCreatable
                 classNamePrefix="react-select"
+                className={isList ? 'is-list': ''}
+                selectProps={{
+                  className: isList ? 'is-list-input': ''
+                }}
                 cacheOptions
                 defaultOptions={this.state.select_options.length ? this.state.select_options : true}
                 loadOptions={this.getData()}
@@ -179,7 +184,11 @@ class ReactSelectWidget extends Component {
     } else {
       return <AsyncSelect
                 classNamePrefix="react-select"
+                className={isList ? 'is-list': ''}
                 cacheOptions
+                selectProps={{
+                  className: isList ? 'is-list-input': ''
+                }}                
                 defaultOptions={this.state.select_options.length ? this.state.select_options : true}
                 loadOptions={this.getData()}
                 onChange={this.onChange}

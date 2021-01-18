@@ -25,3 +25,25 @@
 .field-array .btn-add::after {
   content: ' Add Another';
 }
+
+.is-list .react-select__multi-value {
+  width: 100%;
+  flex: 0 0 100%;
+  justify-content: space-between;
+}
+
+.is-list .react-select__input:focus-within {
+  position: initial !important;
+}
+
+.is-list .react-select__input {
+  position: absolute !important;
+}
+
+.is-list div[class$="-Input"]:focus-within {
+  position: initial !important;
+}
+
+.is-list div[class$="-Input"] {
+  position: absolute !important;
+}
