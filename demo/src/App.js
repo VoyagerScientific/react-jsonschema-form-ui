@@ -299,7 +299,7 @@ const uiSchema = {
     "ui:field": "ReactScannerField"
   },
   react_tree_select: {
-    "ui:field": "ReactTreeSelectField",
+    "ui:field": "ReactTreeSelectField"
   },
   react_formula_field: {
     "ui:field": "ReactFormulaField",
@@ -307,6 +307,7 @@ const uiSchema = {
       "formulas": {
          "c": "a[i]+b[i]"
      }
+    }
   },
   react_remote_tree_select: {
     "ui:field": "ReactTreeSelectField",
