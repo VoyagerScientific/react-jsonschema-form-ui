@@ -36,6 +36,7 @@
     "react-datepicker": "^2.13.0",
     "react-dom": "^16.x",
     "react-dropzone": "^11.0.1",
+    "react-inject-script": "^1.0.4",
     "react-jsonschema-form": "^1.8.1",
     "react-jsonschema-form-bs4": "^1.7.1",
     "react-photo-gallery": "^8.0.0",

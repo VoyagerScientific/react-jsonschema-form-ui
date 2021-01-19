@@ -10,6 +10,7 @@ import {
   ReactSignatureCanvasField,
   StatesWidget,
   ReactDropZoneWidget,
+  ReactPlaceField,
   ReactPhotoGalleryField,
   ReactQRReaderField,
   ReactScannerField,
@@ -31,6 +32,7 @@ const widgets = {
 
 const fields = {
   RawHTMLField: RawHTMLField,
+  ReactPlaceField: ReactPlaceField,
   ReactPhotoGalleryField: ReactPhotoGalleryField,
   ReactSignatureCanvasField: ReactSignatureCanvasField,
   ReactQRReaderField: ReactQRReaderField,
@@ -122,6 +124,10 @@ const schema = {
     us_states: {
       type: "string",
       title: "US States"
+    },
+    react_place_field: {
+      type: "string",
+      title: "Places"
     },
     signature: {
       type: "string",
@@ -255,6 +261,12 @@ const uiSchema = {
   },
   us_states: {
     "ui:widget": "StatesWidget"
+  },
+  react_place_field: {
+    "ui:field": "ReactPlaceField",
+    "ui:options": {
+      api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU"
+    }
   },
   raw_html: {
     "ui:field": "RawHTMLField",
