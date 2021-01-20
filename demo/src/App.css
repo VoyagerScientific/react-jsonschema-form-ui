@@ -85,16 +85,3 @@ textarea {
   border-radius: 2px;
   outline: none;
 }
-
-.autocomplete-dropdown-container {
-  border-bottom: honeydew;
-  border-left: honeydew;
-  border-right: honeydew;
-  border-top: 1px solid #e6e6e6;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  z-index: 1000;
-  border-radius: 0 0 2px 2px;
-  background-color: white;
-  width: 100%;
-}

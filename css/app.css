@@ -25,3 +25,36 @@
 .field-array .btn-add::after {
   content: ' Add Another';
 }
+
+.autocomplete-dropdown-container .suggestion {
+  padding: 10px;
+}
+.autocomplete-dropdown-container .loading {
+  padding: 10px;
+}
+
+.autocomplete-dropdown-container .suggestion:hover {
+  background-color: #DEEBFF;
+}
+.autocomplete-dropdown-container .suggestion.active {
+  background-color: #DEEBFF;
+}
+
+.autocomplete-dropdown-container {
+  bottom: -10px;
+  position: relative;
+  z-index: 1000;
+  width: 100%;
+}
+.autocomplete-dropdown-container .wrapper {
+  border-bottom: honeydew;
+  border-left: honeydew;
+  border-right: honeydew;
+  border-top: 1px solid #e6e6e6;
+  top: 0px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  border-radius: 0 0 4px 4px;
+  background-color: white;
+  width: 100%;
+}

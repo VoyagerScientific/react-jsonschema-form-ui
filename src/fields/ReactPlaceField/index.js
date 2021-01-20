@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import _ from "lodash";
 import PlacesAutocomplete from "react-places-autocomplete";
 import injectScript from "react-inject-script";
-import { InputGroup, FormControl } from "react-bootstrap";
+import { InputGroup, FormControl, FormLabel } from "react-bootstrap";
+import classNames from "classnames";
 
 class ReactPlaceField extends Component {
   state = {
@@ -12,7 +13,9 @@ class ReactPlaceField extends Component {
   };
 
   handleChange = (value) => {
+    const { onChange } = this.props;
     this.setState({ value });
+    onChange && onChange(value);
   };
 
   async componentDidMount() {
@@ -38,21 +41,25 @@ class ReactPlaceField extends Component {
   }) {
     return (
       <>
-        <InputGroup size="sm" className="mb-3">
+        <InputGroup className="mb-3">
           <FormControl
-            aria-label="Small"
-            aria-describedby="inputGroup-sizing-sm"
             {...getInputProps()}
           />{" "}
-        </InputGroup>
-        <div className="autocomplete-dropdown-container">
-          {loading && <div>Loading...</div>}
-          {suggestions.map((suggestion) => (
-            <div {...getSuggestionItemProps(suggestion)}>
-              <span>{suggestion.description}</span>
+          {!_.isEmpty(suggestions) && (
+            <div className="autocomplete-dropdown-container">
+              <div className="wrapper">
+                {loading && <div className="loading">Loading...</div>}
+                {suggestions.map((suggestion) => (
+                  <div className={classNames({
+                    "suggestion": true,
+                    "active": suggestion.active })} {...getSuggestionItemProps(suggestion)}>
+                    <span>{suggestion.description}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
+          )}          
+        </InputGroup>
       </>
     );
   }
@@ -62,7 +69,7 @@ class ReactPlaceField extends Component {
     const { googleApiLoaded, hasError } = this.state;
     return (
       <div>
-        <div>{schema.title}</div>
+        <FormLabel>{schema.title}</FormLabel>
         {googleApiLoaded && (
           <PlacesAutocomplete
             value={this.state.value}
