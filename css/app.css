@@ -26,6 +26,13 @@
   content: ' Add Another';
 }
 
+.autocomplete-dropdown-container {
+  bottom: -10px;
+  position: relative;
+  z-index: 1000;
+  width: 100%;
+}
+
 .autocomplete-dropdown-container .suggestion {
   padding: 10px;
 }
@@ -40,12 +47,6 @@
   background-color: #DEEBFF;
 }
 
-.autocomplete-dropdown-container {
-  bottom: -10px;
-  position: relative;
-  z-index: 1000;
-  width: 100%;
-}
 .autocomplete-dropdown-container .wrapper {
   border-bottom: honeydew;
   border-left: honeydew;
