@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import Form from 'react-jsonschema-form'
+import React, { Component } from "react";
+import Form from "react-jsonschema-form";
 import {
   ArrayFieldTemplate,
   CurrencyWidget,
@@ -14,12 +14,12 @@ import {
   ReactPhotoGalleryField,
   ReactQRReaderField,
   ReactScannerField,
-  ReactTreeSelectField  
-} from '../../src/index';
-import treeOptions from './tree-options';
-import './App.css'
+  ReactTreeSelectField,
+} from "../../src/index";
+import treeOptions from "./tree-options";
+import "./App.css";
 
-import { initListenerAutoResize } from '../../src/utils/helpers';
+import { initListenerAutoResize } from "../../src/utils/helpers";
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
@@ -27,7 +27,7 @@ const widgets = {
   ReactDatePickerWidget: ReactDatePickerWidget,
   ReactDropZoneWidget: ReactDropZoneWidget,
   ReactSelectWidget: ReactSelectWidget,
-  StatesWidget: StatesWidget
+  StatesWidget: StatesWidget,
 };
 
 const fields = {
@@ -54,18 +54,18 @@ const schema = {
     test_react_select_without_enumNames: {
       title: "Test React Select (WITHOUT enumNames)",
       type: "string",
-      enum: ["1", "2", "3"]
+      enum: ["1", "2", "3"],
     },
     test_react_select_with_enumNames: {
       title: "Test React Select (WITH enumNames)",
       type: "string",
       enum: ["1", "2", "3"],
-      enumNames: ["One", "Two", "Three"]
+      enumNames: ["One", "Two", "Three"],
     },
     test_react_select_createable: {
       title: "Test React Select (createable)",
       type: "string",
-      enum: ["1", "2", "3"]
+      enum: ["1", "2", "3"],
     },
     test_react_select_array: {
       title: "Test React Select (ARRAY)",
@@ -73,30 +73,30 @@ const schema = {
       items: {
         type: "string",
         enum: ["1", "2", "3"],
-        enumNames: ["One", "Two", "Three"]
+        enumNames: ["One", "Two", "Three"],
       },
-      uniqueItems: true
+      uniqueItems: true,
     },
     test_react_select_remote: {
       title: "Test React Select (Remote)",
       type: "array",
       items: {
         type: "string",
-        enum: []
+        enum: [],
       },
-      uniqueItems: true
+      uniqueItems: true,
     },
     currency: {
       title: "Currency Demo",
-      type: "number"
+      type: "number",
     },
     percent: {
       title: "Percent",
-      type: "number"
+      type: "number",
     },
     date: {
       title: "Date",
-      type: "string"
+      type: "string",
     },
     array_template: {
       type: "array",
@@ -107,211 +107,213 @@ const schema = {
         properties: {
           string: {
             type: "string",
-            title: "String"
+            title: "String",
           },
           checkbox: {
             type: "boolean",
-            title: "Checkbox"
+            title: "Checkbox",
           },
           select: {
             type: "string",
             enum: [],
-            title: "Remote Select"
-          }
-        }
-      }
+            title: "Remote Select",
+          },
+        },
+      },
     },
     us_states: {
       type: "string",
-      title: "US States"
+      title: "US States",
     },
     react_place_field: {
       type: "string",
-      title: "Places"
+      title: "Places",
     },
     signature: {
       type: "string",
       title: "Signer",
-      format: "data-url"
+      format: "data-url",
     },
     raw_html: {
       type: "string",
-      title: "Raw HTML"
+      title: "Raw HTML",
     },
     react_photo_gallery: {
       title: "Photo Gallery",
       type: "object",
-      required: ['attachments'],
+      required: ["attachments"],
       properties: {
-        attachments: { type: "array" }
+        attachments: { type: "array" },
       },
     },
     react_qr_reader: {
-      title: 'QR Reader',
-      type: 'string'
+      title: "QR Reader",
+      type: "string",
     },
     react_scanner: {
-      title: 'Scanner',
-      type: 'string'
+      title: "Scanner",
+      type: "string",
     },
     react_tree_select: {
-      title: 'Tree Select',
-      type: 'array',
-      options: treeOptions
-    }
-  }
+      title: "Tree Select",
+      type: "array",
+      options: treeOptions,
+    },
+  },
 };
 
 const uiSchema = {
   textarea: {
     "ui:widget": "textarea",
     "ui:options": {
-      rows: 4
+      rows: 4,
     },
   },
-  test_react_select_with_enumNames:{
-    "ui:widget": "ReactSelectWidget"
+  test_react_select_with_enumNames: {
+    "ui:widget": "ReactSelectWidget",
   },
   test_react_select_without_enumNames: {
     "ui:widget": "ReactSelectWidget",
     "ui:options": {
-      "isSearchable": true,
-      "isClearable": true,
-      "remote": {
-        "headers": {},
-        "paths": {}
-      }
-    }
+      isSearchable: true,
+      isClearable: true,
+      remote: {
+        headers: {},
+        paths: {},
+      },
+    },
   },
   test_react_select_createable: {
     "ui:widget": "ReactSelectWidget",
     "ui:options": {
-      "isCreateable": true,
-      "isMulti": true
-    }
+      isCreateable: true,
+      isMulti: true,
+    },
   },
   test_react_select_array: {
-    "ui:widget": "ReactSelectWidget"
+    "ui:widget": "ReactSelectWidget",
   },
   test_react_select_remote: {
     "ui:widget": "ReactSelectWidget",
     "ui:options": {
-      "isMulti": true,
-      "remote": {
-        "url": "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
-        "headers": {
-          "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
+      isMulti: true,
+      remote: {
+        url:
+          "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
+        headers: {
+          Authorization: "Bearer keyKM5nPQi7efGQ9Z",
         },
-        "paths":{
-          "record": ["records"],
-          "value": ["id"],
-          "label": ["fields", "Name"]
-        }
-      }
-    }
+        paths: {
+          record: ["records"],
+          value: ["id"],
+          label: ["fields", "Name"],
+        },
+      },
+    },
   },
   currency: {
     "ui:widget": "CurrencyWidget",
     "ui:options": {
-      "precision": 2
-    }
+      precision: 2,
+    },
   },
   percent: {
     "ui:widget": "PercentWidget",
     "ui:options": {
-      "digits": 0
-    }
+      digits: 0,
+    },
   },
   date: {
     "ui:widget": "ReactDatePickerWidget",
     "ui:options": {
-      "format": {
-        "data": "MM-DD-YYYY",
-        "display": "DD/MM/YYYY"
-      }
-    }
+      format: {
+        data: "MM-DD-YYYY",
+        display: "DD/MM/YYYY",
+      },
+    },
   },
   array_template: {
     items: {
       select: {
         "ui:widget": "ReactSelectWidget",
         "ui:options": {
-          "isMulti": false,
-          "remote": {
-            "url": "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
-            "headers": {
-              "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
+          isMulti: false,
+          remote: {
+            url:
+              "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
+            headers: {
+              Authorization: "Bearer keyKM5nPQi7efGQ9Z",
             },
-            "paths":{
-              "record": ["records"],
-              "value": ["id"],
-              "label": ["fields", "Name"]
-            }
-          }
-        }
-      }
-    }
+            paths: {
+              record: ["records"],
+              value: ["id"],
+              label: ["fields", "Name"],
+            },
+          },
+        },
+      },
+    },
   },
   signature: {
     "ui:field": "ReactSignatureCanvasField",
     "ui:options": {
-      "width": 300,
-      "height": 100
-    }
+      width: 300,
+      height: 100,
+    },
   },
   us_states: {
-    "ui:widget": "StatesWidget"
+    "ui:widget": "StatesWidget",
   },
   react_place_field: {
     "ui:field": "ReactPlaceField",
     "ui:options": {
-      api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU"
-    }
+      api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU",
+    },
   },
   raw_html: {
     "ui:field": "RawHTMLField",
-    "ui:options": { html: "<h1>Hi</h1>" }
+    "ui:options": { html: "<h1>Hi</h1>" },
   },
   react_photo_gallery: {
     "ui:field": "ReactPhotoGalleryField",
   },
   react_qr_reader: {
-    "ui:field": "ReactQRReaderField"
+    "ui:field": "ReactQRReaderField",
   },
   react_scanner: {
-    "ui:field": "ReactScannerField"
+    "ui:field": "ReactScannerField",
   },
   react_tree_select: {
     "ui:field": "ReactTreeSelectField",
-  }
+  },
 };
 
 const formData = {
-  "react_tree_select": ["parent"]
-}
+  react_tree_select: ["parent"],
+};
 
 class FormComponent extends Component {
-
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
-      ...props
-    }
+      ...props,
+    };
   }
 
   componentDidMount() {
-    initListenerAutoResize()
+    initListenerAutoResize();
   }
 
   handleSubmit = (formData) => {
     alert(`submitted data is ${JSON.stringify(formData)}`);
     console.log("submitted", formData);
-  }
+  };
 
-  render(){
+  render() {
     return (
       <div className="App">
-        <br /><br />
+        <br />
+        <br />
         <div className="row">
           <div className="col-md-6">
             <h2>Test Form</h2>
@@ -329,18 +331,24 @@ class FormComponent extends Component {
               // disabled={true}
             >
               <div>
-                <button type="submit" className="btn btn-info" disabled={this.state.schema.readOnly}>Submit</button>
+                <button
+                  type="submit"
+                  className="btn btn-info"
+                  disabled={this.state.schema.readOnly}
+                >
+                  Submit
+                </button>
               </div>
             </Form>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 function App() {
-  return <FormComponent schema={schema} uiSchema={uiSchema} />
+  return <FormComponent schema={schema} uiSchema={uiSchema} />;
 }
 
-export default App
+export default App;
