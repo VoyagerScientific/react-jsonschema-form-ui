@@ -142,6 +142,22 @@ const schema = {
         attachments: { type: "array" }
       },
     },
+    react_dropzone: {
+      title: "Dropzone",
+      "type": "array",
+      "items": {
+      "type": "string",
+      "format": "data-url"
+      },
+    },
+    react_dropzone_2: {
+      title: "Dropzone (Duplicate)",
+      "type": "array",
+      "items": {
+      "type": "string",
+      "format": "data-url"
+      },
+    },
     react_qr_reader: {
       title: 'QR Reader',
       type: 'string'
@@ -292,6 +308,22 @@ const uiSchema = {
   react_photo_gallery: {
     "ui:field": "ReactPhotoGalleryField",
   },
+  react_dropzone: {
+    "ui:widget": "ReactDropZoneWidget",
+    "fieldType": "react-drop-zone",
+    "ui:options": {
+      accepted: ["image/*", "application/pdf"],
+      withFileDisplay: true
+    }
+  },
+  react_dropzone_2: {
+    "ui:widget": "ReactDropZoneWidget",
+    "fieldType": "react-drop-zone",
+    "ui:options": {
+      accepted: ["application/pdf"],
+      withFileDisplay: true
+    }
+  },
   react_qr_reader: {
     "ui:field": "ReactQRReaderField"
   },
@@ -351,6 +383,7 @@ const uiSchema = {
 
 const formData = {
   "react_tree_select": ["child1", "child2", "child3"],
+  "react_dropzone": {},
   "react_formula_field": [
     { a: 1, b: 2 },
     { a: 2, b: 4 },
