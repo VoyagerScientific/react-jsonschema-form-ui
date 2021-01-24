@@ -61,3 +61,7 @@
 .dropzone p {
   margin: auto;
 }
+
+.file-display.container {
+  margin: 10px auto;
+}
