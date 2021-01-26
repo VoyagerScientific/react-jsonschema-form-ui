@@ -1,30 +1,33 @@
-import React, { Component } from 'react';
-import { IntelligentTreeSelect } from 'intelligent-tree-select';
+import React, { Component } from "react";
+import { IntelligentTreeSelect } from "intelligent-tree-select";
 import "intelligent-tree-select/lib/styles.css";
 
 class ReactTreeSelectField extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       ...props,
-      width: props.uiSchema["ui:options"] && props.uiSchema["ui:options"].width || 400,
-      height: props.uiSchema["ui:options"] && props.uiSchema["ui:options"].height || 150,
-      value: props.formData || ""
-    }
+      width:
+        (props.uiSchema["ui:options"] && props.uiSchema["ui:options"].width) ||
+        400,
+      height:
+        (props.uiSchema["ui:options"] && props.uiSchema["ui:options"].height) ||
+        150,
+      value: props.formData || "",
+    };
   }
 
   getOptionsFromValue(value, options) {
-    const selectedOptions = (options || []).filter(option => {
-      return (value || []).some(term => term === option.value);
+    const selectedOptions = (options || []).filter((option) => {
+      return (value || []).some((term) => term === option.value);
     });
     return selectedOptions;
   }
 
   handleChange = (valueOptions) => {
-    const value = valueOptions.map(option => option.value);
-    this.props.onChange(value); 
-  }
+    const value = valueOptions.map((option) => option.value);
+    this.props.onChange(value);
+  };
 
   render() {
     const { schema, formData } = this.props;
@@ -37,11 +40,10 @@ class ReactTreeSelectField extends Component {
           options={schema.options || []}
           value={valueOptions}
           onChange={this.handleChange}
-          />
-      </div>  
+        />
+      </div>
     );
   }
-
 }
 
 export default ReactTreeSelectField;
