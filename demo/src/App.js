@@ -19,6 +19,7 @@ import treeOptions from './tree-options';
 import './App.css'
 
 import { initListenerAutoResize } from '../../src/utils/helpers';
+import AutocompleteAddressTemplate from '../../src/templates/AutcompleteAddressTemplate';
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
@@ -42,7 +43,7 @@ const log = (type) => console.log.bind(console, type);
 
 const schema = {
   type: "object",
-  required: [],
+  required: ['prepopulated_address'],
   // readOnly: true,
   properties: {
     textarea: {
@@ -152,7 +153,11 @@ const schema = {
       title: 'Tree Select',
       type: 'array',
       options: treeOptions
-    }
+    },
+    prepopulated_address: {
+      title: 'Prepopulated Address',
+      type: 'string',
+    },
   }
 };
 
@@ -271,6 +276,9 @@ const uiSchema = {
   },
   react_tree_select: {
     "ui:field": "ReactTreeSelectField",
+  },
+  prepopulated_address: {
+    "ui:FieldTemplate": AutocompleteAddressTemplate,
   }
 };
 
@@ -309,6 +317,7 @@ class FormComponent extends Component {
               schema={this.state.schema}
               uiSchema={this.state.uiSchema}
               ArrayFieldTemplate={ArrayFieldTemplate}
+              // ObjectFieldTemplate={AutocompleteAddressTemplate}
               widgets={widgets}
               fields={fields}
               onChange={log("changed")}
