@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import _ from "lodash";
 import PlacesAutocomplete from "react-places-autocomplete";
 import injectScript from "react-inject-script";
-import { InputGroup, FormControl, FormLabel } from "react-bootstrap";
+import { InputGroup, FormControl, FormLabel, Spinner } from "react-bootstrap";
 import classNames from "classnames";
 
 class ReactPlaceField extends Component {
   state = {
     googleApiLoaded: false,
+    loading: true,
     value: [],
     hasError: false,
   };
@@ -25,16 +26,24 @@ class ReactPlaceField extends Component {
   };
 
   async componentDidMount() {
-    const googleApiKey = _.get(this.props, "uiSchema.ui:options.api");
-    if (googleApiKey) {
-      await injectScript(
-        "googleapi",
-        `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places`
-      );
-      this.setState({ googleApiLoaded: true });
-    } else {
+    try {
+      this.setState({ loading: true })
+      const googleApiKey = _.get(this.props, "uiSchema.ui:options.api");
+      if (googleApiKey) {
+        await injectScript(
+          "googleapi",
+          `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places`
+        );
+        setTimeout(() => {
+          this.setState({ googleApiLoaded: true, loading: false });
+        }, 2000);
+      } else {
+        throw Error('No Google API Key');
+      }
+    } catch (error) {
       this.setState({
         hasError: "Cannot load because of missing Google API key",
+        loading: false,
       });
     }
   }
@@ -58,13 +67,14 @@ class ReactPlaceField extends Component {
                 {suggestions.map((suggestion) => (
                   <div className={classNames({
                     "suggestion": true,
-                    "active": suggestion.active })} {...getSuggestionItemProps(suggestion)}>
+                    "active": suggestion.active
+                  })} {...getSuggestionItemProps(suggestion)}>
                     <span>{suggestion.description}</span>
                   </div>
                 ))}
               </div>
             </div>
-          )}          
+          )}
         </InputGroup>
       </>
     );
@@ -72,11 +82,12 @@ class ReactPlaceField extends Component {
 
   render() {
     const { schema } = this.props;
-    const { googleApiLoaded, hasError } = this.state;
+    const { googleApiLoaded, hasError, loading } = this.state;
     return (
       <div>
         <FormLabel>{schema.title}</FormLabel>
-        {googleApiLoaded && (
+        { loading && 'Loading...'}
+        { !loading && googleApiLoaded && (
           <PlacesAutocomplete
             value={this.state.value}
             onChange={this.handleChange}
@@ -85,7 +96,7 @@ class ReactPlaceField extends Component {
             {(placeProps) => this.renderPlaceInput(placeProps)}
           </PlacesAutocomplete>
         )}
-        {!googleApiLoaded && hasError && (
+        { !loading && !googleApiLoaded && hasError && (
           <div className="dropzone">
             <div>{hasError}</div>
           </div>
