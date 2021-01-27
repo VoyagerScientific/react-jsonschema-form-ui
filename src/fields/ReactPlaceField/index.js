@@ -18,6 +18,12 @@ class ReactPlaceField extends Component {
     onChange && onChange(value);
   };
 
+  handleSelect = (value, placeId, placeObject) => {
+    const { onPlaceSelect } = this.props;
+    this.setState({ value });
+    onPlaceSelect && onPlaceSelect(placeObject);
+  };
+
   async componentDidMount() {
     const googleApiKey = _.get(this.props, "uiSchema.ui:options.api");
     if (googleApiKey) {
@@ -74,6 +80,7 @@ class ReactPlaceField extends Component {
           <PlacesAutocomplete
             value={this.state.value}
             onChange={this.handleChange}
+            onSelect={this.handleSelect}
           >
             {(placeProps) => this.renderPlaceInput(placeProps)}
           </PlacesAutocomplete>
