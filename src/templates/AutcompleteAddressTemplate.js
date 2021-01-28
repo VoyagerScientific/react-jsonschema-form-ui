@@ -1,35 +1,69 @@
 import React from 'react';
-import { FormControl, FormGroup, FormLabel, FormText } from 'react-bootstrap';
+import _ from 'lodash';
+import { geocodeByPlaceId } from 'react-places-autocomplete';
 import ReactPlaceField from '../fields/ReactPlaceField';
 
-class AutocompleteAddressTemplate extends React.Component {
+const DEFAULT_FIELDS = {
+  address_1: 'address_1',
+  address_2: 'address_2',
+  city: 'city',
+  state: 'state',
+  postal_code: 'postal_code',
+  country: 'country',
+};
 
-  state = {
-    city: null,
-  };
+class AutocompleteAddressTemplate extends React.Component {
+  get formProps() {
+    return _.get(this.props.formContext, 'form.current', null);
+  }
+
+  get fieldNames() {
+    const newValues =  _.get(this.props, 'uiSchema.ui:options.fields', {});
+    return _.merge(DEFAULT_FIELDS, newValues);
+  }
 
   handlePlaceSelect = async (address) => {
-    const city = this.getTermFromPlaceType(address, "political");
-    this.props.formData.city = city;
-    this.setState({ city });
+    const fieldNames = this.fieldNames;
+    const [geocode] = await geocodeByPlaceId(address.placeId);
+    const firstAddress = this.getFieldByGeoCode(geocode, ["street_number", "route", "neighborhood"]);
+    const secondAddress = this.getFieldByGeoCode(geocode, ["sublocality", "administrative_area_level_3", "administrative_area_level_2"]);
+    const city = this.getFieldByGeoCode(geocode, "locality");
+    const state = this.getFieldByGeoCode(geocode, "administrative_area_level_1");
+    const country = this.getFieldByGeoCode(geocode, "country");
+    const postalCode = this.getFieldByGeoCode(geocode, "postal_code");
+    const oldFormData = _.get(this, 'formProps.props.formData', this.props.formData);
+    const newFormData = {
+      ...oldFormData,
+      [fieldNames.address_1]: firstAddress,
+      [fieldNames.address_2]: secondAddress,
+      [fieldNames.postal_code]: postalCode,
+      [fieldNames.state]: state,
+      [fieldNames.city]: city,
+      [fieldNames.country]: country,
+    };
+    this.formProps && this.formProps.setState(newFormData);
+    this.formProps && this.formProps.onChange(newFormData);
   }
+
   handleChange = (value) => {
     console.log(value);
+    this.props.onChange && this.props.onChange(value);
   }
 
-  renderShowFormFields() {
-    return (<>
-      <FormGroup>
-        <FormLabel>City</FormLabel>
-        <FormControl value={this.props.formData.city} />
-      </FormGroup>
-    </>);
+  getFieldByGeoCode(geocode, placeType) {
+    const addressComponents = geocode.address_components;
+    if(_.isArray(placeType)) {
+      const placeTerms = _.map(placeType, (type) => this.getAddressComponentByType(addressComponents, type));
+      return _.compact(placeTerms).join(', ');
+    }
+
+    const selectedComponent = _.find(addressComponents, (component) => _.includes(component.types, placeType));
+    return selectedComponent && selectedComponent.long_name;
   }
 
-  getTermFromPlaceType(place, placeType) {
-    const typeIndex = _.findIndex(place.types, (type) => type === placeType);
-    const term = _.get(place, `terms.${typeIndex}.value`);
-    return term;
+  getAddressComponentByType(addressComponents, placeType) {
+    const selectedComponent = _.find(addressComponents, (component) => _.includes(component.types, placeType));
+    return selectedComponent && selectedComponent.long_name;
   }
 
   render() {
@@ -42,7 +76,6 @@ class AutocompleteAddressTemplate extends React.Component {
         onChange={this.handleChange}
         onPlaceSelect={this.handlePlaceSelect}
       />
-      { showFormFields && this.renderShowFormFields()}
     </>);
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Form from "react-jsonschema-form";
+import Form from "../../src/forms/index";
 import {
   ArrayFieldTemplate,
   CurrencyWidget,
@@ -162,6 +162,30 @@ const schema = {
     },
     prepopulated_address: {
       title: 'Prepopulated Address',
+      type: 'object',
+    },
+    first_address: {
+      title: 'First Address (Prepopulated)',
+      type: 'string',
+    },
+    second_address: {
+      title: 'Second Address (Prepopulated)',
+      type: 'string',
+    },
+    city: {
+      title: 'City (Prepopulated)',
+      type: 'string',
+    },
+    state: {
+      title: 'State (Prepopulated)',
+      type: 'string',
+    },
+    country: {
+      title: 'Country (Prepopulated)',
+      type: 'string',
+    },
+    postcode: {
+      title: 'Postal Code (Prepopulated)',
       type: 'string',
     },
   }
@@ -292,11 +316,20 @@ const uiSchema = {
     "ui:field": "ReactTreeSelectField",
   },
   prepopulated_address: {
-    "ui:FieldTemplate": AutocompleteAddressTemplate,
+    "ui:ObjectFieldTemplate": AutocompleteAddressTemplate,
     "ui:options": {
       api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU",
+      showFormFields: true,
+      fields: {
+        address_1: 'first_address',
+        address_2: 'second_address',
+        city: 'city',
+        state: 'state',
+        postal_code: 'postcode',
+        country: 'country',
+      }
     },
-  }
+  },
 };
 
 const formData = {
@@ -334,7 +367,6 @@ class FormComponent extends Component {
               schema={this.state.schema}
               uiSchema={this.state.uiSchema}
               ArrayFieldTemplate={ArrayFieldTemplate}
-              // ObjectFieldTemplate={AutocompleteAddressTemplate}
               widgets={widgets}
               fields={fields}
               onChange={log("changed")}
