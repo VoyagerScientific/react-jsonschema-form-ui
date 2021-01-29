@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import _ from "lodash";
 import PlacesAutocomplete from "react-places-autocomplete";
 import injectScript from "react-inject-script";
-import { InputGroup, FormControl, FormLabel, Spinner } from "react-bootstrap";
+import { InputGroup, FormControl, FormLabel, Spinner, Card } from "react-bootstrap";
 import classNames from "classnames";
 
 class ReactPlaceField extends Component {
@@ -80,13 +80,25 @@ class ReactPlaceField extends Component {
     );
   }
 
+  renderLoading() {
+    return (
+    <Card className="text-center">
+      <Card.Body><Spinner
+        animation="border"
+        size="sm"
+        role="status"
+        /> Loading...</Card.Body>
+    </Card>
+    );
+  }
+
   render() {
     const { schema } = this.props;
     const { googleApiLoaded, hasError, loading } = this.state;
     return (
       <div>
         <FormLabel>{schema.title}</FormLabel>
-        { loading && 'Loading...'}
+        { loading && this.renderLoading() }
         { !loading && googleApiLoaded && (
           <PlacesAutocomplete
             value={this.state.value}

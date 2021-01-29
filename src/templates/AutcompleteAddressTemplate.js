@@ -21,9 +21,25 @@ class AutocompleteAddressTemplate extends React.Component {
     const newValues =  _.get(this.props, 'uiSchema.ui:options.fields', {});
     return _.merge(DEFAULT_FIELDS, newValues);
   }
-
+  
   handlePlaceSelect = async (address) => {
     const fieldNames = this.fieldNames;
+    const oldFormData = _.get(this, 'formProps.props.formData', this.props.formData);
+    if (!address) {
+      const newFormData = {
+        ...oldFormData,
+        [fieldNames.address_1]: null,
+        [fieldNames.address_2]: null,
+        [fieldNames.postal_code]: null,
+        [fieldNames.state]: null,
+        [fieldNames.city]: null,
+        [fieldNames.country]: null,
+      };
+      this.formProps && this.formProps.setState(newFormData);
+      this.formProps && this.formProps.onChange(newFormData);
+      return;
+    }
+
     const [geocode] = await geocodeByPlaceId(address.placeId);
     const firstAddress = this.getFieldByGeoCode(geocode, ["street_number", "route", "neighborhood"]);
     const secondAddress = this.getFieldByGeoCode(geocode, ["sublocality", "administrative_area_level_3", "administrative_area_level_2"]);
@@ -31,7 +47,6 @@ class AutocompleteAddressTemplate extends React.Component {
     const state = this.getFieldByGeoCode(geocode, "administrative_area_level_1");
     const country = this.getFieldByGeoCode(geocode, "country");
     const postalCode = this.getFieldByGeoCode(geocode, "postal_code");
-    const oldFormData = _.get(this, 'formProps.props.formData', this.props.formData);
     const newFormData = {
       ...oldFormData,
       [fieldNames.address_1]: firstAddress,
