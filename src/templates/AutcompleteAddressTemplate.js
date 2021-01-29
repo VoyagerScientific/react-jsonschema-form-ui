@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { geocodeByPlaceId } from 'react-places-autocomplete';
 import ReactPlaceField from '../fields/ReactPlaceField';
+import { Card, Form, Row } from 'react-bootstrap';
 
 const DEFAULT_FIELDS = {
   address_1: 'address_1',
@@ -18,13 +19,19 @@ class AutocompleteAddressTemplate extends React.Component {
   }
 
   get fieldNames() {
-    const newValues =  _.get(this.props, 'uiSchema.ui:options.fields', {});
+    const newValues = _.get(this.props, 'uiSchema.ui:options.fields', {});
     return _.merge(DEFAULT_FIELDS, newValues);
   }
-  
+
+  handleFieldChange = (key, fieldName) => (value) => {
+    const formData = this.formProps.state.formData;
+    _.set(formData, fieldName, event.target.value);
+    this.formProps.onChange && this.formProps.onChange(formData);
+  }
+
   handlePlaceSelect = async (address) => {
     const fieldNames = this.fieldNames;
-    const oldFormData = _.get(this, 'formProps.props.formData', this.props.formData);
+    const oldFormData = _.get(this, 'formProps.state.formData', this.props.formData);
     if (!address) {
       const newFormData = {
         ...oldFormData,
@@ -58,6 +65,7 @@ class AutocompleteAddressTemplate extends React.Component {
     };
     this.formProps && this.formProps.setState(newFormData);
     this.formProps && this.formProps.onChange(newFormData);
+    this.forceUpdate();
   }
 
   handleChange = (value) => {
@@ -67,7 +75,7 @@ class AutocompleteAddressTemplate extends React.Component {
 
   getFieldByGeoCode(geocode, placeType) {
     const addressComponents = geocode.address_components;
-    if(_.isArray(placeType)) {
+    if (_.isArray(placeType)) {
       const placeTerms = _.map(placeType, (type) => this.getAddressComponentByType(addressComponents, type));
       return _.compact(placeTerms).join(', ');
     }
@@ -82,8 +90,7 @@ class AutocompleteAddressTemplate extends React.Component {
   }
 
   render() {
-    console.log(this.props);
-    const showFormFields = true;
+    const showFormFields = _.get( this.props, 'uiSchema.ui:options.showFormFields', false);
     return (<>
       <ReactPlaceField
         schema={this.props.schema}
@@ -91,7 +98,24 @@ class AutocompleteAddressTemplate extends React.Component {
         onChange={this.handleChange}
         onPlaceSelect={this.handlePlaceSelect}
       />
+      { showFormFields && (
+        <Card>
+          <Card.Body>
+            {this.renderFormFields()}
+          </Card.Body>
+        </Card>
+      )}
     </>);
+  }
+
+  renderFormFields() {
+    const oldFormData = _.get(this, 'formProps.state.formData', this.props.formData);
+    return _.map(this.fieldNames, (fieldName, key) => (
+      <Row className="p-4">
+        <Form.Label>{_.chain(fieldName).split('_').map(_.capitalize).join(' ').value()}</Form.Label>
+        <Form.Control value={oldFormData[fieldName]} onChange={this.handleFieldChange(key, fieldName)} />
+      </Row>
+    ));
   }
 }
 
