@@ -14,12 +14,13 @@ import {
   ReactPhotoGalleryField,
   ReactQRReaderField,
   ReactScannerField,
-  ReactTreeSelectField,
-} from "../../src/index";
-import treeOptions from "./tree-options";
-import "./App.css";
+  ReactTreeSelectField
+} from '../../src/index';
+import treeOptions from './tree-options';
+import './App.css'
 
-import { initListenerAutoResize } from "../../src/utils/helpers";
+import { initListenerAutoResize } from '../../src/utils/helpers';
+import ReactFormulaField from './../../src/fields/ReactFormulaField/index';
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
@@ -38,6 +39,7 @@ const fields = {
   ReactQRReaderField: ReactQRReaderField,
   ReactScannerField: ReactScannerField,
   ReactTreeSelectField: ReactTreeSelectField,
+  ReactFormulaField: ReactFormulaField,
 };
 
 const log = (type) => console.log.bind(console, type);
@@ -155,11 +157,35 @@ const schema = {
       type: "string",
     },
     react_tree_select: {
-      title: "Tree Select",
-      type: "array",
-      options: treeOptions,
+      title: 'Tree Select',
+      type: 'array',
+      options: treeOptions
     },
-  },
+    react_remote_tree_select  : {
+      title: 'Tree Select Remote',
+      type: 'array',
+      options: treeOptions
+    },
+    react_formula_field: {
+      "title": "Calculations",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "a": {
+            "type": "number"
+          },
+          "b": {
+            "type": "number"
+          },
+          "c": {
+            "type": "number",
+            "readOnly": true
+          }
+        }
+      }
+    }
+  }
 };
 
 const uiSchema = {
@@ -170,7 +196,7 @@ const uiSchema = {
     },
   },
   test_react_select_with_enumNames: {
-    "ui:widget": "ReactSelectWidget",
+    "ui:widget": "ReactSelectWidget"
   },
   test_react_select_without_enumNames: {
     "ui:widget": "ReactSelectWidget",
@@ -192,6 +218,9 @@ const uiSchema = {
   },
   test_react_select_array: {
     "ui:widget": "ReactSelectWidget",
+    "ui:options": {
+      "isList": true,
+    }
   },
   test_react_select_remote: {
     "ui:widget": "ReactSelectWidget",
@@ -203,13 +232,13 @@ const uiSchema = {
         headers: {
           Authorization: "Bearer keyKM5nPQi7efGQ9Z",
         },
-        paths: {
-          record: ["records"],
-          value: ["id"],
-          label: ["fields", "Name"],
-        },
-      },
-    },
+        "paths": {
+          "record": ["records"],
+          "value": ["id"],
+          "label": ["fields", "Name"]
+        }
+      }
+    }
   },
   currency: {
     "ui:widget": "CurrencyWidget",
@@ -244,15 +273,15 @@ const uiSchema = {
             headers: {
               Authorization: "Bearer keyKM5nPQi7efGQ9Z",
             },
-            paths: {
-              record: ["records"],
-              value: ["id"],
-              label: ["fields", "Name"],
-            },
-          },
-        },
-      },
-    },
+            "paths": {
+              "record": ["records"],
+              "value": ["id"],
+              "label": ["fields", "Name"]
+            }
+          }
+        }
+      }
+    }
   },
   signature: {
     "ui:field": "ReactSignatureCanvasField",
@@ -284,7 +313,23 @@ const uiSchema = {
     "ui:field": "ReactScannerField",
   },
   react_tree_select: {
+    "ui:field": "ReactTreeSelectField"
+  },
+  react_formula_field: {
+    "ui:field": "ReactFormulaField",
+    "ui:options": {
+      "formulas": {
+         "c": "a[i]+b[i]"
+      },
+      "confirmRemove": true,
+      "removable": true,
+      "height": 200,
+      "width": "100%"
+    }
+  },
+  react_remote_tree_select: {
     "ui:field": "ReactTreeSelectField",
+<<<<<<< HEAD
   },
 };
 
@@ -295,6 +340,55 @@ const formData = {
 class FormComponent extends Component {
   constructor(props) {
     super(props);
+=======
+    "ui:options": {
+      "isCreateable": false,
+      "isMulti": true,
+      "remote": {
+        data: [
+          {
+            id: 1,
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes",
+            record: ["items"],
+            label: ["name"],
+            value: ["id"]
+          },
+          {
+            id: 2,
+            parent: 3,
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances/{{parent[1]}}/parts",
+            record: ["parts"],
+            label: ["item"],
+            value: ["partCode"]
+          },
+          {
+            id: 3,
+            parent: 1,
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances",
+            record: ["items"],
+            label: ["appliance"],
+            value: ["code"]
+          }
+        ]
+      }
+    }
+  }
+};
+
+const formData = {
+  "react_tree_select": ["child1", "child2", "child3"],
+  "react_formula_field": [
+    { a: 1, b: 2 },
+    { a: 2, b: 4 },
+    { a: 3, b: 6 },
+  ]
+}
+
+class FormComponent extends Component {
+
+  constructor(props) {
+    super(props)
+>>>>>>> master
     this.state = {
       ...props,
     };
@@ -328,7 +422,7 @@ class FormComponent extends Component {
               onChange={log("changed")}
               onSubmit={this.handleSubmit}
               onError={log("errors")}
-              // disabled={true}
+            // disabled={true}
             >
               <div>
                 <button
