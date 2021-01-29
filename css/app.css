@@ -80,3 +80,7 @@
 .is-list div[class$="-Input"] {
   position: absolute !important;
 }
+
+.Select-menu-outer {
+  z-index: 9999 !important;
+}

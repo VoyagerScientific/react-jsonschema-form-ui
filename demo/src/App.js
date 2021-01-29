@@ -164,7 +164,6 @@ const schema = {
     react_remote_tree_select  : {
       title: 'Tree Select Remote',
       type: 'array',
-      options: treeOptions
     },
     react_formula_field: {
       "title": "Calculations",
@@ -329,18 +328,6 @@ const uiSchema = {
   },
   react_remote_tree_select: {
     "ui:field": "ReactTreeSelectField",
-<<<<<<< HEAD
-  },
-};
-
-const formData = {
-  react_tree_select: ["parent"],
-};
-
-class FormComponent extends Component {
-  constructor(props) {
-    super(props);
-=======
     "ui:options": {
       "isCreateable": false,
       "isMulti": true,
@@ -382,13 +369,11 @@ const formData = {
     { a: 2, b: 4 },
     { a: 3, b: 6 },
   ]
-}
+};
 
 class FormComponent extends Component {
-
   constructor(props) {
-    super(props)
->>>>>>> master
+    super(props);
     this.state = {
       ...props,
     };

@@ -9,7 +9,7 @@ export { default as ReactPhotoGalleryField } from './fields/ReactPhotoGalleryFie
 export { default as ReactPlaceField } from './fields/ReactPlaceField';
 export { default as ReactQRReaderField } from './fields/ReactQRReaderField/index';
 export { default as ReactScannerField } from './fields/ReactScannerField/index';
-export { default as ReactTreeSelectField } from './fields/ReactTreeSelectField';
+export { default as ReactTreeSelectField } from './fields/ReactTreeSelectField/index';
 
 // Widgets
 export { default as CurrencyWidget } from './widgets/CurrencyWidget';
