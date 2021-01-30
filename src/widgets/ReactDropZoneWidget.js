@@ -28,7 +28,7 @@ function ReactDropZoneWidget(props) {
         <>
           <section className="d-print-none">
             <div className={`dropzone ${isDragActive ? 'active' : ''}`} {...getRootProps()}>
-              <input {...getInputProps()} required name={props.id} />
+              <input {...getInputProps()} name={props.id} />
               {isReading ? (
                 <div className="m-auto">
                   <span>Handling files... &nbsp;</span>
