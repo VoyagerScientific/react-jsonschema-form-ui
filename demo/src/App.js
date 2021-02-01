@@ -172,13 +172,11 @@ const schema = {
     },
     react_tree_select: {
       title: 'Tree Select',
-      type: 'array',
-      options: treeOptions
+      type: 'array'      
     },
     react_remote_tree_select  : {
       title: 'Tree Select Remote',
-      type: 'array',
-      options: treeOptions
+      type: 'array'
     },
     react_formula_field: {
       "title": "Calculations",
@@ -335,7 +333,10 @@ const uiSchema = {
     "ui:field": "ReactScannerField"
   },
   react_tree_select: {
-    "ui:field": "ReactTreeSelectField"
+    "ui:field": "ReactTreeSelectField",
+    "ui:options": {
+      "treeOptions": treeOptions
+    }
   },
   react_formula_field: {
     "ui:field": "ReactFormulaField",
