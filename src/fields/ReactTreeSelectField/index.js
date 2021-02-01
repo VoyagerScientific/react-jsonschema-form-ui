@@ -36,9 +36,7 @@ class ReactTreeSelectField extends Component {
   }
 
   handleChange = (valueOptions, ...args) => {
-    console.log(args);
     const isMulti = _.get(this.props, 'uiSchema.ui:options.isMulti', false);
-    console.log(args);
     if (!isMulti) {
       const value = _.get(valueOptions, 'value');
       this.props.onChange(value ? [value] : []);
@@ -49,7 +47,6 @@ class ReactTreeSelectField extends Component {
   }
 
   handleInputChange = (...args) => {
-    console.log(args);
   }
 
   isRemote() {
