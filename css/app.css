@@ -47,3 +47,21 @@
 .is-list div[class$="-Input"] {
   position: absolute !important;
 }
+
+.dropzone {
+  background-color: #f9f9f9;
+  display: flex;
+  border: 2px #999 dashed;
+  margin: 2px;
+  border-radius: 4px;
+  text-align: center;
+  height: 100px;
+}
+
+.dropzone p {
+  margin: auto;
+}
+
+.file-display.container {
+  margin: 10px auto;
+}
