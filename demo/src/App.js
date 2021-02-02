@@ -4,6 +4,7 @@ import {
   ArrayFieldTemplate,
   CurrencyWidget,
   PercentWidget,
+  ReactFormulaField,
   RawHTMLField,
   ReactDatePickerWidget,
   ReactSelectWidget,
@@ -19,7 +20,6 @@ import treeOptions from './tree-options';
 import './App.css'
 
 import { initListenerAutoResize } from '../../src/utils/helpers';
-import ReactFormulaField from './../../src/fields/ReactFormulaField/index';
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
