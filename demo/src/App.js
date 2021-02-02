@@ -10,6 +10,7 @@ import {
   ReactSignatureCanvasField,
   StatesWidget,
   ReactDropZoneWidget,
+  ReactInputTableWidget,
   ReactPlaceField,
   ReactPlaceAutofillField,
   ReactPhotoGalleryField,
@@ -29,6 +30,7 @@ const widgets = {
   ReactDropZoneWidget: ReactDropZoneWidget,
   ReactSelectWidget: ReactSelectWidget,
   StatesWidget: StatesWidget,
+  ReactInputTableWidget: ReactInputTableWidget,
 };
 
 const fields = {
@@ -40,6 +42,7 @@ const fields = {
   ReactQRReaderField: ReactQRReaderField,
   ReactScannerField: ReactScannerField,
   ReactTreeSelectField: ReactTreeSelectField,
+  ReactInputTableWidget: ReactInputTableWidget,
 };
 
 const log = (type) => console.log.bind(console, type);
@@ -197,6 +200,10 @@ const schema = {
       title: 'Longitude (Prepopulated)',
       type: 'string',
     },
+    input_table: {
+      title: 'Input Table',
+      type: 'object',
+    }
   }
 };
 
@@ -341,7 +348,7 @@ const uiSchema = {
     },
   },
   input_table: {
-    "ui:widget": "ReactInputTableWidget",
+    "ui:field": "ReactInputTableWidget",
     "ui:options": {
       rows: ["Service Quality", "Cleanliness"],
       columns: ["Not Satisfied", "Somewhat Satisfied", "Satisfied"],
