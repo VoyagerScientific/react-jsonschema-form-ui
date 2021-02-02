@@ -45,7 +45,7 @@ const log = (type) => console.log.bind(console, type);
 const schema = {
   type: "object",
   // readOnly: true,
-  required: ["react_dropzone", "react_dropzone_2"],
+  required: ["react_dropzone", "react_dropzone_2","test_react_select_without_enumNames"],
   properties: {
     textarea: {
       title: "Textarea auto resize content",
