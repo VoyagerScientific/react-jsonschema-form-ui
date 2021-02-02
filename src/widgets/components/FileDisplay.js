@@ -11,7 +11,7 @@ class FileDisplay extends React.Component {
   render() {
     return <div className="file-display container">
       {(this.props.files || []).map((file, index) => (
-        <Row className="file justify-content-between">
+        <Row key={index} className="file justify-content-between">
           <Col>{file.name}</Col>
           <Col xs="auto">
             <div

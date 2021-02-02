@@ -56,7 +56,6 @@ class ReactTreeSelectField extends Component {
 
   getSchemaOptions() {
     const { uiSchema } = this.props;
-    console.log(uiSchema)
     if (this.isRemote()) {
       return _.get(uiSchema["ui:options"], 'treeOptions');
     } else {
