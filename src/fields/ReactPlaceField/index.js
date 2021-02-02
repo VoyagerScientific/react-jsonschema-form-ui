@@ -9,8 +9,9 @@ class ReactPlaceField extends Component {
   state = {
     googleApiLoaded: false,
     loading: true,
-    value: [],
+    value: "",
     hasError: false,
+    id: Math. floor(Math. random() * 100)
   };
 
   handleChange = (value) => {
@@ -64,11 +65,15 @@ class ReactPlaceField extends Component {
             <div className="autocomplete-dropdown-container">
               <div className="wrapper">
                 {loading && <div className="loading">Loading...</div>}
-                {suggestions.map((suggestion) => (
-                  <div className={classNames({
+                {suggestions.map((suggestion, index) => (
+                  <div
+                  className={classNames({
                     "suggestion": true,
                     "active": suggestion.active
-                  })} {...getSuggestionItemProps(suggestion)}>
+                  })}
+                  {...getSuggestionItemProps(suggestion)}
+                  key={`${this.state.id}-${index}`}
+                  >
                     <span>{suggestion.description}</span>
                   </div>
                 ))}

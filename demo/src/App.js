@@ -11,6 +11,7 @@ import {
   StatesWidget,
   ReactDropZoneWidget,
   ReactPlaceField,
+  ReactPlaceAutofillField,
   ReactPhotoGalleryField,
   ReactQRReaderField,
   ReactScannerField,
@@ -20,7 +21,6 @@ import treeOptions from "./tree-options";
 import "./App.css";
 
 import { initListenerAutoResize } from '../../src/utils/helpers';
-import AutocompleteAddressTemplate from '../../src/templates/AutcompleteAddressTemplate';
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
@@ -34,6 +34,7 @@ const widgets = {
 const fields = {
   RawHTMLField: RawHTMLField,
   ReactPlaceField: ReactPlaceField,
+  ReactPlaceAutofillField: ReactPlaceAutofillField,
   ReactPhotoGalleryField: ReactPhotoGalleryField,
   ReactSignatureCanvasField: ReactSignatureCanvasField,
   ReactQRReaderField: ReactQRReaderField,
@@ -188,6 +189,14 @@ const schema = {
       title: 'Postal Code (Prepopulated)',
       type: 'string',
     },
+    latitude: {
+      title: 'Latitude (Prepopulated)',
+      type: 'string',
+    },
+    longitude: {
+      title: 'Longitude (Prepopulated)',
+      type: 'string',
+    },
   }
 };
 
@@ -316,15 +325,16 @@ const uiSchema = {
     "ui:field": "ReactTreeSelectField",
   },
   prepopulated_address: {
-    "ui:ObjectFieldTemplate": AutocompleteAddressTemplate,
+    "ui:field": "ReactPlaceAutofillField",
     "ui:options": {
       api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU",
-      showFormFields: true,
+      showFields: true,
+      updateAdjacentFields: true,
       fields: {
         address_1: 'first_address',
         address_2: 'second_address',
         city: 'city',
-        state: 'state',
+        state: 'state', 
         postal_code: 'postcode',
         country: 'country',
       }
