@@ -340,6 +340,13 @@ const uiSchema = {
       }
     },
   },
+  input_table: {
+    "ui:widget": "ReactInputTableWidget",
+    "ui:options": {
+      rows: ["Service Quality", "Cleanliness"],
+      columns: ["Not Satisfied", "Somewhat Satisfied", "Satisfied"],
+    }
+  }
 };
 
 const formData = {
