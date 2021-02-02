@@ -106,7 +106,7 @@ class ReactFormulaAgGridTable extends React.Component {
           type="checkbox"
           id="customSwitch1"
           checked={isFormulaDisplayed} />
-        <Form.Check.Label className="custom-control-label" for="customSwitch1">Show Formula</Form.Check.Label>
+        <Form.Check.Label className="custom-control-label" htmlFor="customSwitch1">Show Formula</Form.Check.Label>
       </Form.Check>
     );
   }
@@ -152,7 +152,7 @@ class ReactFormulaAgGridTable extends React.Component {
               onGridReady={this.handleGridReady}
             >
               <AgGridColumn field="$delete" />
-              {_.map(this.props.headers, (header) => <AgGridColumn field={header.header} />)}
+              {_.map(this.props.headers, (header, i) => <AgGridColumn key={i} field={header.header} />)}
             </AgGridReact>
           </div>
         </Row>
