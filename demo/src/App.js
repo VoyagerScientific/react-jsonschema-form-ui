@@ -21,7 +21,7 @@ import {
 import treeOptions from "./tree-options";
 import "./App.css";
 
-import { initListenerAutoResize } from '../../src/utils/helpers';
+import { initListenerAutoResize } from "../../src/utils/helpers";
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
@@ -49,7 +49,7 @@ const log = (type) => console.log.bind(console, type);
 
 const schema = {
   type: "object",
-  required: ['prepopulated_address'],
+  required: ["prepopulated_address"],
   // readOnly: true,
   properties: {
     textarea: {
@@ -160,51 +160,51 @@ const schema = {
       type: "string",
     },
     react_tree_select: {
-      title: 'Tree Select',
-      type: 'array',
-      options: treeOptions
+      title: "Tree Select",
+      type: "array",
+      options: treeOptions,
     },
     prepopulated_address: {
-      title: 'Prepopulated Address',
-      type: 'object',
+      title: "Prepopulated Address",
+      type: "object",
     },
     first_address: {
-      title: 'First Address (Prepopulated)',
-      type: 'string',
+      title: "First Address (Prepopulated)",
+      type: "string",
     },
     second_address: {
-      title: 'Second Address (Prepopulated)',
-      type: 'string',
+      title: "Second Address (Prepopulated)",
+      type: "string",
     },
     city: {
-      title: 'City (Prepopulated)',
-      type: 'string',
+      title: "City (Prepopulated)",
+      type: "string",
     },
     state: {
-      title: 'State (Prepopulated)',
-      type: 'string',
+      title: "State (Prepopulated)",
+      type: "string",
     },
     country: {
-      title: 'Country (Prepopulated)',
-      type: 'string',
+      title: "Country (Prepopulated)",
+      type: "string",
     },
     postcode: {
-      title: 'Postal Code (Prepopulated)',
-      type: 'string',
+      title: "Postal Code (Prepopulated)",
+      type: "string",
     },
     latitude: {
-      title: 'Latitude (Prepopulated)',
-      type: 'string',
+      title: "Latitude (Prepopulated)",
+      type: "string",
     },
     longitude: {
-      title: 'Longitude (Prepopulated)',
-      type: 'string',
+      title: "Longitude (Prepopulated)",
+      type: "string",
     },
     input_table: {
-      title: 'Input Table',
-      type: 'object',
-    }
-  }
+      title: "Input Table",
+      type: "object",
+    },
+  },
 };
 
 const uiSchema = {
@@ -231,7 +231,7 @@ const uiSchema = {
   test_react_select_createable: {
     "ui:widget": "ReactSelectWidget",
     "ui:options": {
-      isCreateable: true,
+      isCreateable: true, //props
       isMulti: true,
     },
   },
@@ -338,22 +338,32 @@ const uiSchema = {
       showFields: true,
       updateAdjacentFields: true,
       fields: {
-        address_1: 'first_address',
-        address_2: 'second_address',
-        city: 'city',
-        state: 'state', 
-        postal_code: 'postcode',
-        country: 'country',
-      }
+        address_1: "first_address",
+        address_2: "second_address",
+        city: "city",
+        state: "state",
+        postal_code: "postcode",
+        country: "country",
+      },
     },
   },
   input_table: {
     "ui:field": "ReactInputTableWidget",
     "ui:options": {
-      rows: ["Service Quality", "Cleanliness"],
-      columns: ["Not Satisfied", "Somewhat Satisfied", "Satisfied"],
-    }
-  }
+      rows: [
+        "Service Quality",
+        "Cleanliness",
+        "Responsiveness",
+        "Friendliness",
+      ],
+      columns: [
+        "Not Satisfied",
+        "Somewhat Satisfied",
+        "Satisfied",
+        "Very Satisfied",
+      ],
+    },
+  },
 };
 
 const formData = {
@@ -388,7 +398,7 @@ class FormComponent extends Component {
             <br />
             <Form
               formData={formData}
-              schema={this.state.schema}
+              schema={this.state.schema} //declaration of data types
               uiSchema={this.state.uiSchema}
               ArrayFieldTemplate={ArrayFieldTemplate}
               widgets={widgets}
