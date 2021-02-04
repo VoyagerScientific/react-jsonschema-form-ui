@@ -382,6 +382,10 @@ const uiSchema = {
 
 const formData = {
   react_tree_select: ["parent"],
+  input_table: {
+    "Cleanliness": ['Satisfied'],
+    "Service Quality": ['Very Satisfied']
+  }
 };
 
 class FormComponent extends Component {
