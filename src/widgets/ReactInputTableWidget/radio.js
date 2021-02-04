@@ -3,6 +3,8 @@ import _ from "lodash";
 import { Table, Form, Row, Col, Button } from "react-bootstrap";
 
 class RadioInputTable extends React.Component {
+  id = Math.floor(Math.random() * 100)
+
   state = {
     checkbox: true,
   };
@@ -32,10 +34,11 @@ class RadioInputTable extends React.Component {
     return _.includes(rowValues, selectedColumn);
   }
 
-  renderCell(rowData, colIndex) {
+  renderCell(rowData, rowIndex, colIndex) {
     return (
       <Form.Check
-        checked={this.isCellValueChecked(rowData, colIndex)}
+        // checked={this.isCellValueChecked(rowData, colIndex)}
+        name={`radioGroup-${this.id}-${rowIndex}`}
         onChange={this.handleCheck(colIndex, 1)}
         type="radio"
         style={{ display: "flex", justifyContent: "center" }}
@@ -58,14 +61,14 @@ class RadioInputTable extends React.Component {
         </thead>
         <tbody>
           {_.map(rows, (rowData, rowIndex) => (
-            <tr>
+            <Form.Group as="tr">
               <td key={rowIndex}>{rowData}</td>
               {_.map(columns, (colData, colIndex) => (
                 <td key={colIndex}>
-                  {this.renderCell(rowData, colIndex)}
+                  {this.renderCell(rowData, rowIndex, colIndex)}
                 </td>
               ))}
-            </tr>
+            </Form.Group>
           ))}
         </tbody>
       </Table>
