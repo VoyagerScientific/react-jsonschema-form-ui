@@ -1,12 +1,8 @@
 import React from "react";
 import _ from "lodash";
-import { Form, Row, Col, Button } from "react-bootstrap";
-import ButtonInputTable from "./button";
-import CheckboxInputTable from "./checkbox";
-import RadioInputTable from "./radio";
-import { CHECKBOX, RADIO } from "./constants";
+import { Table, Form, Row, Col, Button } from "react-bootstrap";
 
-class ReactInputTableWidget extends React.Component {
+class CheckboxInputTable extends React.Component {
   state = {
     checkbox: true,
   };
@@ -36,12 +32,12 @@ class ReactInputTableWidget extends React.Component {
     return _.includes(rowValues, selectedColumn);
   }
 
-  renderCell(rowData, colIndex) {
+  renderCell(colData, rowData, colIndex, rowIndex) {
     return (
       <Form.Check
         checked={this.isCellValueChecked(rowData, colIndex)}
         onChange={this.handleCheck(colIndex, 1)}
-        type="radio"
+        type="checkbox"
         style={{ display: "flex", justifyContent: "center" }}
       />
     )
@@ -64,16 +60,33 @@ class ReactInputTableWidget extends React.Component {
     );
   }
 
+
   renderTable() {
-    const { inputTableType } = _.get(this.props, 'uiSchema.ui:options', {});
-    switch (inputTableType) {
-      case CHECKBOX:
-        return <CheckboxInputTable {...this.props} />
-      case RADIO:
-        return <RadioInputTable {...this.props} />
-      default:
-        return <ButtonInputTable {...this.props} />
-    }
+    const { rows, columns } = _.get(this.props, 'uiSchema.ui:options', {});
+    return (
+      <Table responsive>
+        <thead>
+          <tr>
+            <th></th>
+            {_.map(columns, (data, index) => (
+              <th key={index}>{data}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {_.map(rows, (rowData, rowIndex) => (
+            <tr>
+              <td key={rowIndex}>{rowData}</td>
+              {_.map(columns, (colData, colIndex) => (
+                <td key={colIndex}>
+                  {this.renderCell(colData, rowData, colIndex, rowIndex)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    )
   }
 
   render() {
@@ -88,4 +101,4 @@ class ReactInputTableWidget extends React.Component {
   }
 }
 
-export default ReactInputTableWidget;
+export default CheckboxInputTable;

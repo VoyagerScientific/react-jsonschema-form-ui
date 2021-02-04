@@ -364,6 +364,7 @@ const uiSchema = {
   input_table: {
     "ui:field": "ReactInputTableWidget",
     "ui:options": {
+      inputTableType: "radio",
       rows: [
         "Service Quality",
         "Cleanliness",
