@@ -22,8 +22,6 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
-    "@handsontable/react": "^4.0.0",
-    "@sideway/formula": "^3.0.0",
     "@zxing/library": "^0.18.3",
     "accounting": "^0.4.1",
     "ag-grid-community": "^25.0.0",
