@@ -14,7 +14,11 @@ class ReactInputTableWidget extends React.Component {
       { headerName: "Sell", field: "sell" },
       { headerName: "Product", field: "product" },
     ],
-    checkbox: true,
+    checkbox: false,
+    // checkboxOne: true,
+    // checkboxTwo: true,
+    // checkboxThree: true,
+    // checkboxFour: true,
   };
 
   handleGridReady = (params) => {
@@ -22,20 +26,19 @@ class ReactInputTableWidget extends React.Component {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
   };
-  handleCheck = (index, columnNumber) => {
-    //columnNumber 1-4 respectively
-    return (e) => {
-      console.log(e);
+  handleChange = (index) => {
+    const { onChange } = this.props;
 
+    return (e) => {
       console.log(e.currentTarget.checked);
-      console.log(index, columnNumber);
-      // this.setState({ checkbox: !e.currentTarget.checked });
+      // onChange && onChange(rows);
+      this.setState({ checkbox: e.currentTarget.checked });
     };
   };
 
   render() {
     const { rows, columns } = this.props.uiSchema["ui:options"];
-    console.log("rows:", rows, "column:", columns);
+    console.log(this.props);
 
     return (
       <>
@@ -50,40 +53,109 @@ class ReactInputTableWidget extends React.Component {
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td key={rows[0]}>{rows[0]}</td>
+              {columns.map((data, index) => (
+                <td key={index}>
+                  <Form.Check
+                    name={`${data}`}
+                    checked={this.state.checkbox}
+                    onChange={this.handleChange(index)}
+                    type="radio"
+                    style={{ display: "flex", justifyContent: "center" }}
+                  />
+                </td>
+              ))}
+            </tr>
+            <tr>
+              <td key={rows[1]}>{rows[1]}</td>
+              {columns.map((data, index) => (
+                <td key={index}>
+                  <Form.Check
+                    name={`${data}`}
+                    checked={this.state.checkbox}
+                    onChange={this.handleChange(index)}
+                    type="radio"
+                    style={{ display: "flex", justifyContent: "center" }}
+                  />
+                </td>
+              ))}
+            </tr>
+            <tr>
+              <td key={rows[2]}>{rows[2]}</td>
+              {columns.map((data, index) => (
+                <td key={index}>
+                  <Form.Check
+                    name={`${data}`}
+                    checked={this.state.checkbox}
+                    onChange={this.handleChange(index)}
+                    type="radio"
+                    style={{ display: "flex", justifyContent: "center" }}
+                  />
+                </td>
+              ))}
+            </tr>
+            <tr>
+              <td key={rows[3]}>{rows[3]}</td>
+              {columns.map((data, index) => (
+                <td key={index}>
+                  <Form.Check
+                    name={`${data}`}
+                    checked={this.state.checkbox}
+                    onChange={this.handleChange(index)}
+                    type="radio"
+                    style={{ display: "flex", justifyContent: "center" }}
+                  />
+                </td>
+              ))}
+            </tr>
+
+            {/*
+              //old implementation
             {_.map(rows, (data, index) => (
               <tr>
                 <td key={index}>{data}</td>
                 <td key={index}>
                   <Form.Check
+                    name="notSatisfied"
                     checked={this.state.checkbox}
-                    onChange={this.handleCheck(index, 1)}
+                    onChange={this.handleChange(index, 1, rows[0])}
                     type="radio"
                     style={{ display: "flex", justifyContent: "center" }}
                   />
                 </td>
                 <td key={index}>
                   <Form.Check
-                    onChange={this.handleCheck(index, 2)}
+                    name="somewhatSatisfied"
+                    checked={this.state.checkbox}
+                    // checked={this.state.checkboxTwo}
+                    onChange={this.handleChange(index, 2, rows[1])}
                     type="radio"
                     style={{ display: "flex", justifyContent: "center" }}
                   />
                 </td>
                 <td key={index}>
                   <Form.Check
-                    onChange={this.handleCheck(index, 3)}
+                    name="satisfied"
+                    checked={this.state.checkbox}
+                    // checked={this.state.checkboxThree}
+                    onChange={this.handleChange(index, 3, rows[2])}
                     type="radio"
                     style={{ display: "flex", justifyContent: "center" }}
                   />
                 </td>
                 <td key={index}>
                   <Form.Check
-                    onChange={this.handleCheck(index, 4)}
+                    name="verySatisfied"
+                    checked={this.state.checkbox}
+                    // checked={this.state.checkboxFour}
+                    onChange={this.handleChange(index, 4, rows[3])}
                     type="radio"
                     style={{ display: "flex", justifyContent: "center" }}
                   />
                 </td>
               </tr>
-            ))}
+            ))} */}
           </tbody>
         </Table>
       </>

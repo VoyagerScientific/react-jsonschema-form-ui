@@ -203,6 +203,20 @@ const schema = {
     input_table: {
       title: "Input Table",
       type: "object",
+      properties: {
+        cleanliness: {
+          type: "array",
+          items: {
+            type: "string",
+          },
+        },
+        service_quality: {
+          type: "array",
+          items: {
+            type: "string",
+          },
+        },
+      },
     },
   },
 };
