@@ -7,51 +7,44 @@ class CheckboxInputTable extends React.Component {
     checkbox: true,
   };
 
-  handlefeedbackSelector = (columnIndex) => {
-    switch (columnIndex) {
-      case 0:
-        return ["Not Satisfied"];
-      case 1:
-        return ["Somewhat Satisfied"];
-      case 2:
-        return ["Satisfied"];
-      case 3:
-        return ["Very Satisfied"];
-      default:
-        return [""];
+  handleChange = (rowData, colData, rowIndex, colIndex) => {
+    return (e) => {
+      const { onChange, formData } = this.props;
+      let valuesInRow = _.get(formData, rowData, []);
+      const isIncludedBefore = _.includes(valuesInRow, colData);
+
+      if (isIncludedBefore) {
+        valuesInRow = _.reject(valuesInRow, (value) => value === colData);
+      } else {
+        valuesInRow.push(colData);
+      }
+
+      const obj = { ...formData };
+      obj[rowData] = valuesInRow;
+      onChange && onChange(obj);
+      this.forceUpdate();
     }
   };
 
-  handleCheck = (rowData, rowIndex, colIndex) => {
-    const { onChange, formData } = this.props;
-    return (e) => {
-      const obj = { ...formData };
-      obj[rowData] = this.handlefeedbackSelector(colIndex);
-      onChange && onChange(obj);
-    };
-  };
-
-  isCellValueChecked = (rowData, colIndex) => {
-    const { columns } = _.get(this.props, "uiSchema.ui:options", {});
+  isCellValueChecked = (rowData, colData) => {
     const formData = this.props.formData;
-    const selectedColumn = columns[colIndex];
-    const rowValues = formData[rowData];
-    return _.includes(rowValues, selectedColumn);
+    const rowValues = _.get(formData, rowData, []);
+    return _.includes(rowValues, colData);
   };
 
-  renderCell(rowData, rowIndex, colIndex) {
+  renderCell(rowData, colData, rowIndex, colIndex) {
     return (
       <Form.Check
-        checked={this.isCellValueChecked(rowData, colIndex)}
+        checked={this.isCellValueChecked(rowData, colData)}
         name={`radioGroup-${this.id}-${rowIndex}`}
-        onChange={this.handleCheck(rowData, rowIndex, colIndex)}
+        onChange={this.handleChange(rowData, colData, rowIndex, colIndex)}
         type="checkbox"
         style={{ display: "flex", justifyContent: "center" }}
       />
     );
   }
 
- 
+
 
   renderTable() {
     const { rows, columns } = _.get(this.props, "uiSchema.ui:options", {});
@@ -71,7 +64,7 @@ class CheckboxInputTable extends React.Component {
               <td key={rowIndex}>{rowData}</td>
               {_.map(columns, (colData, colIndex) => (
                 <td key={colIndex}>
-                  {this.renderCell(rowData, rowIndex, colIndex)}
+                  {this.renderCell(rowData, colData, rowIndex, colIndex)}
                 </td>
               ))}
             </tr>

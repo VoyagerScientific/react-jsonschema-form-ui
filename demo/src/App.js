@@ -200,23 +200,57 @@ const schema = {
       title: "Longitude (Prepopulated)",
       type: "string",
     },
-    input_table: {
-      title: "Input Table",
+    input_table_checkbox: {
+      title: "Input Table (Checkbox)",
       type: "object",
       properties: {
-        cleanliness: {
+        "Service Quality": {
           type: "array",
           items: {
             type: "string",
           },
         },
-        service_quality: {
+        "Cleanliness": {
+          type: "array",
+          items: {
+            type: "string",
+          },
+        },
+        "Responsiveness": {
+          type: "array",
+          items: {
+            type: "string",
+          },
+        },
+        "Friendliness": {
           type: "array",
           items: {
             type: "string",
           },
         },
       },
+    },
+    input_table_radio: {
+      title: "Input Table (Radio)",
+      type: "object",
+      properties: {
+        "Service Quality": {
+          type: "string",
+        },
+        "Cleanliness": {
+          type: "string",
+        },
+        "Responsiveness": {
+          type: "string",
+        },
+        "Friendliness": {
+          type: "string",
+        },
+      },
+    },
+    input_table_button: {
+      title: "Input Table (Button)",
+      type: "string",
     },
   },
 };
@@ -361,10 +395,46 @@ const uiSchema = {
       },
     },
   },
-  input_table: {
+  input_table_checkbox: {
     "ui:field": "ReactInputTableWidget",
     "ui:options": {
       inputTableType: "checkbox",
+      rows: [
+        "Service Quality",
+        "Cleanliness",
+        "Responsiveness",
+        "Friendliness",
+      ],
+      columns: [
+        "Not Satisfied",
+        "Somewhat Satisfied",
+        "Satisfied",
+        "Very Satisfied",
+      ],
+    },
+  },
+  input_table_radio: {
+    "ui:field": "ReactInputTableWidget",
+    "ui:options": {
+      inputTableType: "radio",
+      rows: [
+        "Service Quality",
+        "Cleanliness",
+        "Responsiveness",
+        "Friendliness",
+      ],
+      columns: [
+        "Not Satisfied",
+        "Somewhat Satisfied",
+        "Satisfied",
+        "Very Satisfied",
+      ],
+    },
+  },
+  input_table_button: {
+    "ui:field": "ReactInputTableWidget",
+    "ui:options": {
+      inputTableType: "button",
       rows: [
         "Service Quality",
         "Cleanliness",
@@ -383,12 +453,19 @@ const uiSchema = {
 
 const formData = {
   react_tree_select: ["parent"],
-  input_table: {
-    Cleanliness: ["Satisfied"],
-    "Service Quality": ["Satisfied"],
-    Responsiveness: ["Satisfied"],
-    Friendliness: ["Satisfied"],
+  input_table_checkbox: {
+    "Cleanliness": ["Satisfied", "Somewhat Satisfied"],
+    "Service Quality": ["Somewhat Satisfied"],
+    "Responsiveness": ["Not Satisfied", "Very Satisfied"],
+    "Friendliness": ["Satisfied"],
   },
+  input_table_radio: {
+    "Cleanliness": "Somewhat Satisfied",
+    "Service Quality": "Not Satisfied",
+    "Responsiveness": "Satisfied",
+    "Friendliness": "Very Satisfied",
+  },
+  input_table_button: "Cleanliness - Satisfied",
 };
 
 class FormComponent extends Component {
