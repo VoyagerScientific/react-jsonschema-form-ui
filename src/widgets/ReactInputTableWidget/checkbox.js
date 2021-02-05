@@ -7,62 +7,54 @@ class CheckboxInputTable extends React.Component {
     checkbox: true,
   };
 
-  handleGridReady = (params) => {
-    console.log("params", params);
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
+  handlefeedbackSelector = (columnIndex) => {
+    switch (columnIndex) {
+      case 0:
+        return ["Not Satisfied"];
+      case 1:
+        return ["Somewhat Satisfied"];
+      case 2:
+        return ["Satisfied"];
+      case 3:
+        return ["Very Satisfied"];
+      default:
+        return [""];
+    }
   };
 
-  handleCheck = (index, columnNumber) => {
-    //columnNumber 1-4 respectively
+  handleCheck = (rowData, rowIndex, colIndex) => {
+    const { onChange, formData } = this.props;
     return (e) => {
-      console.log(e);
-
-      console.log(e.currentTarget.checked);
-      console.log(index, columnNumber);
-      // this.setState({ checkbox: !e.currentTarget.checked });
+      const obj = { ...formData };
+      obj[rowData] = this.handlefeedbackSelector(colIndex);
+      onChange && onChange(obj);
     };
   };
 
   isCellValueChecked = (rowData, colIndex) => {
-    const { columns } = _.get(this.props, 'uiSchema.ui:options', {});
+    const { columns } = _.get(this.props, "uiSchema.ui:options", {});
     const formData = this.props.formData;
     const selectedColumn = columns[colIndex];
     const rowValues = formData[rowData];
     return _.includes(rowValues, selectedColumn);
-  }
+  };
 
-  renderCell(colData, rowData, colIndex, rowIndex) {
+  renderCell(rowData, rowIndex, colIndex) {
     return (
       <Form.Check
         checked={this.isCellValueChecked(rowData, colIndex)}
-        onChange={this.handleCheck(colIndex, 1)}
+        name={`radioGroup-${this.id}-${rowIndex}`}
+        onChange={this.handleCheck(rowData, rowIndex, colIndex)}
         type="checkbox"
         style={{ display: "flex", justifyContent: "center" }}
       />
-    )
-  }
-
-  renderFooterItems() {
-    return (
-      <Row className="align-items-center justify-content-md-end">
-        <Col sm="auto">
-          <Button
-            variant="link"
-            size="sm"
-          >Add Row</Button>
-          <Button
-            variant="link"
-            size="sm"
-          >Add Column</Button>
-        </Col>
-      </Row>
     );
   }
 
+ 
 
   renderTable() {
-    const { rows, columns } = _.get(this.props, 'uiSchema.ui:options', {});
+    const { rows, columns } = _.get(this.props, "uiSchema.ui:options", {});
     return (
       <Table responsive>
         <thead>
@@ -75,29 +67,22 @@ class CheckboxInputTable extends React.Component {
         </thead>
         <tbody>
           {_.map(rows, (rowData, rowIndex) => (
-            <tr>
+            <tr key={rowIndex}>
               <td key={rowIndex}>{rowData}</td>
               {_.map(columns, (colData, colIndex) => (
                 <td key={colIndex}>
-                  {this.renderCell(colData, rowData, colIndex, rowIndex)}
+                  {this.renderCell(rowData, rowIndex, colIndex)}
                 </td>
               ))}
             </tr>
           ))}
         </tbody>
       </Table>
-    )
+    );
   }
 
   render() {
-    const { title } = _.get(this.props, 'schema', {});
-    return (
-      <>
-        <Form.Label>{title}</Form.Label>
-        {this.renderTable()}
-        {this.renderFooterItems()}
-      </>
-    );
+    return <>{this.renderTable()}</>;
   }
 }
 

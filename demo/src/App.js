@@ -364,7 +364,7 @@ const uiSchema = {
   input_table: {
     "ui:field": "ReactInputTableWidget",
     "ui:options": {
-      inputTableType: "radio",
+      inputTableType: "checkbox",
       rows: [
         "Service Quality",
         "Cleanliness",
@@ -384,9 +384,11 @@ const uiSchema = {
 const formData = {
   react_tree_select: ["parent"],
   input_table: {
-    "Cleanliness": ['Satisfied'],
-    "Service Quality": ['Very Satisfied']
-  }
+    Cleanliness: ["Satisfied"],
+    "Service Quality": ["Satisfied"],
+    Responsiveness: ["Satisfied"],
+    Friendliness: ["Satisfied"],
+  },
 };
 
 class FormComponent extends Component {
@@ -425,7 +427,6 @@ class FormComponent extends Component {
               onChange={log("changed")}
               onSubmit={this.handleSubmit}
               onError={log("errors")}
-              // disabled={true}
             >
               <div>
                 <button

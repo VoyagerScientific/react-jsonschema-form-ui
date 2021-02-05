@@ -7,12 +7,6 @@ class ButtonInputTable extends React.Component {
     checkbox: true,
   };
 
-  handleGridReady = (params) => {
-    console.log("params", params);
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-  };
-
   handleButtonClick = (currentValue) => {
     const { onChange } = this.props;
     return () => {
@@ -23,9 +17,9 @@ class ButtonInputTable extends React.Component {
   isCellValueChecked = (rowData, colData) => {
     const formData = this.props.formData;
     return `${rowData} - ${colData}` === formData;
-  }
+  };
 
-  renderCell(rowData, colData) {
+  renderCell(rowData, colData, rowIndex) {
     const isSelected = this.isCellValueChecked(rowData, colData);
     const currentValue = `${rowData} - ${colData}`;
     return (
@@ -33,27 +27,29 @@ class ButtonInputTable extends React.Component {
         variant={isSelected ? "secondary" : "outlined"}
         active={isSelected}
         onClick={this.handleButtonClick(currentValue)}
-      >{currentValue}</Button>
-    )
+      >
+        {currentValue}
+      </Button>
+    );
   }
 
   render() {
-    const { rows, columns } = _.get(this.props, 'uiSchema.ui:options', {});
+    const { rows, columns } = _.get(this.props, "uiSchema.ui:options", {});
     return (
       <Table responsive>
         <tbody>
-          {_.map(rows, (rowData) => (
-            <tr>
+          {_.map(rows, (rowData, rowIndex) => (
+            <tr key={rowIndex}>
               {_.map(columns, (colData, colIndex) => (
                 <td key={colIndex}>
-                  {this.renderCell(rowData, colData)}
+                  {this.renderCell(rowData, colData, rowIndex)}
                 </td>
               ))}
             </tr>
           ))}
         </tbody>
       </Table>
-    )
+    );
   }
 }
 

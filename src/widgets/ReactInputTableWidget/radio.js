@@ -3,52 +3,60 @@ import _ from "lodash";
 import { Table, Form, Row, Col, Button } from "react-bootstrap";
 
 class RadioInputTable extends React.Component {
-  id = Math.floor(Math.random() * 100)
+  id = Math.floor(Math.random() * 100);
 
   state = {
     checkbox: true,
   };
 
-  handleGridReady = (params) => {
-    console.log("params", params);
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
+  handlefeedbackSelector = (columnIndex) => {
+    switch (columnIndex) {
+      case 0:
+        return ["Not Satisfied"];
+      case 1:
+        return ["Somewhat Satisfied"];
+      case 2:
+        return ["Satisfied"];
+      case 3:
+        return ["Very Satisfied"];
+      default:
+        return [""];
+    }
   };
 
-  handleCheck = (index, columnNumber) => {
-    //columnNumber 1-4 respectively
-    return (e) => {
-      console.log(e);
+  handleCheck = (rowData, rowIndex, colIndex) => {
+    const { onChange, formData } = this.props;
 
-      console.log(e.currentTarget.checked);
-      console.log(index, columnNumber);
-      // this.setState({ checkbox: !e.currentTarget.checked });
+    return (e) => {
+      const obj = { ...formData };
+      obj[rowData] = this.handlefeedbackSelector(colIndex);
+      onChange && onChange(obj);
     };
   };
 
   isCellValueChecked = (rowData, colIndex) => {
-    const { columns } = _.get(this.props, 'uiSchema.ui:options', {});
+    const { columns } = _.get(this.props, "uiSchema.ui:options", {});
     const formData = this.props.formData;
     const selectedColumn = columns[colIndex];
     const rowValues = formData[rowData];
     return _.includes(rowValues, selectedColumn);
-  }
+  };
 
   renderCell(rowData, rowIndex, colIndex) {
     return (
       <Form.Check
-        // checked={this.isCellValueChecked(rowData, colIndex)}
+        checked={this.isCellValueChecked(rowData, colIndex)}
         name={`radioGroup-${this.id}-${rowIndex}`}
-        onChange={this.handleCheck(colIndex, 1)}
+        onChange={this.handleCheck(rowData, rowIndex, colIndex)}
         type="radio"
         style={{ display: "flex", justifyContent: "center" }}
       />
-    )
+    );
   }
 
+  renderTable = () => {
+    const { rows, columns } = _.get(this.props, "uiSchema.ui:options", {});
 
-  render() {
-    const { rows, columns } = _.get(this.props, 'uiSchema.ui:options', {});
     return (
       <Table responsive>
         <thead>
@@ -61,7 +69,7 @@ class RadioInputTable extends React.Component {
         </thead>
         <tbody>
           {_.map(rows, (rowData, rowIndex) => (
-            <Form.Group as="tr">
+            <Form.Group as="tr" key={rowIndex}>
               <td key={rowIndex}>{rowData}</td>
               {_.map(columns, (colData, colIndex) => (
                 <td key={colIndex}>
@@ -72,7 +80,12 @@ class RadioInputTable extends React.Component {
           ))}
         </tbody>
       </Table>
-    )
+    );
+  };
+
+
+  render() {
+    return <>{this.renderTable()}</>;
   }
 }
 
