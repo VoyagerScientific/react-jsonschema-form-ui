@@ -62,6 +62,7 @@ function ReactPhotoGalleryField(props) {
       {!isDisabled && (
         <UploadComponent
           isReading={isReading}
+          accepted={["image/*"]}
           onAcceptedFiles={onAcceptedFiles}
           className={"d-print-none"}
         />
