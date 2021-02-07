@@ -128,6 +128,7 @@ class ReactSelectWidget extends Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        "credentials": "same-site",
         ...this.state.options.remote.headers
       }
     })
@@ -185,6 +186,7 @@ class ReactSelectWidget extends Component {
           />
           <input
             name={this.props.id}
+            id={this.props.id}
             style={{position: "absolute", border: 0, width: 1, height: 1}}
             type="text"
             onChange={(event)=> {return this.state.value}}
@@ -214,6 +216,7 @@ class ReactSelectWidget extends Component {
           />
           <input
             name={this.props.id}
+            id={this.props.id}
             style={{position: "absolute", border: 0, width: 1, height: 1}}
             type="text"
             onChange={(event)=> {return this.state.value}}
