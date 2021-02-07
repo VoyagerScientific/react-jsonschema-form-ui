@@ -548,18 +548,14 @@ const uiSchema = {
     "ui:field": "ReactInputTableWidget",
     "ui:options": {
       inputTableType: "button",
-      rows: [
-        "Service Quality",
-        "Cleanliness",
-        "Responsiveness",
-        "Friendliness",
-      ],
-      columns: [
-        "Not Satisfied",
-        "Somewhat Satisfied",
-        "Satisfied",
-        "Very Satisfied",
-      ],
+      "rows": ["Critical", "Serious", "Medium", "Small", "Minor"],
+      "columns": ["Very Low", "Low", "Medium", "High", "Very High"],
+      "values" :[
+      [5, 10, 15, 20, 25],
+      [4, 8 , 12, 16, 20],
+      [3, 6, 9, 12, 15],
+      [1, 2, 3, 4, 5]
+      ]
     },
   },
 };

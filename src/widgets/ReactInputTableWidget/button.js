@@ -14,23 +14,26 @@ class ButtonInputTable extends React.Component {
     };
   };
 
-  isCellValueChecked = (rowData, colData) => {
+  isCellValueChecked = (optionCellValue) => {
     const formData = this.props.formData;
-    return `${rowData} - ${colData}` === formData;
+    return optionCellValue === formData;
   };
 
-  renderCell(rowData, colData, rowIndex) {
-    const isSelected = this.isCellValueChecked(rowData, colData);
-    const currentValue = `${rowData} - ${colData}`;
-    return (
+  renderCell(rowData, colData, rowIndex, colIndex) {
+    const { formData } = this.props;
+    const optionValueMatrix = _.get(this.props, 'uiSchema.ui:options.values', []);
+    const optionCellValue = _.get(optionValueMatrix, `${rowIndex}.${colIndex}`, null);
+    const isSelected = this.isCellValueChecked(optionCellValue);
+    return  optionCellValue ? (
       <Button
+        fullWidth
         variant={isSelected ? "secondary" : "outlined"}
         active={isSelected}
-        onClick={this.handleButtonClick(currentValue)}
+        onClick={this.handleButtonClick(optionCellValue)}
       >
-        {currentValue}
+        {optionCellValue}
       </Button>
-    );
+    ) : "";
   }
 
   render() {
@@ -40,13 +43,22 @@ class ButtonInputTable extends React.Component {
         <tbody>
           {_.map(rows, (rowData, rowIndex) => (
             <tr key={rowIndex}>
+              <td><b>{rowData}</b></td>
               {_.map(columns, (colData, colIndex) => (
                 <td key={colIndex}>
-                  {this.renderCell(rowData, colData, rowIndex)}
+                  {this.renderCell(rowData, colData, rowIndex, colIndex)}
                 </td>
               ))}
             </tr>
           ))}
+          <tr>
+            <th />
+            {_.map(columns, (colData, colIndex) => (
+              <th key={colIndex}>
+                {colData}
+              </th>
+            ))}
+          </tr>
         </tbody>
       </Table>
     );
