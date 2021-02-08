@@ -1,17 +1,17 @@
-import React from 'react'
-import axios from 'axios'
-import { Form } from 'react-bootstrap'
-import Gallery from 'react-photo-gallery'
+import React from "react";
+import axios from "axios";
+import { Form } from "react-bootstrap";
+import Gallery from "react-photo-gallery";
 
-import { ReactDropZoneWidget } from '../../index';
-import PhotoItem from './components/PhotoItem';
+import { ReactDropZoneWidget } from "../../index";
+import PhotoItem from "./components/PhotoItem";
 
 const readFile = (file, callback) => {
-  const reader = new FileReader()
-  reader.addEventListener('load', (event) => {
-    const { result } = event.target
-    const img = new Image()
-    img.src = result
+  const reader = new FileReader();
+  reader.addEventListener("load", (event) => {
+    const { result } = event.target;
+    const img = new Image();
+    img.src = result;
     img.onload = () => {
       callback({
         isLocal: true,
@@ -20,8 +20,8 @@ const readFile = (file, callback) => {
         width: img.width,
         height: img.height,
       });
-    }
-  })
+    };
+  });
   reader.readAsDataURL(file);
 };
 
@@ -30,33 +30,42 @@ class ReactPhotoGalleryField extends React.Component {
     isReading: false,
   };
 
-  handleRemoveFile = index => {
+  handleRemoveFile = (index) => {
     const { formData, onChange } = this.props;
     const newFormData = { ...formData };
-    newFormData.attachments = newFormData.attachments.filter((item, i) => i !== index)
-    onChange && onChange(newFormData)
-  }
+    newFormData.attachments = newFormData.attachments.filter(
+      (item, i) => i !== index
+    );
+    onChange && onChange(newFormData);
+  };
 
   handleAcceptFiles = async (acceptedFiles) => {
-    const fileUploadUrl = _.get(this.state, 'options.fileUploadUrl') || "/handleFileUpload";
-    const authenticityToken = _.get(this.state, 'options.authenticity_token');
+    const fileUploadUrl = _.get(
+      this.props,
+      "uiSchema.ui:options.fileUploadUrl"
+    );
+    const authenticityToken = _.get(
+      this.props,
+      "uiSchema.ui:options.authenticity_token"
+    );
+
     this.setState({ isSaving: true });
-    var data = new FormData()
+    var data = new FormData();
     for (const file of acceptedFiles) {
-      data.append('attachments', file, file.name)
+      data.append("attachments", file, file.name);
     }
-    data.append('authenticity_token', authenticityToken);
+    data.append("authenticity_token", authenticityToken);
     const response = await axios.post(fileUploadUrl, data, {
       headers: {
-        "Accept": 'application/json',
-        'X-CSRF-Token': authenticityToken
-      }
+        Accept: "application/json",
+        "X-CSRF-Token": authenticityToken,
+      },
     });
-    const responseData = _.get(response, 'data');
+    const responseData = _.get(response, "data");
     this.state.attachments.push(responseData);
     this.setState({ attachments: this.state.attachments });
     this.state.onChange(this.state.attachments);
-  }
+  };
 
   isDisabled() {
     const { readonly, readOnly, disabled } = this.props;
@@ -65,7 +74,7 @@ class ReactPhotoGalleryField extends React.Component {
   }
 
   get attachments() {
-    return _.get(this.props, 'formdata.attachments', []) || [];
+    return _.get(this.props, "formdata.attachments", []) || [];
   }
 
   isColumnLayout() {
@@ -74,13 +83,15 @@ class ReactPhotoGalleryField extends React.Component {
   }
 
   renderPhotos = (item) => {
-    return (<PhotoItem
-      {...item}
-      key={item.index}
-      isColumn={this.isColumnLayout()}
-      onRemove={this.handleRemoveFile}
-    />);
-  }
+    return (
+      <PhotoItem
+        {...item}
+        key={item.index}
+        isColumn={this.isColumnLayout()}
+        onRemove={this.handleRemoveFile}
+      />
+    );
+  };
 
   render() {
     const { schema, uploadComponent } = this.props;
@@ -103,11 +114,12 @@ class ReactPhotoGalleryField extends React.Component {
             photos={this.attachments}
             renderImage={this.renderPhotos}
             columns={2}
-            direction={this.isColumnLayout() ? "column" : "row"} />
+            direction={this.isColumnLayout() ? "column" : "row"}
+          />
         </div>
       </Form.Group>
-    )
+    );
   }
 }
 
-export default ReactPhotoGalleryField
+export default ReactPhotoGalleryField;
