@@ -128,7 +128,6 @@ class ReactSelectWidget extends Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        "credentials": "same-site",
         ...this.state.options.remote.headers
       }
     })
