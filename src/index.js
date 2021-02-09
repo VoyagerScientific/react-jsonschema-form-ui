@@ -3,6 +3,7 @@ import "../css/app.css";
 // Fields
 export { default as ArrayFieldTemplate } from './fields/ArrayFieldTemplate';
 export { default as HeadingField } from './fields/HeadingField';
+export { default as ReactFormulaField } from './fields/ReactFormulaField';
 export { default as ReactSignatureCanvasField } from './fields/ReactSignatureCanvasField';
 export { default as RawHTMLField } from './fields/RawHTMLField';
 export { default as ReactPhotoGalleryField } from './fields/ReactPhotoGalleryField/index';

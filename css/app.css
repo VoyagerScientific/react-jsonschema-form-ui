@@ -59,3 +59,42 @@
   background-color: white;
   width: 100%;
 }
+.is-list .react-select__multi-value {
+  width: 100%;
+  flex: 0 0 100%;
+  justify-content: space-between;
+}
+
+.is-list .react-select__input:focus-within {
+  position: initial !important;
+}
+
+.is-list .react-select__input {
+  position: absolute !important;
+}
+
+.is-list div[class$="-Input"]:focus-within {
+  position: initial !important;
+}
+
+.is-list div[class$="-Input"] {
+  position: absolute !important;
+}
+
+.dropzone {
+  background-color: #f9f9f9;
+  display: flex;
+  border: 2px #999 dashed;
+  margin: 2px;
+  border-radius: 4px;
+  text-align: center;
+  height: 100px;
+}
+
+.dropzone p {
+  margin: auto;
+}
+
+.file-display.container {
+  margin: 10px auto;
+}
