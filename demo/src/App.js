@@ -555,14 +555,15 @@ const uiSchema = {
     "ui:field": "ReactInputTableWidget",
     "ui:options": {
       inputTableType: "button",
-      rows: ["Critical", "Serious", "Medium", "Small", "Minor"],
-      columns: ["Very Low", "Low", "Medium", "High", "Very High"],
-      values: [
-        [5, 10, 15, 20, 25],
-        [4, 8, 12, 16, 20],
-        [3, 6, 9, 12, 15],
-        [1, 2, 3, 4, 5],
-      ],
+      "rows": ["Critical", "Serious", "Medium", "Small", "Minor"],
+      "columns": ["Very Low", "Low", "Medium", "High", "Very High"],
+      "values" :[
+      [5, 10, 20, 20, 25],
+      [4, 8 , 12, 16, 20],
+      [3, 6, 9, 12, 15],
+      [2, 4, 6, 8, 10],
+      [1, 2, 3, 4, 5]
+      ]
     },
   },
 };
@@ -588,7 +589,11 @@ const formData = {
     Responsiveness: "Satisfied",
     Friendliness: "Very Satisfied",
   },
-  input_table_button: "Cleanliness - Satisfied",
+  input_table_button: {
+    row: "Critical",
+    column: "Low",
+    value: 10
+  },
 };
 
 class FormComponent extends Component {

@@ -7,29 +7,29 @@ class ButtonInputTable extends React.Component {
     checkbox: true,
   };
 
-  handleButtonClick = (currentValue) => {
+  handleButtonClick = (rowData, colData, currentValue) => {
     const { onChange } = this.props;
     return () => {
-      onChange && onChange(currentValue);
+      const newData = { row: rowData, column: colData, value: currentValue };
+      onChange && onChange(newData);
     };
   };
 
-  isCellValueChecked = (optionCellValue) => {
+  isCellValueChecked = (rowData, colData, optionCellValue) => {
     const formData = this.props.formData;
-    return optionCellValue === formData;
+    return optionCellValue === formData.value && rowData === formData.row && colData === formData.column;
   };
 
   renderCell(rowData, colData, rowIndex, colIndex) {
-    const { formData } = this.props;
     const optionValueMatrix = _.get(this.props, 'uiSchema.ui:options.values', []);
     const optionCellValue = _.get(optionValueMatrix, `${rowIndex}.${colIndex}`, null);
-    const isSelected = this.isCellValueChecked(optionCellValue);
-    return  optionCellValue ? (
-      <Button
-        fullWidth
+    const isSelected = this.isCellValueChecked(rowData, colData, optionCellValue);
+    return optionCellValue ? (
+      <Button as={"span"}
+        className="buttonCell"
         variant={isSelected ? "secondary" : "outlined"}
         active={isSelected}
-        onClick={this.handleButtonClick(optionCellValue)}
+        onClick={this.handleButtonClick(rowData, colData, optionCellValue)}
       >
         {optionCellValue}
       </Button>
@@ -42,10 +42,10 @@ class ButtonInputTable extends React.Component {
       <Table responsive>
         <tbody>
           {_.map(rows, (rowData, rowIndex) => (
-            <tr key={rowIndex}>
-              <td><b>{rowData}</b></td>
+            <tr key={rowIndex} className={`input_table_row input_table_row-${rowIndex}`}>
+              <td className="headerCell"><b>{rowData}</b></td>
               {_.map(columns, (colData, colIndex) => (
-                <td key={colIndex}>
+                <td key={colIndex} className={`input_table_cell input_table_cell_${rowIndex}-${colIndex}`}>
                   {this.renderCell(rowData, colData, rowIndex, colIndex)}
                 </td>
               ))}
