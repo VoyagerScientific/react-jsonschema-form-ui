@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Form from "react-jsonschema-form";
+import Form from "../../src/forms/index";
 import {
   ArrayFieldTemplate,
   CurrencyWidget,
@@ -12,13 +12,14 @@ import {
   StatesWidget,
   ReactDropZoneWidget,
   ReactPlaceField,
+  ReactPlaceAutofillField,
   ReactPhotoGalleryField,
   ReactQRReaderField,
   ReactScannerField,
-  ReactTreeSelectField
-} from '../../src/index';
-import treeOptions from './tree-options';
-import './App.css'
+  ReactTreeSelectField,
+} from "../../src/index";
+import treeOptions from "./tree-options";
+import "./App.css";
 
 import { initListenerAutoResize } from '../../src/utils/helpers';
 
@@ -34,6 +35,7 @@ const widgets = {
 const fields = {
   RawHTMLField: RawHTMLField,
   ReactPlaceField: ReactPlaceField,
+  ReactPlaceAutofillField: ReactPlaceAutofillField,
   ReactPhotoGalleryField: ReactPhotoGalleryField,
   ReactSignatureCanvasField: ReactSignatureCanvasField,
   ReactQRReaderField: ReactQRReaderField,
@@ -47,7 +49,7 @@ const log = (type) => console.log.bind(console, type);
 const schema = {
   type: "object",
   // readOnly: true,
-  required: ["react_dropzone", "react_dropzone_2","test_react_select_without_enumNames"],
+  required: ["prepopulated_address", "react_dropzone", "react_dropzone_2", "test_react_select_without_enumNames"],
   properties: {
     textarea: {
       title: "Textarea auto resize content",
@@ -178,11 +180,48 @@ const schema = {
     },
     react_tree_select: {
       title: 'Tree Select',
-      type: 'array'      
+      type: 'array',
+      options: treeOptions
     },
-    react_remote_tree_select  : {
+    react_remote_tree_select: {
       title: 'Tree Select Remote',
       type: 'array',
+    },
+    prepopulated_address: {
+      title: 'Prepopulated Address',
+      type: 'object',
+    },
+    first_address: {
+      title: 'First Address (Prepopulated)',
+      type: 'string',
+    },
+    second_address: {
+      title: 'Second Address (Prepopulated)',
+      type: 'string',
+    },
+    city: {
+      title: 'City (Prepopulated)',
+      type: 'string',
+    },
+    state: {
+      title: 'State (Prepopulated)',
+      type: 'string',
+    },
+    country: {
+      title: 'Country (Prepopulated)',
+      type: 'string',
+    },
+    postcode: {
+      title: 'Postal Code (Prepopulated)',
+      type: 'string',
+    },
+    latitude: {
+      title: 'Latitude (Prepopulated)',
+      type: 'string',
+    },
+    longitude: {
+      title: 'Longitude (Prepopulated)',
+      type: 'string',
     },
     react_formula_field: {
       "title": "Calculations",
@@ -214,7 +253,7 @@ const uiSchema = {
     },
   },
   test_react_select_with_enumNames: {
-    "ui:widget": "ReactSelectWidget"
+    "ui:widget": "ReactSelectWidget",
   },
   test_react_select_without_enumNames: {
     "ui:widget": "ReactSelectWidget",
@@ -250,13 +289,13 @@ const uiSchema = {
         headers: {
           Authorization: "Bearer keyKM5nPQi7efGQ9Z",
         },
-        "paths": {
-          "record": ["records"],
-          "value": ["id"],
-          "label": ["fields", "Name"]
-        }
-      }
-    }
+        paths: {
+          record: ["records"],
+          value: ["id"],
+          label: ["fields", "Name"],
+        },
+      },
+    },
   },
   currency: {
     "ui:widget": "CurrencyWidget",
@@ -291,15 +330,15 @@ const uiSchema = {
             headers: {
               Authorization: "Bearer keyKM5nPQi7efGQ9Z",
             },
-            "paths": {
-              "record": ["records"],
-              "value": ["id"],
-              "label": ["fields", "Name"]
-            }
-          }
-        }
-      }
-    }
+            paths: {
+              record: ["records"],
+              value: ["id"],
+              label: ["fields", "Name"],
+            },
+          },
+        },
+      },
+    },
   },
   signature: {
     "ui:field": "ReactSignatureCanvasField",
@@ -356,7 +395,7 @@ const uiSchema = {
     "ui:field": "ReactFormulaField",
     "ui:options": {
       "formulas": {
-         "c": "a[i]+b[i]"
+        "c": "a[i]+b[i]"
       },
       "confirmRemove": true,
       "removable": true,
@@ -397,7 +436,23 @@ const uiSchema = {
         ]
       }
     }
-  }
+  },
+  prepopulated_address: {
+    "ui:field": "ReactPlaceAutofillField",
+    "ui:options": {
+      api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU",
+      showFields: true,
+      updateAdjacentFields: true,
+      fields: {
+        address_1: 'first_address',
+        address_2: 'second_address',
+        city: 'city',
+        state: 'state',
+        postal_code: 'postcode',
+        country: 'country',
+      }
+    },
+  },
 };
 
 const formData = {
