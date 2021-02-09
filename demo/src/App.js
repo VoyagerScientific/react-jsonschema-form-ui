@@ -185,7 +185,7 @@ const schema = {
     },
     react_remote_tree_select: {
       title: 'Tree Select Remote',
-      type: 'array'
+      type: 'array',
     },
     prepopulated_address: {
       title: 'Prepopulated Address',
@@ -464,11 +464,11 @@ const formData = {
     { a: 2, b: 4 },
     { a: 3, b: 6 },
   ]
-}
+};
 
 class FormComponent extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       ...props,
     };

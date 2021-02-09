@@ -21,8 +21,9 @@ class ReactPlaceField extends Component {
   };
 
   handleSelect = (value, placeId, placeObject) => {
-    const { onPlaceSelect } = this.props;
+    const { onPlaceSelect, onChange } = this.props;
     this.setState({ value });
+    placeObject && onChange && onChange(placeObject.description);
     onPlaceSelect && onPlaceSelect(placeObject);
   };
 

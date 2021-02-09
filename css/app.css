@@ -81,6 +81,10 @@
   position: absolute !important;
 }
 
+.Select-menu-outer {
+  z-index: 9999 !important;
+}
+
 .dropzone {
   background-color: #f9f9f9;
   display: flex;
