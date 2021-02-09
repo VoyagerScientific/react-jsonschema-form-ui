@@ -31,7 +31,11 @@ class ReactTreeSelectField extends Component {
 
   render() {
     const { schema, formData } = this.props;
-    const valueOptions = this.getOptionsFromValue(formData, schema.options);
+    const options = this.props.uiSchema["ui:options"];
+    const valueOptions = this.getOptionsFromValue(
+      formData,
+      options.treeOptions
+    );
     return (
       <div>
         <div>{schema.title}</div>
