@@ -36,9 +36,7 @@ class ReactTreeSelectField extends Component {
   }
 
   handleChange = (valueOptions, ...args) => {
-    console.log(args);
     const isMulti = _.get(this.props, 'uiSchema.ui:options.isMulti', false);
-    console.log(args);
     if (!isMulti) {
       const value = _.get(valueOptions, 'value');
       this.props.onChange(value ? [value] : []);
@@ -49,7 +47,6 @@ class ReactTreeSelectField extends Component {
   }
 
   handleInputChange = (...args) => {
-    console.log(args);
   }
 
   isRemote() {
@@ -58,11 +55,11 @@ class ReactTreeSelectField extends Component {
   }
 
   getSchemaOptions() {
-    const { schema } = this.props;
+    const { uiSchema } = this.props;
     if (this.isRemote()) {
-      return schema.options;
+      return _.get(uiSchema["ui:options"], 'treeOptions');
     } else {
-      return _.map(schema.options, (opt) => {
+      return _.map(_.get(uiSchema["ui:options"], 'treeOptions'), (opt) => {
         if (opt.children.length  === 0) {
           opt.isEnd = true;
         }

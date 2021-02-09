@@ -4,6 +4,7 @@ import {
   ArrayFieldTemplate,
   CurrencyWidget,
   PercentWidget,
+  ReactFormulaField,
   RawHTMLField,
   ReactDatePickerWidget,
   ReactSelectWidget,
@@ -20,7 +21,6 @@ import treeOptions from './tree-options';
 import './App.css'
 
 import { initListenerAutoResize } from '../../src/utils/helpers';
-import ReactFormulaField from './../../src/fields/ReactFormulaField/index';
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
@@ -46,8 +46,8 @@ const log = (type) => console.log.bind(console, type);
 
 const schema = {
   type: "object",
-  required: [],
   // readOnly: true,
+  required: ["react_dropzone", "react_dropzone_2","test_react_select_without_enumNames"],
   properties: {
     textarea: {
       title: "Textarea auto resize content",
@@ -148,6 +148,26 @@ const schema = {
         attachments: { type: "array" },
       },
     },
+    react_dropzone: {
+      title: "Dropzone",
+      minItems: 1,
+      type: "array",
+      items: {
+        type: "string",
+        format: "data-url",
+      },
+      // required: true
+    },
+    react_dropzone_2: {
+      title: "Dropzone (Duplicate)",
+      minItems: 1,
+      type: "array",
+      items: {
+        type: "string",
+        format: "data-url",
+      },
+      // required: true
+    },
     react_qr_reader: {
       title: "QR Reader",
       type: "string",
@@ -158,8 +178,7 @@ const schema = {
     },
     react_tree_select: {
       title: 'Tree Select',
-      type: 'array',
-      options: treeOptions
+      type: 'array'      
     },
     react_remote_tree_select  : {
       title: 'Tree Select Remote',
@@ -305,6 +324,22 @@ const uiSchema = {
   react_photo_gallery: {
     "ui:field": "ReactPhotoGalleryField",
   },
+  react_dropzone: {
+    "ui:widget": "ReactDropZoneWidget",
+    "fieldType": "react-drop-zone",
+    "ui:options": {
+      accepted: ["image/*", "application/pdf"],
+      withFileDisplay: true,
+    }
+  },
+  react_dropzone_2: {
+    "ui:widget": "ReactDropZoneWidget",
+    "fieldType": "react-drop-zone",
+    "ui:options": {
+      accepted: ["application/pdf"],
+      withFileDisplay: true,
+    }
+  },
   react_qr_reader: {
     "ui:field": "ReactQRReaderField",
   },
@@ -312,7 +347,10 @@ const uiSchema = {
     "ui:field": "ReactScannerField",
   },
   react_tree_select: {
-    "ui:field": "ReactTreeSelectField"
+    "ui:field": "ReactTreeSelectField",
+    "ui:options": {
+      "treeOptions": treeOptions
+    }
   },
   react_formula_field: {
     "ui:field": "ReactFormulaField",
@@ -364,6 +402,8 @@ const uiSchema = {
 
 const formData = {
   "react_tree_select": ["child1", "child2", "child3"],
+  "react_dropzone": [],
+  "react_dropzone_2": [],
   "react_formula_field": [
     { a: 1, b: 2 },
     { a: 2, b: 4 },
@@ -404,10 +444,11 @@ class FormComponent extends Component {
               ArrayFieldTemplate={ArrayFieldTemplate}
               widgets={widgets}
               fields={fields}
+              liveValidate
               onChange={log("changed")}
               onSubmit={this.handleSubmit}
               onError={log("errors")}
-            // disabled={true}
+              showErrorList={true}
             >
               <div>
                 <button
