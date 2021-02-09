@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import Form from 'react-jsonschema-form'
+import React, { Component } from "react";
+import Form from "../../src/forms/index";
 import {
   ArrayFieldTemplate,
   CurrencyWidget,
@@ -11,13 +11,15 @@ import {
   ReactSignatureCanvasField,
   StatesWidget,
   ReactDropZoneWidget,
+  ReactPlaceField,
+  ReactPlaceAutofillField,
   ReactPhotoGalleryField,
   ReactQRReaderField,
   ReactScannerField,
-  ReactTreeSelectField
-} from '../../src/index';
-import treeOptions from './tree-options';
-import './App.css'
+  ReactTreeSelectField,
+} from "../../src/index";
+import treeOptions from "./tree-options";
+import "./App.css";
 
 import { initListenerAutoResize } from '../../src/utils/helpers';
 
@@ -27,11 +29,13 @@ const widgets = {
   ReactDatePickerWidget: ReactDatePickerWidget,
   ReactDropZoneWidget: ReactDropZoneWidget,
   ReactSelectWidget: ReactSelectWidget,
-  StatesWidget: StatesWidget
+  StatesWidget: StatesWidget,
 };
 
 const fields = {
   RawHTMLField: RawHTMLField,
+  ReactPlaceField: ReactPlaceField,
+  ReactPlaceAutofillField: ReactPlaceAutofillField,
   ReactPhotoGalleryField: ReactPhotoGalleryField,
   ReactSignatureCanvasField: ReactSignatureCanvasField,
   ReactQRReaderField: ReactQRReaderField,
@@ -45,7 +49,7 @@ const log = (type) => console.log.bind(console, type);
 const schema = {
   type: "object",
   // readOnly: true,
-  required: ["react_dropzone", "react_dropzone_2","test_react_select_without_enumNames"],
+  required: ["prepopulated_address", "react_dropzone", "react_dropzone_2", "test_react_select_without_enumNames"],
   properties: {
     textarea: {
       title: "Textarea auto resize content",
@@ -54,18 +58,18 @@ const schema = {
     test_react_select_without_enumNames: {
       title: "Test React Select (WITHOUT enumNames)",
       type: "string",
-      enum: ["1", "2", "3"]
+      enum: ["1", "2", "3"],
     },
     test_react_select_with_enumNames: {
       title: "Test React Select (WITH enumNames)",
       type: "string",
       enum: ["1", "2", "3"],
-      enumNames: ["One", "Two", "Three"]
+      enumNames: ["One", "Two", "Three"],
     },
     test_react_select_createable: {
       title: "Test React Select (createable)",
       type: "string",
-      enum: ["1", "2", "3"]
+      enum: ["1", "2", "3"],
     },
     test_react_select_array: {
       title: "Test React Select (ARRAY)",
@@ -73,30 +77,30 @@ const schema = {
       items: {
         type: "string",
         enum: ["1", "2", "3"],
-        enumNames: ["One", "Two", "Three"]
+        enumNames: ["One", "Two", "Three"],
       },
-      uniqueItems: true
+      uniqueItems: true,
     },
     test_react_select_remote: {
       title: "Test React Select (Remote)",
       type: "array",
       items: {
         type: "string",
-        enum: []
+        enum: [],
       },
-      uniqueItems: true
+      uniqueItems: true,
     },
     currency: {
       title: "Currency Demo",
-      type: "number"
+      type: "number",
     },
     percent: {
       title: "Percent",
-      type: "number"
+      type: "number",
     },
     date: {
       title: "Date",
-      type: "string"
+      type: "string",
     },
     array_template: {
       type: "array",
@@ -107,39 +111,43 @@ const schema = {
         properties: {
           string: {
             type: "string",
-            title: "String"
+            title: "String",
           },
           checkbox: {
             type: "boolean",
-            title: "Checkbox"
+            title: "Checkbox",
           },
           select: {
             type: "string",
             enum: [],
-            title: "Remote Select"
-          }
-        }
-      }
+            title: "Remote Select",
+          },
+        },
+      },
     },
     us_states: {
       type: "string",
-      title: "US States"
+      title: "US States",
+    },
+    react_place_field: {
+      type: "string",
+      title: "Places",
     },
     signature: {
       type: "string",
       title: "Signer",
-      format: "data-url"
+      format: "data-url",
     },
     raw_html: {
       type: "string",
-      title: "Raw HTML"
+      title: "Raw HTML",
     },
     react_photo_gallery: {
       title: "Photo Gallery",
       type: "object",
-      required: ['attachments'],
+      required: ["attachments"],
       properties: {
-        attachments: { type: "array" }
+        attachments: { type: "array" },
       },
     },
     react_dropzone: {
@@ -163,20 +171,57 @@ const schema = {
       // required: true
     },
     react_qr_reader: {
-      title: 'QR Reader',
-      type: 'string'
+      title: "QR Reader",
+      type: "string",
     },
     react_scanner: {
-      title: 'Scanner',
-      type: 'string'
+      title: "Scanner",
+      type: "string",
     },
     react_tree_select: {
       title: 'Tree Select',
-      type: 'array'      
+      type: 'array',
+      options: treeOptions
     },
-    react_remote_tree_select  : {
+    react_remote_tree_select: {
       title: 'Tree Select Remote',
       type: 'array'
+    },
+    prepopulated_address: {
+      title: 'Prepopulated Address',
+      type: 'object',
+    },
+    first_address: {
+      title: 'First Address (Prepopulated)',
+      type: 'string',
+    },
+    second_address: {
+      title: 'Second Address (Prepopulated)',
+      type: 'string',
+    },
+    city: {
+      title: 'City (Prepopulated)',
+      type: 'string',
+    },
+    state: {
+      title: 'State (Prepopulated)',
+      type: 'string',
+    },
+    country: {
+      title: 'Country (Prepopulated)',
+      type: 'string',
+    },
+    postcode: {
+      title: 'Postal Code (Prepopulated)',
+      type: 'string',
+    },
+    latitude: {
+      title: 'Latitude (Prepopulated)',
+      type: 'string',
+    },
+    longitude: {
+      title: 'Longitude (Prepopulated)',
+      type: 'string',
     },
     react_formula_field: {
       "title": "Calculations",
@@ -204,29 +249,29 @@ const uiSchema = {
   textarea: {
     "ui:widget": "textarea",
     "ui:options": {
-      rows: 4
+      rows: 4,
     },
   },
   test_react_select_with_enumNames: {
-    "ui:widget": "ReactSelectWidget"
+    "ui:widget": "ReactSelectWidget",
   },
   test_react_select_without_enumNames: {
     "ui:widget": "ReactSelectWidget",
     "ui:options": {
-      "isSearchable": true,
-      "isClearable": true,
-      "remote": {
-        "headers": {},
-        "paths": {}
-      }
-    }
+      isSearchable: true,
+      isClearable: true,
+      remote: {
+        headers: {},
+        paths: {},
+      },
+    },
   },
   test_react_select_createable: {
     "ui:widget": "ReactSelectWidget",
     "ui:options": {
-      "isCreateable": true,
-      "isMulti": true
-    }
+      isCreateable: true,
+      isMulti: true,
+    },
   },
   test_react_select_array: {
     "ui:widget": "ReactSelectWidget",
@@ -237,75 +282,83 @@ const uiSchema = {
   test_react_select_remote: {
     "ui:widget": "ReactSelectWidget",
     "ui:options": {
-      "isMulti": true,
-      "remote": {
-        "url": "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
-        "headers": {
-          "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
+      isMulti: true,
+      remote: {
+        url:
+          "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
+        headers: {
+          Authorization: "Bearer keyKM5nPQi7efGQ9Z",
         },
-        "paths": {
-          "record": ["records"],
-          "value": ["id"],
-          "label": ["fields", "Name"]
-        }
-      }
-    }
+        paths: {
+          record: ["records"],
+          value: ["id"],
+          label: ["fields", "Name"],
+        },
+      },
+    },
   },
   currency: {
     "ui:widget": "CurrencyWidget",
     "ui:options": {
-      "precision": 2
-    }
+      precision: 2,
+    },
   },
   percent: {
     "ui:widget": "PercentWidget",
     "ui:options": {
-      "digits": 0
-    }
+      digits: 0,
+    },
   },
   date: {
     "ui:widget": "ReactDatePickerWidget",
     "ui:options": {
-      "format": {
-        "data": "MM-DD-YYYY",
-        "display": "DD/MM/YYYY"
-      }
-    }
+      format: {
+        data: "MM-DD-YYYY",
+        display: "DD/MM/YYYY",
+      },
+    },
   },
   array_template: {
     items: {
       select: {
         "ui:widget": "ReactSelectWidget",
         "ui:options": {
-          "isMulti": false,
-          "remote": {
-            "url": "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
-            "headers": {
-              "Authorization": "Bearer keyKM5nPQi7efGQ9Z"
+          isMulti: false,
+          remote: {
+            url:
+              "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
+            headers: {
+              Authorization: "Bearer keyKM5nPQi7efGQ9Z",
             },
-            "paths": {
-              "record": ["records"],
-              "value": ["id"],
-              "label": ["fields", "Name"]
-            }
-          }
-        }
-      }
-    }
+            paths: {
+              record: ["records"],
+              value: ["id"],
+              label: ["fields", "Name"],
+            },
+          },
+        },
+      },
+    },
   },
   signature: {
     "ui:field": "ReactSignatureCanvasField",
     "ui:options": {
-      "width": 300,
-      "height": 100
-    }
+      width: 300,
+      height: 100,
+    },
   },
   us_states: {
-    "ui:widget": "StatesWidget"
+    "ui:widget": "StatesWidget",
+  },
+  react_place_field: {
+    "ui:field": "ReactPlaceField",
+    "ui:options": {
+      api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU",
+    },
   },
   raw_html: {
     "ui:field": "RawHTMLField",
-    "ui:options": { html: "<h1>Hi</h1>" }
+    "ui:options": { html: "<h1>Hi</h1>" },
   },
   react_photo_gallery: {
     "ui:field": "ReactPhotoGalleryField",
@@ -327,10 +380,10 @@ const uiSchema = {
     }
   },
   react_qr_reader: {
-    "ui:field": "ReactQRReaderField"
+    "ui:field": "ReactQRReaderField",
   },
   react_scanner: {
-    "ui:field": "ReactScannerField"
+    "ui:field": "ReactScannerField",
   },
   react_tree_select: {
     "ui:field": "ReactTreeSelectField",
@@ -342,7 +395,7 @@ const uiSchema = {
     "ui:field": "ReactFormulaField",
     "ui:options": {
       "formulas": {
-         "c": "a[i]+b[i]"
+        "c": "a[i]+b[i]"
       },
       "confirmRemove": true,
       "removable": true,
@@ -383,7 +436,23 @@ const uiSchema = {
         ]
       }
     }
-  }
+  },
+  prepopulated_address: {
+    "ui:field": "ReactPlaceAutofillField",
+    "ui:options": {
+      api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU",
+      showFields: true,
+      updateAdjacentFields: true,
+      fields: {
+        address_1: 'first_address',
+        address_2: 'second_address',
+        city: 'city',
+        state: 'state',
+        postal_code: 'postcode',
+        country: 'country',
+      }
+    },
+  },
 };
 
 const formData = {
@@ -398,27 +467,27 @@ const formData = {
 }
 
 class FormComponent extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
-      ...props
-    }
+      ...props,
+    };
   }
 
   componentDidMount() {
-    initListenerAutoResize()
+    initListenerAutoResize();
   }
 
   handleSubmit = (formData) => {
     alert(`submitted data is ${JSON.stringify(formData)}`);
     console.log("submitted", formData);
-  }
+  };
 
   render() {
     return (
       <div className="App">
-        <br /><br />
+        <br />
+        <br />
         <div className="row">
           <div className="col-md-6">
             <h2>Test Form</h2>
@@ -437,18 +506,24 @@ class FormComponent extends Component {
               showErrorList={true}
             >
               <div>
-                <button type="submit" className="btn btn-info" disabled={this.state.schema.readOnly}>Submit</button>
+                <button
+                  type="submit"
+                  className="btn btn-info"
+                  disabled={this.state.schema.readOnly}
+                >
+                  Submit
+                </button>
               </div>
             </Form>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 function App() {
-  return <FormComponent schema={schema} uiSchema={uiSchema} />
+  return <FormComponent schema={schema} uiSchema={uiSchema} />;
 }
 
-export default App
+export default App;
