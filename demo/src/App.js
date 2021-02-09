@@ -468,33 +468,35 @@ const uiSchema = {
     "ui:options": {
       isCreateable: false,
       isMulti: true,
-      treeOptions: [
-        {
-          id: 1,
-          url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes",
-          record: ["items"],
-          label: ["name"],
-          value: ["id"],
-        },
-        {
-          id: 2,
-          parent: 3,
-          url:
-            "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances/{{parent[1]}}/parts",
-          record: ["parts"],
-          label: ["item"],
-          value: ["partCode"],
-        },
-        {
-          id: 3,
-          parent: 1,
-          url:
-            "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances",
-          record: ["items"],
-          label: ["appliance"],
-          value: ["code"],
-        },
-      ],
+      remote: {
+        data: [
+          {
+            id: 1,
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes",
+            record: ["items"],
+            label: ["name"],
+            value: ["id"],
+          },
+          {
+            id: 2,
+            parent: 3,
+            url:
+              "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances/{{parent[1]}}/parts",
+            record: ["parts"],
+            label: ["item"],
+            value: ["partCode"],
+          },
+          {
+            id: 3,
+            parent: 1,
+            url:
+              "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances",
+            record: ["items"],
+            label: ["appliance"],
+            value: ["code"],
+          },
+        ],
+      },
     },
   },
   prepopulated_address: {
