@@ -6,65 +6,44 @@ import Gallery from "react-photo-gallery";
 import { ReactDropZoneWidget } from "../../index";
 import PhotoItem from "./components/PhotoItem";
 
-const readFile = (file, callback) => {
-  const reader = new FileReader();
-  reader.addEventListener("load", (event) => {
-    const { result } = event.target;
-    const img = new Image();
-    img.src = result;
-    img.onload = () => {
-      callback({
-        isLocal: true,
-        src: result,
-        file,
-        width: img.width,
-        height: img.height,
-      });
-    };
-  });
-  reader.readAsDataURL(file);
-};
-
 class ReactPhotoGalleryField extends React.Component {
-  state = {
-    isReading: false,
-  };
-
   handleRemoveFile = (index) => {
     const { formData, onChange } = this.props;
-    const newFormData = { ...formData };
-    newFormData.attachments = newFormData.attachments.filter(
-      (item, i) => i !== index
-    );
+    const newFormData = _.reject(formData || [], (item, i) => i === index);
     onChange && onChange(newFormData);
   };
 
-  handleAcceptFiles = async (acceptedFiles) => {
-    const fileUploadUrl = _.get(
-      this.props,
-      "uiSchema.ui:options.fileUploadUrl"
-    );
-    const authenticityToken = _.get(
-      this.props,
-      "uiSchema.ui:options.authenticity_token"
-    );
-
-    this.setState({ isSaving: true });
+  createFormData(acceptedFiles, authenticityToken) {
     var data = new FormData();
     for (const file of acceptedFiles) {
       data.append("attachments", file, file.name);
     }
     data.append("authenticity_token", authenticityToken);
-    const response = await axios.post(fileUploadUrl, data, {
+    return data;
+  }
+
+  handleAcceptFiles = async (acceptedFiles) => {
+    const { onChange } = this.props;
+    const {
+      fileUploadUrl,
+      authenticity_token: authenticityToken
+    } = _.get(this.props, "uiSchema.ui:options", {}) || {};
+    const formData = this.createFormData(acceptedFiles);
+    const response = await axios.post(fileUploadUrl, formData, {
       headers: {
         Accept: "application/json",
         "X-CSRF-Token": authenticityToken,
       },
     });
     const responseData = _.get(response, "data");
-    this.state.attachments.push(responseData);
-    this.setState({ attachments: this.state.attachments });
-    this.state.onChange(this.state.attachments);
+    const attachments = this.getAttachments();
+    if (_.isArray(responseData)) {
+      const newAttachments = [...attachments, ...responseData];
+      onChange && onChange(newAttachments);
+    } else {
+      attachments.push(responseData);
+      onChange && onChange(attachments);
+    }
   };
 
   isDisabled() {
@@ -73,13 +52,17 @@ class ReactPhotoGalleryField extends React.Component {
     return isDisabled;
   }
 
-  get attachments() {
-    return _.get(this.props, "formdata.attachments", []) || [];
+  getAttachments() {
+    const attachments = _.get(this.props, "formData", []) || [];
+    if (_.isArray(attachments)) {
+      return attachments;
+    } else {
+      return [];
+    }
   }
 
   isColumnLayout() {
-    const isColumnLayout = this.attachments.length > 1;
-    return isColumnLayout;
+    return !_.isEmpty(this.getAttachments);
   }
 
   renderPhotos = (item) => {
@@ -95,8 +78,8 @@ class ReactPhotoGalleryField extends React.Component {
 
   render() {
     const { schema, uploadComponent } = this.props;
-    const { isSaving } = this.state;
     const UploadComponent = uploadComponent || ReactDropZoneWidget;
+    const renderedAttachments = _.map(this.getAttachments(), ({ url }) => ({ src: url, width: 1, height: 1 }));
     return (
       <Form.Group>
         <Form.Label>{schema.title}</Form.Label>
@@ -104,14 +87,13 @@ class ReactPhotoGalleryField extends React.Component {
           {!this.isDisabled() && (
             <UploadComponent
               title={schema.title}
-              isReading={isSaving}
               accepted={["image/*"]}
               onAcceptedFiles={this.handleAcceptFiles}
               className={"d-print-none"}
             />
           )}
           <Gallery
-            photos={this.attachments}
+            photos={renderedAttachments}
             renderImage={this.renderPhotos}
             columns={2}
             direction={this.isColumnLayout() ? "column" : "row"}

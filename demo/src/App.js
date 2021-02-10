@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Form from "react-jsonschema-form";
+import Form from "../../src/forms/index";
+
 import {
   ArrayFieldTemplate,
   CurrencyWidget,
@@ -11,6 +12,8 @@ import {
   ReactSignatureCanvasField,
   StatesWidget,
   ReactDropZoneWidget,
+  ReactPlaceField,
+  ReactPlaceAutofillField,
   ReactPhotoGalleryField,
   ReactQRReaderField,
   ReactScannerField,
@@ -32,6 +35,8 @@ const widgets = {
 
 const fields = {
   RawHTMLField: RawHTMLField,
+  ReactPlaceField: ReactPlaceField,
+  ReactPlaceAutofillField: ReactPlaceAutofillField,
   ReactPhotoGalleryField: ReactPhotoGalleryField,
   ReactSignatureCanvasField: ReactSignatureCanvasField,
   ReactQRReaderField: ReactQRReaderField,
@@ -39,18 +44,20 @@ const fields = {
   ReactTreeSelectField: ReactTreeSelectField,
   ReactFormulaField: ReactFormulaField,
 };
+
+const CORS_ANYWHERE = 'https://cors-anywhere.herokuapp.com';
 const API_END_POINT = "https://602105a446f1e40017803b1d.mockapi.io/photos";
+
+const withCors = (url) => {
+  return `${CORS_ANYWHERE}/${url}`;
+}
 
 const log = (type) => console.log.bind(console, type);
 
 const schema = {
   type: "object",
   // readOnly: true,
-  required: [
-    "react_dropzone",
-    "react_dropzone_2",
-    "test_react_select_without_enumNames",
-  ],
+  required: ["prepopulated_address", "react_dropzone", "react_dropzone_2", "test_react_select_without_enumNames"],
   properties: {
     textarea: {
       title: "Textarea auto resize content",
@@ -130,6 +137,10 @@ const schema = {
       type: "string",
       title: "US States",
     },
+    react_place_field: {
+      type: "string",
+      title: "Places",
+    },
     signature: {
       type: "string",
       title: "Signer",
@@ -176,12 +187,49 @@ const schema = {
       type: "string",
     },
     react_tree_select: {
-      title: "Tree Select",
-      type: "array",
+      title: 'Tree Select',
+      type: 'array',
+      options: treeOptions
     },
     react_remote_tree_select: {
-      title: "Tree Select Remote",
-      type: "array",
+      title: 'Tree Select Remote',
+      type: 'array'
+    },
+    prepopulated_address: {
+      title: 'Prepopulated Address',
+      type: 'object',
+    },
+    first_address: {
+      title: 'First Address (Prepopulated)',
+      type: 'string',
+    },
+    second_address: {
+      title: 'Second Address (Prepopulated)',
+      type: 'string',
+    },
+    city: {
+      title: 'City (Prepopulated)',
+      type: 'string',
+    },
+    state: {
+      title: 'State (Prepopulated)',
+      type: 'string',
+    },
+    country: {
+      title: 'Country (Prepopulated)',
+      type: 'string',
+    },
+    postcode: {
+      title: 'Postal Code (Prepopulated)',
+      type: 'string',
+    },
+    latitude: {
+      title: 'Latitude (Prepopulated)',
+      type: 'string',
+    },
+    longitude: {
+      title: 'Longitude (Prepopulated)',
+      type: 'string',
     },
     react_formula_field: {
       title: "Calculations",
@@ -286,7 +334,7 @@ const uiSchema = {
           isMulti: false,
           remote: {
             url:
-              "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
+            "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
             headers: {
               Authorization: "Bearer keyKM5nPQi7efGQ9Z",
             },
@@ -310,6 +358,12 @@ const uiSchema = {
   us_states: {
     "ui:widget": "StatesWidget",
   },
+  react_place_field: {
+    "ui:field": "ReactPlaceField",
+    "ui:options": {
+      api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU",
+    },
+  },
   raw_html: {
     "ui:field": "RawHTMLField",
     "ui:options": { html: "<h1>Hi</h1>" },
@@ -317,7 +371,7 @@ const uiSchema = {
   react_photo_gallery: {
     "ui:field": "ReactPhotoGalleryField",
     "ui:options": {
-      fileUploadUrl: API_END_POINT,
+      fileUploadUrl: '/api/users',
       authenticity_token: "",
     },
   },

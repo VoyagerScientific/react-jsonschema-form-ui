@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
-import {render} from 'react-dom';
-import bootstrap from 'bootstrap';
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import createServer from '../../server';
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import './index.css';
 import App from './App';
+
 
 class Demo extends Component {
   render() {
@@ -17,4 +18,5 @@ class Demo extends Component {
   }
 }
 
-render(<Demo/>, document.querySelector('#demo'))
+createServer();
+render(<Demo />, document.querySelector('#demo'))
