@@ -13,15 +13,6 @@ class ReactPhotoGalleryField extends React.Component {
     onChange && onChange(newFormData);
   };
 
-  createFormData(acceptedFiles, authenticityToken) {
-    var data = new FormData();
-    for (const file of acceptedFiles) {
-      data.append("attachments", file, file.name);
-    }
-    data.append("authenticity_token", authenticityToken);
-    return data;
-  }
-
   handleAcceptFiles = async (acceptedFiles) => {
     const { onChange } = this.props;
     const {
@@ -52,6 +43,15 @@ class ReactPhotoGalleryField extends React.Component {
     return isDisabled;
   }
 
+  createFormData(acceptedFiles, authenticityToken) {
+    var data = new FormData();
+    for (const file of acceptedFiles) {
+      data.append("attachments", file, file.name);
+    }
+    data.append("authenticity_token", authenticityToken);
+    return data;
+  }
+
   getAttachments() {
     const attachments = _.get(this.props, "formData", []) || [];
     if (_.isArray(attachments)) {
@@ -76,10 +76,19 @@ class ReactPhotoGalleryField extends React.Component {
     );
   };
 
+  renderGallery() {
+    const renderedAttachments = _.map(this.getAttachments(), ({ url }) => ({ src: url, width: 1, height: 1 }));
+    return <Gallery
+      photos={renderedAttachments}
+      renderImage={this.renderPhotos}
+      columns={2}
+      direction={this.isColumnLayout() ? "column" : "row"}
+    />
+  }
+
   render() {
     const { schema, uploadComponent } = this.props;
     const UploadComponent = uploadComponent || ReactDropZoneWidget;
-    const renderedAttachments = _.map(this.getAttachments(), ({ url }) => ({ src: url, width: 1, height: 1 }));
     return (
       <Form.Group>
         <Form.Label>{schema.title}</Form.Label>
@@ -92,12 +101,7 @@ class ReactPhotoGalleryField extends React.Component {
               className={"d-print-none"}
             />
           )}
-          <Gallery
-            photos={renderedAttachments}
-            renderImage={this.renderPhotos}
-            columns={2}
-            direction={this.isColumnLayout() ? "column" : "row"}
-          />
+          {this.renderGallery()}
         </div>
       </Form.Group>
     );

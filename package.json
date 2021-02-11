@@ -58,8 +58,8 @@
     "react": "16.x"
   },
   "devDependencies": {
-    "nwb": "0.25.x",
     "miragejs": "^0.1.41",
+    "nwb": "0.25.x",
     "react": "^16.13.0"
   },
   "author": "Matt Monihan",
