@@ -193,7 +193,7 @@ const schema = {
     },
     react_remote_tree_select: {
       title: 'Tree Select Remote',
-      type: 'array'
+      type: 'array',
     },
     prepopulated_address: {
       title: 'Prepopulated Address',

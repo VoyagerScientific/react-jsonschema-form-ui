@@ -58,7 +58,6 @@ class ReactPlaceAutofillField extends React.Component {
 
     const [geocode] = await geocodeByPlaceId(address.placeId);
     const firstAddress = this.getFieldByGeoCode(geocode, ["street_number", "route", "neighborhood"]);
-    const secondAddress = this.getFieldByGeoCode(geocode, ["sublocality", "administrative_area_level_3", "administrative_area_level_2"]);
     const city = this.getFieldByGeoCode(geocode, "locality");
     const state = this.getFieldByGeoCode(geocode, "administrative_area_level_1");
     const country = this.getFieldByGeoCode(geocode, "country");
@@ -66,7 +65,7 @@ class ReactPlaceAutofillField extends React.Component {
     const { lat, lng } = this.getFieldLocation(geocode);
     const addressData = {
       [fieldNames.address_1]: firstAddress,
-      [fieldNames.address_2]: secondAddress,
+      [fieldNames.address_2]: null,
       [fieldNames.postal_code]: postalCode,
       [fieldNames.state]: state,
       [fieldNames.city]: city,
