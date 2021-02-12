@@ -17,10 +17,10 @@ import {
   ReactPhotoGalleryField,
   ReactQRReaderField,
   ReactScannerField,
-  ReactTreeSelectField
-} from '../../src/index';
-import treeOptions from './tree-options';
-import './App.css'
+  ReactTreeSelectField,
+} from "../../src/index";
+import treeOptions from "./tree-options";
+import "./App.css";
 
 import { initListenerAutoResize } from "../../src/utils/helpers";
 
@@ -52,7 +52,12 @@ const log = (type) => console.log.bind(console, type);
 const schema = {
   type: "object",
   // readOnly: true,
-  required: ["prepopulated_address", "react_dropzone", "react_dropzone_2","test_react_select_without_enumNames"],
+  required: [
+    "prepopulated_address",
+    "react_dropzone",
+    "react_dropzone_2",
+    "test_react_select_without_enumNames",
+  ],
   properties: {
     textarea: {
       title: "Textarea auto resize content",
@@ -182,31 +187,31 @@ const schema = {
       type: "string",
     },
     react_tree_select: {
-      title: 'Tree Select',
-      type: 'array'      
+      title: "Tree Select",
+      type: "array",
     },
-    react_remote_tree_select  : {
-      title: 'Tree Select Remote',
-      type: 'array'
+    react_remote_tree_select: {
+      title: "Tree Select Remote",
+      type: "array",
     },
     react_formula_field: {
-      "title": "Calculations",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "a": {
-            "type": "number"
+      title: "Calculations",
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          a: {
+            type: "number",
           },
-          "b": {
-            "type": "number"
+          b: {
+            type: "number",
           },
-          "c": {
-            "type": "number",
-            "readOnly": true
-          }
-        }
-      }
+          c: {
+            type: "number",
+            readOnly: true,
+          },
+        },
+      },
     },
     prepopulated_address: {
       title: "Prepopulated Address",
@@ -254,19 +259,19 @@ const schema = {
             type: "string",
           },
         },
-        "Cleanliness": {
+        Cleanliness: {
           type: "array",
           items: {
             type: "string",
           },
         },
-        "Responsiveness": {
+        Responsiveness: {
           type: "array",
           items: {
             type: "string",
           },
         },
-        "Friendliness": {
+        Friendliness: {
           type: "array",
           items: {
             type: "string",
@@ -281,13 +286,13 @@ const schema = {
         "Service Quality": {
           type: "string",
         },
-        "Cleanliness": {
+        Cleanliness: {
           type: "string",
         },
-        "Responsiveness": {
+        Responsiveness: {
           type: "string",
         },
-        "Friendliness": {
+        Friendliness: {
           type: "string",
         },
       },
@@ -307,7 +312,7 @@ const uiSchema = {
     },
   },
   test_react_select_with_enumNames: {
-    "ui:widget": "ReactSelectWidget"
+    "ui:widget": "ReactSelectWidget",
   },
   test_react_select_without_enumNames: {
     "ui:widget": "ReactSelectWidget",
@@ -330,8 +335,8 @@ const uiSchema = {
   test_react_select_array: {
     "ui:widget": "ReactSelectWidget",
     "ui:options": {
-      "isList": true,
-    }
+      isList: true,
+    },
   },
   test_react_select_remote: {
     "ui:widget": "ReactSelectWidget",
@@ -419,19 +424,19 @@ const uiSchema = {
   },
   react_dropzone: {
     "ui:widget": "ReactDropZoneWidget",
-    "fieldType": "react-drop-zone",
+    fieldType: "react-drop-zone",
     "ui:options": {
       accepted: ["image/*", "application/pdf"],
       withFileDisplay: true,
-    }
+    },
   },
   react_dropzone_2: {
     "ui:widget": "ReactDropZoneWidget",
-    "fieldType": "react-drop-zone",
+    fieldType: "react-drop-zone",
     "ui:options": {
       accepted: ["application/pdf"],
       withFileDisplay: true,
-    }
+    },
   },
   react_qr_reader: {
     "ui:field": "ReactQRReaderField",
@@ -442,55 +447,57 @@ const uiSchema = {
   react_tree_select: {
     "ui:field": "ReactTreeSelectField",
     "ui:options": {
-      "treeOptions": treeOptions
-    }
+      treeOptions: [...treeOptions],
+    },
   },
   react_formula_field: {
     "ui:field": "ReactFormulaField",
     "ui:options": {
-      "formulas": {
-         "c": "a[i]+b[i]"
+      formulas: {
+        c: "a[i]+b[i]",
       },
-      "confirmRemove": true,
-      "removable": true,
-      "height": 200,
-      "width": "100%"
-    }
+      confirmRemove: true,
+      removable: true,
+      height: 200,
+      width: "100%",
+    },
   },
 
   react_remote_tree_select: {
     "ui:field": "ReactTreeSelectField",
     "ui:options": {
-      "isCreateable": false,
-      "isMulti": true,
-      "remote": {
+      isCreateable: false,
+      isMulti: true,
+      remote: {
         data: [
           {
             id: 1,
             url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes",
             record: ["items"],
             label: ["name"],
-            value: ["id"]
+            value: ["id"],
           },
           {
             id: 2,
             parent: 3,
-            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances/{{parent[1]}}/parts",
+            url:
+              "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances/{{parent[1]}}/parts",
             record: ["parts"],
             label: ["item"],
-            value: ["partCode"]
+            value: ["partCode"],
           },
           {
             id: 3,
             parent: 1,
-            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances",
+            url:
+              "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances",
             record: ["items"],
             label: ["appliance"],
-            value: ["code"]
-          }
-        ]
-      }
-    }
+            value: ["code"],
+          },
+        ],
+      },
+    },
   },
   prepopulated_address: {
     "ui:field": "ReactPlaceAutofillField",
@@ -562,32 +569,32 @@ const uiSchema = {
 };
 
 const formData = {
-  "react_tree_select": ["child1", "child2", "child3"],
-  "react_dropzone": [],
-  "react_dropzone_2": [],
-  "react_formula_field": [
+  react_tree_select: ["child1", "child2", "child3"],
+  react_dropzone: [],
+  react_dropzone_2: [],
+  react_formula_field: [
     { a: 1, b: 2 },
     { a: 2, b: 4 },
     { a: 3, b: 6 },
   ],
   input_table_checkbox: {
-    "Cleanliness": ["Satisfied", "Somewhat Satisfied"],
+    Cleanliness: ["Satisfied", "Somewhat Satisfied"],
     "Service Quality": ["Somewhat Satisfied"],
-    "Responsiveness": ["Not Satisfied", "Very Satisfied"],
-    "Friendliness": ["Satisfied"],
+    Responsiveness: ["Not Satisfied", "Very Satisfied"],
+    Friendliness: ["Satisfied"],
   },
   input_table_radio: {
-    "Cleanliness": "Somewhat Satisfied",
+    Cleanliness: "Somewhat Satisfied",
     "Service Quality": "Not Satisfied",
-    "Responsiveness": "Satisfied",
-    "Friendliness": "Very Satisfied",
+    Responsiveness: "Satisfied",
+    Friendliness: "Very Satisfied",
   },
   input_table_button: {
     row: "Critical",
     column: "Low",
     value: 10
   },
-}
+};
 
 class FormComponent extends Component {
   constructor(props) {
