@@ -11,6 +11,7 @@ import {
   ReactSignatureCanvasField,
   StatesWidget,
   ReactDropZoneWidget,
+  ReactInputTableWidget,
   ReactPlaceField,
   ReactPlaceAutofillField,
   ReactPhotoGalleryField,
@@ -21,7 +22,7 @@ import {
 import treeOptions from "./tree-options";
 import "./App.css";
 
-import { initListenerAutoResize } from '../../src/utils/helpers';
+import { initListenerAutoResize } from "../../src/utils/helpers";
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
@@ -30,6 +31,7 @@ const widgets = {
   ReactDropZoneWidget: ReactDropZoneWidget,
   ReactSelectWidget: ReactSelectWidget,
   StatesWidget: StatesWidget,
+  ReactInputTableWidget: ReactInputTableWidget,
 };
 
 const fields = {
@@ -41,6 +43,7 @@ const fields = {
   ReactQRReaderField: ReactQRReaderField,
   ReactScannerField: ReactScannerField,
   ReactTreeSelectField: ReactTreeSelectField,
+  ReactInputTableWidget: ReactInputTableWidget,
   ReactFormulaField: ReactFormulaField,
 };
 
@@ -49,7 +52,12 @@ const log = (type) => console.log.bind(console, type);
 const schema = {
   type: "object",
   // readOnly: true,
-  required: ["prepopulated_address", "react_dropzone", "react_dropzone_2", "test_react_select_without_enumNames"],
+  required: [
+    "prepopulated_address",
+    "react_dropzone",
+    "react_dropzone_2",
+    "test_react_select_without_enumNames",
+  ],
   properties: {
     textarea: {
       title: "Textarea auto resize content",
@@ -179,70 +187,121 @@ const schema = {
       type: "string",
     },
     react_tree_select: {
-      title: 'Tree Select',
-      type: 'array',
-      options: treeOptions
+      title: "Tree Select",
+      type: "array",
     },
     react_remote_tree_select: {
-      title: 'Tree Select Remote',
-      type: 'array',
-    },
-    prepopulated_address: {
-      title: 'Prepopulated Address',
-      type: 'object',
-    },
-    first_address: {
-      title: 'First Address (Prepopulated)',
-      type: 'string',
-    },
-    second_address: {
-      title: 'Second Address (Prepopulated)',
-      type: 'string',
-    },
-    city: {
-      title: 'City (Prepopulated)',
-      type: 'string',
-    },
-    state: {
-      title: 'State (Prepopulated)',
-      type: 'string',
-    },
-    country: {
-      title: 'Country (Prepopulated)',
-      type: 'string',
-    },
-    postcode: {
-      title: 'Postal Code (Prepopulated)',
-      type: 'string',
-    },
-    latitude: {
-      title: 'Latitude (Prepopulated)',
-      type: 'string',
-    },
-    longitude: {
-      title: 'Longitude (Prepopulated)',
-      type: 'string',
+      title: "Tree Select Remote",
+      type: "array",
     },
     react_formula_field: {
-      "title": "Calculations",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "a": {
-            "type": "number"
+      title: "Calculations",
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          a: {
+            type: "number",
           },
-          "b": {
-            "type": "number"
+          b: {
+            type: "number",
           },
-          "c": {
-            "type": "number",
-            "readOnly": true
-          }
-        }
-      }
-    }
-  }
+          c: {
+            type: "number",
+            readOnly: true,
+          },
+        },
+      },
+    },
+    prepopulated_address: {
+      title: "Prepopulated Address",
+      type: "object",
+    },
+    first_address: {
+      title: "First Address (Prepopulated)",
+      type: "string",
+    },
+    second_address: {
+      title: "Second Address (Prepopulated)",
+      type: "string",
+    },
+    city: {
+      title: "City (Prepopulated)",
+      type: "string",
+    },
+    state: {
+      title: "State (Prepopulated)",
+      type: "string",
+    },
+    country: {
+      title: "Country (Prepopulated)",
+      type: "string",
+    },
+    postcode: {
+      title: "Postal Code (Prepopulated)",
+      type: "string",
+    },
+    latitude: {
+      title: "Latitude (Prepopulated)",
+      type: "string",
+    },
+    longitude: {
+      title: "Longitude (Prepopulated)",
+      type: "string",
+    },
+    input_table_checkbox: {
+      title: "Input Table (Checkbox)",
+      type: "object",
+      properties: {
+        "Service Quality": {
+          type: "array",
+          items: {
+            type: "string",
+          },
+        },
+        Cleanliness: {
+          type: "array",
+          items: {
+            type: "string",
+          },
+        },
+        Responsiveness: {
+          type: "array",
+          items: {
+            type: "string",
+          },
+        },
+        Friendliness: {
+          type: "array",
+          items: {
+            type: "string",
+          },
+        },
+      },
+    },
+    input_table_radio: {
+      title: "Input Table (Radio)",
+      type: "object",
+      properties: {
+        "Service Quality": {
+          type: "string",
+        },
+        Cleanliness: {
+          type: "string",
+        },
+        Responsiveness: {
+          type: "string",
+        },
+        Friendliness: {
+          type: "string",
+        },
+      },
+    },
+    input_table_button: {
+      title: "Input Table (Button)",
+      type: "string",
+    },
+  },
 };
 
 const uiSchema = {
@@ -269,15 +328,15 @@ const uiSchema = {
   test_react_select_createable: {
     "ui:widget": "ReactSelectWidget",
     "ui:options": {
-      isCreateable: true,
+      isCreateable: true, //props
       isMulti: true,
     },
   },
   test_react_select_array: {
     "ui:widget": "ReactSelectWidget",
     "ui:options": {
-      "isList": true,
-    }
+      isList: true,
+    },
   },
   test_react_select_remote: {
     "ui:widget": "ReactSelectWidget",
@@ -365,19 +424,19 @@ const uiSchema = {
   },
   react_dropzone: {
     "ui:widget": "ReactDropZoneWidget",
-    "fieldType": "react-drop-zone",
+    fieldType: "react-drop-zone",
     "ui:options": {
       accepted: ["image/*", "application/pdf"],
       withFileDisplay: true,
-    }
+    },
   },
   react_dropzone_2: {
     "ui:widget": "ReactDropZoneWidget",
-    "fieldType": "react-drop-zone",
+    fieldType: "react-drop-zone",
     "ui:options": {
       accepted: ["application/pdf"],
       withFileDisplay: true,
-    }
+    },
   },
   react_qr_reader: {
     "ui:field": "ReactQRReaderField",
@@ -388,54 +447,57 @@ const uiSchema = {
   react_tree_select: {
     "ui:field": "ReactTreeSelectField",
     "ui:options": {
-      "treeOptions": treeOptions
-    }
+      treeOptions: [...treeOptions],
+    },
   },
   react_formula_field: {
     "ui:field": "ReactFormulaField",
     "ui:options": {
-      "formulas": {
-        "c": "a[i]+b[i]"
+      formulas: {
+        c: "a[i]+b[i]",
       },
-      "confirmRemove": true,
-      "removable": true,
-      "height": 200,
-      "width": "100%"
-    }
+      confirmRemove: true,
+      removable: true,
+      height: 200,
+      width: "100%",
+    },
   },
+
   react_remote_tree_select: {
     "ui:field": "ReactTreeSelectField",
     "ui:options": {
-      "isCreateable": false,
-      "isMulti": true,
-      "remote": {
+      isCreateable: false,
+      isMulti: true,
+      remote: {
         data: [
           {
             id: 1,
             url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes",
             record: ["items"],
             label: ["name"],
-            value: ["id"]
+            value: ["id"],
           },
           {
             id: 2,
             parent: 3,
-            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances/{{parent[1]}}/parts",
+            url:
+              "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances/{{parent[1]}}/parts",
             record: ["parts"],
             label: ["item"],
-            value: ["partCode"]
+            value: ["partCode"],
           },
           {
             id: 3,
             parent: 1,
-            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances",
+            url:
+              "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances",
             record: ["items"],
             label: ["appliance"],
-            value: ["code"]
-          }
-        ]
-      }
-    }
+            value: ["code"],
+          },
+        ],
+      },
+    },
   },
   prepopulated_address: {
     "ui:field": "ReactPlaceAutofillField",
@@ -444,26 +506,94 @@ const uiSchema = {
       showFields: true,
       updateAdjacentFields: true,
       fields: {
-        address_1: 'first_address',
-        address_2: 'second_address',
-        city: 'city',
-        state: 'state',
-        postal_code: 'postcode',
-        country: 'country',
-      }
+        address_1: "first_address",
+        address_2: "second_address",
+        city: "city",
+        state: "state",
+        postal_code: "postcode",
+        country: "country",
+      },
+    },
+  },
+  input_table_checkbox: {
+    "ui:field": "ReactInputTableWidget",
+    "ui:options": {
+      inputTableType: "checkbox",
+      rows: [
+        "Service Quality",
+        "Cleanliness",
+        "Responsiveness",
+        "Friendliness",
+      ],
+      columns: [
+        "Not Satisfied",
+        "Somewhat Satisfied",
+        "Satisfied",
+        "Very Satisfied",
+      ],
+    },
+  },
+  input_table_radio: {
+    "ui:field": "ReactInputTableWidget",
+    "ui:options": {
+      inputTableType: "radio",
+      rows: [
+        "Service Quality",
+        "Cleanliness",
+        "Responsiveness",
+        "Friendliness",
+      ],
+      columns: [
+        "Not Satisfied",
+        "Somewhat Satisfied",
+        "Satisfied",
+        "Very Satisfied",
+      ],
+    },
+  },
+  input_table_button: {
+    "ui:field": "ReactInputTableWidget",
+    "ui:options": {
+      inputTableType: "button",
+      "rows": ["Critical", "Serious", "Medium", "Small", "Minor"],
+      "columns": ["Very Low", "Low", "Medium", "High", "Very High"],
+      "values" :[
+      [5, 10, 20, 20, 25],
+      [4, 8 , 12, 16, 20],
+      [3, 6, 9, 12, 15],
+      [2, 4, 6, 8, 10],
+      [1, 2, 3, 4, 5]
+      ]
     },
   },
 };
 
 const formData = {
-  "react_tree_select": ["child1", "child2", "child3"],
-  "react_dropzone": [],
-  "react_dropzone_2": [],
-  "react_formula_field": [
+  react_tree_select: ["child1", "child2", "child3"],
+  react_dropzone: [],
+  react_dropzone_2: [],
+  react_formula_field: [
     { a: 1, b: 2 },
     { a: 2, b: 4 },
     { a: 3, b: 6 },
-  ]
+  ],
+  input_table_checkbox: {
+    Cleanliness: ["Satisfied", "Somewhat Satisfied"],
+    "Service Quality": ["Somewhat Satisfied"],
+    Responsiveness: ["Not Satisfied", "Very Satisfied"],
+    Friendliness: ["Satisfied"],
+  },
+  input_table_radio: {
+    Cleanliness: "Somewhat Satisfied",
+    "Service Quality": "Not Satisfied",
+    Responsiveness: "Satisfied",
+    Friendliness: "Very Satisfied",
+  },
+  input_table_button: {
+    row: "Critical",
+    column: "Low",
+    value: 10
+  },
 };
 
 class FormComponent extends Component {
@@ -494,7 +624,7 @@ class FormComponent extends Component {
             <br />
             <Form
               formData={formData}
-              schema={this.state.schema}
+              schema={this.state.schema} //declaration of data types
               uiSchema={this.state.uiSchema}
               ArrayFieldTemplate={ArrayFieldTemplate}
               widgets={widgets}
