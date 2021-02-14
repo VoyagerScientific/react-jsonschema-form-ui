@@ -86,7 +86,7 @@ const schema = {
       type: "array",
       items: {
         type: "string",
-        enum: [],
+        // enum: [],
       },
       uniqueItems: true,
     },
@@ -282,7 +282,7 @@ const uiSchema = {
     }
   },
   test_react_select_remote: {
-    "ui:widget": "ReactSelectWidget",
+    "ui:FieldTemplate": "ReactSelectWidget",
     "ui:options": {
       isMulti: true,
       remote: {
