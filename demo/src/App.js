@@ -181,7 +181,9 @@ const schema = {
     react_tree_select: {
       title: 'Tree Select',
       type: 'array',
-      options: treeOptions
+      items: {
+        type: "string",
+      }
     },
     react_remote_tree_select: {
       title: 'Tree Select Remote',
