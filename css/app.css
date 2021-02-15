@@ -59,6 +59,7 @@
   background-color: white;
   width: 100%;
 }
+
 .is-list .react-select__multi-value {
   width: 100%;
   flex: 0 0 100%;
@@ -101,4 +102,32 @@
 
 .file-display.container {
   margin: 10px auto;
+}
+
+.buttonCell {
+  width: 100%;
+}
+
+.headerCell {
+  vertical-align: middle !important;
+}
+
+.input_table_cell_0-0, .input_table_cell_1-1, .input_table_cell_2-2, .input_table_cell_3-3,
+.input_table_cell_0-1, .input_table_cell_1-2, .input_table_cell_2-3, .input_table_cell_3-4, .input_table_cell_4-4,
+.input_table_cell_2-1, .input_table_cell_3-2
+ {
+  background-color: yellow;
+}
+.input_table_cell_1-0, .input_table_cell_2-0, .input_table_cell_3-0,
+.input_table_cell_3-1,
+.input_table_cell_4-0, .input_table_cell_4-1,  .input_table_cell_4-2,  .input_table_cell_4-3
+ {
+  background-color: orange;
+}
+
+.input_table_cell_0-2, .input_table_cell_0-3, .input_table_cell_0-4,
+.input_table_cell_1-3, .input_table_cell_1-4,
+.input_table_cell_2-4
+ {
+  background-color: red;
 }
