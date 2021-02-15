@@ -1,75 +1,111 @@
-import React, { useState } from 'react'
-import Gallery from 'react-photo-gallery'
+import React from "react";
+import axios from "axios";
+import { Form } from "react-bootstrap";
+import Gallery from "react-photo-gallery";
 
-import {ReactDropZoneWidget} from '../../index'
-import PhotoItem from './components/PhotoItem'
+import { ReactDropZoneWidget } from "../../index";
+import PhotoItem from "./components/PhotoItem";
 
-function readFile(file, callback) {
-  const reader = new FileReader()
-  reader.addEventListener('load', (event) => {
-    const { result } = event.target
-    const img = new Image()
-    img.src = result
-    img.onload = function () {
-      callback({ isLocal: true, src: result, file, width: img.width, height: img.height })
+class ReactPhotoGalleryField extends React.Component {
+  handleRemoveFile = (index) => {
+    const { formData, onChange } = this.props;
+    const newFormData = _.reject(formData || [], (item, i) => i === index);
+    onChange && onChange(newFormData);
+  };
+
+  handleAcceptFiles = async (acceptedFiles) => {
+    const { onChange } = this.props;
+    const {
+      fileUploadUrl,
+      authenticity_token: authenticityToken
+    } = _.get(this.props, "uiSchema.ui:options", {}) || {};
+    const formData = this.createFormData(acceptedFiles);
+    const response = await axios.post(fileUploadUrl, formData, {
+      headers: {
+        Accept: "application/json",
+        "X-CSRF-Token": authenticityToken,
+      },
+    });
+    const responseData = _.get(response, "data");
+    const attachments = this.getAttachments();
+    if (_.isArray(responseData)) {
+      const newAttachments = [...attachments, ...responseData];
+      onChange && onChange(newAttachments);
+    } else {
+      attachments.push(responseData);
+      onChange && onChange(attachments);
     }
-  })
-  reader.readAsDataURL(file)
-}
+  };
 
-function ReactPhotoGalleryField(props) {
-  const { formData, onChange } = props
-  const [isReading, setIsReading] = useState(false)
-
-  const onAcceptedFiles = files => {
-    setIsReading(true)
-    const newFiles = []
-    files.map(f => readFile(f, (p) => {
-      newFiles.push(p)
-      if (files.length === newFiles.length) {
-        setIsReading(false)
-        const newFormData = { ...formData }
-        newFormData.attachments = [...newFormData.attachments || [], ...newFiles]
-        onChange(newFormData)
-      }
-    }))
+  isDisabled() {
+    const { readonly, readOnly, disabled } = this.props;
+    const isDisabled = readonly || readOnly || disabled;
+    return isDisabled;
   }
 
-  const onRemoveFile = index => {
-    const newFormData = { ...formData }
-    newFormData.attachments = newFormData.attachments.filter((item, i) => i !== index)
-    onChange(newFormData)
+  createFormData(acceptedFiles, authenticityToken) {
+    var data = new FormData();
+    for (const file of acceptedFiles) {
+      data.append("attachments", file, file.name);
+    }
+    data.append("authenticity_token", authenticityToken);
+    return data;
   }
 
-  const UploadComponent = props.uploadComponent || ReactDropZoneWidget;
+  getAttachments() {
+    const attachments = _.get(this.props, "formData", []) || [];
+    if (_.isArray(attachments)) {
+      return attachments;
+    } else {
+      return [];
+    }
+  }
 
-  const attachments = formData.attachments || []
-  const isDisabled = props.readonly || props.readOnly || props.disabled
-  const isColumnLayout = attachments.length > 1
+  isColumnLayout() {
+    return !_.isEmpty(this.getAttachments);
+  }
 
-  const _renderPhoto = item => (
-    <PhotoItem
-      {...item}
-      key={item.index}
-      isColumn={isColumnLayout}
-      onRemove={onRemoveFile}
+  renderPhotos = (item) => {
+    return (
+      <PhotoItem
+        {...item}
+        key={item.index}
+        isColumn={this.isColumnLayout()}
+        onRemove={this.handleRemoveFile}
+      />
+    );
+  };
+
+  renderGallery() {
+    const renderedAttachments = _.map(this.getAttachments(), ({ url }) => ({ src: url, width: 1, height: 1 }));
+    return <Gallery
+      photos={renderedAttachments}
+      renderImage={this.renderPhotos}
+      columns={2}
+      direction={this.isColumnLayout() ? "column" : "row"}
     />
-  )
+  }
 
-  return (
-    <div className="react-gallery">
-      <h2>{props.schema.title}</h2>
-      {!isDisabled && (
-        <UploadComponent
-          isReading={isReading}
-          accepted={["image/*"]}
-          onAcceptedFiles={onAcceptedFiles}
-          className={"d-print-none"}
-        />
-      )}
-      <Gallery photos={attachments} renderImage={_renderPhoto} columns={2} direction={isColumnLayout ? "column" : "row"} />
-    </div>
-  )
+  render() {
+    const { schema, uploadComponent } = this.props;
+    const UploadComponent = uploadComponent || ReactDropZoneWidget;
+    return (
+      <Form.Group>
+        <Form.Label>{schema.title}</Form.Label>
+        <div className="react-gallery">
+          {!this.isDisabled() && (
+            <UploadComponent
+              title={schema.title}
+              accepted={["image/*"]}
+              onAcceptedFiles={this.handleAcceptFiles}
+              className={"d-print-none"}
+            />
+          )}
+          {this.renderGallery()}
+        </div>
+      </Form.Group>
+    );
+  }
 }
 
-export default ReactPhotoGalleryField
+export default ReactPhotoGalleryField;

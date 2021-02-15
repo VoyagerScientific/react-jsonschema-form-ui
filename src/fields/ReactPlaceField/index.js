@@ -28,6 +28,7 @@ class ReactPlaceField extends Component {
   };
 
   async componentDidMount() {
+
     try {
       this.setState({ loading: true })
       const googleApiKey = _.get(this.props, "uiSchema.ui:options.api");
@@ -48,6 +49,8 @@ class ReactPlaceField extends Component {
         loading: false,
       });
     }
+  }
+  componentDidUpdate(){
   }
 
   renderPlaceInput({
