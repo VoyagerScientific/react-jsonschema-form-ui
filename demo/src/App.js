@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Form from "../../src/forms/index";
+
 import {
   ArrayFieldTemplate,
   CurrencyWidget,
@@ -46,6 +47,13 @@ const fields = {
   ReactInputTableWidget: ReactInputTableWidget,
   ReactFormulaField: ReactFormulaField,
 };
+
+const CORS_ANYWHERE = 'https://cors-anywhere.herokuapp.com';
+const API_END_POINT = "https://602105a446f1e40017803b1d.mockapi.io/photos";
+
+const withCors = (url) => {
+  return `${CORS_ANYWHERE}/${url}`;
+}
 
 const log = (type) => console.log.bind(console, type);
 
@@ -249,6 +257,25 @@ const schema = {
       title: "Longitude (Prepopulated)",
       type: "string",
     },
+    react_formula_field: {
+      title: "Calculations",
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          a: {
+            type: "number",
+          },
+          b: {
+            type: "number",
+          },
+          c: {
+            type: "number",
+            readOnly: true,
+          }
+        }
+      }
+    },
     input_table_checkbox: {
       title: "Input Table (Checkbox)",
       type: "object",
@@ -385,7 +412,7 @@ const uiSchema = {
           isMulti: false,
           remote: {
             url:
-              "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
+            "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
             headers: {
               Authorization: "Bearer keyKM5nPQi7efGQ9Z",
             },
@@ -421,6 +448,10 @@ const uiSchema = {
   },
   react_photo_gallery: {
     "ui:field": "ReactPhotoGalleryField",
+    "ui:options": {
+      fileUploadUrl: '/api/users',
+      authenticity_token: "",
+    },
   },
   react_dropzone: {
     "ui:widget": "ReactDropZoneWidget",

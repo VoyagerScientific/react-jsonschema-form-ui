@@ -58,6 +58,7 @@
     "react": "16.x"
   },
   "devDependencies": {
+    "miragejs": "^0.1.41",
     "nwb": "0.25.x",
     "react": "^16.13.0"
   },
