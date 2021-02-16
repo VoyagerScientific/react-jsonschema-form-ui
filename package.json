@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
+    "@rjsf/core": "^2.4.2",
     "@zxing/library": "^0.18.3",
     "accounting": "^0.4.1",
     "ag-grid-community": "^25.0.1",
