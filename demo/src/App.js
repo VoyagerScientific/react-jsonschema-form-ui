@@ -325,7 +325,7 @@ const schema = {
       },
     },
     input_table_button: {
-      title: "Input Table (Button)",
+      title: "Risk Matrix: Likelihood x Consequences",
       type: "string",
     },
   },
@@ -586,8 +586,8 @@ const uiSchema = {
     "ui:field": "ReactInputTableWidget",
     "ui:options": {
       inputTableType: "button",
-      "rows": ["Critical", "Serious", "Medium", "Small", "Minor"],
-      "columns": ["Very Low", "Low", "Medium", "High", "Very High"],
+      "rows": ["Very Likely (5)", "Likely (4)", "Possible (3)", "Unlikely (2)", "Very Unlikely (1)"],
+      "columns": ["Negligible (1)", "Minor (2)", "Moderate(3)", "Significant (4)", "Severe (5)"],
       "values" :[
       [5, 10, 20, 20, 25],
       [4, 8 , 12, 16, 20],
