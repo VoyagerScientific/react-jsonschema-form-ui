@@ -180,6 +180,11 @@ class ReactSelectWidget extends Component {
       return onChange && onChange(newValues);
     }
 
+    if (!isArrayType && actionObject.action === ACTION_TYPE.CLEAR) {
+      this.setState({ value: null });
+      return onChange && onChange(null);
+    }
+    
     onChange && onChange(e.value);
     this.setState({ value: e });
   }
