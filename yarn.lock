@@ -1021,7 +1021,7 @@
     "@babel/plugin-transform-react-jsx-self" "^7.9.0"
     "@babel/plugin-transform-react-jsx-source" "^7.9.0"
 
-"@babel/runtime-corejs2@^7.0.0-rc.1", "@babel/runtime-corejs2@^7.4.5", "@babel/runtime-corejs2@^7.8.7":
+"@babel/runtime-corejs2@^7.0.0-rc.1", "@babel/runtime-corejs2@^7.8.7":
   version "7.12.13"
   resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.12.13.tgz#c543e5797b9dc4a19af570bccfd0743d127f20fe"
   integrity sha512-BPjEhhHe12QsV4k2iRNvP95yB1Gpjj6/NMmVP++5Yw295Se/ZVXPePV8cC5cZ6nrZBmmsQ9n0JmeUobM8TbskA==
@@ -1248,6 +1248,13 @@
     lodash "^4.17.20"
     lodash-es "^4.17.20"
 
+"@rjsf/bootstrap-4@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@rjsf/bootstrap-4/-/bootstrap-4-2.4.2.tgz#34045605f314c1db0514bf00a6e9f032eec1e017"
+  integrity sha512-rbB373Kff6YRQ8XpO3j95sSQmJeFttbbunwT1bFog4+FjqfnMW46cYbRpOkTGYT23dGGxYD8yv8Q6uR7pMhc6g==
+  dependencies:
+    react-icons "^3.10.0"
+
 "@rjsf/core@^2.4.2":
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/@rjsf/core/-/core-2.4.2.tgz#ca2de19031ec00173082012cb0783d3f4ec977af"
@@ -1293,7 +1300,7 @@
   resolved "https://registry.yarnpkg.com/@types/invariant/-/invariant-2.2.34.tgz"
   integrity sha512-lYUtmJ9BqUN688fGY1U1HZoWT1/Jrmgigx2loq4ZcJpICECm/Om3V314BxdzypO0u5PORKGMM6x0OXaljV1YFg==
 
-"@types/json-schema@*", "@types/json-schema@^7.0.4", "@types/json-schema@^7.0.5":
+"@types/json-schema@^7.0.4", "@types/json-schema@^7.0.5":
   version "7.0.7"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.7.tgz#98a993516c859eb0d5c4c8f098317a9ea68db9ad"
   integrity sha512-cxWFQVseBm6O9Gbw1IWb8r6OS4OhSt3hPZLkFApLjM8TEXROBuQGLAH2i2gZpcXdLBIrpXuTDhH7Vbm1iXmNGA==
@@ -6040,11 +6047,6 @@ lodash.snakecase@^4.1.1:
   resolved "https://registry.yarnpkg.com/lodash.snakecase/-/lodash.snakecase-4.1.1.tgz#39d714a35357147837aefd64b5dcbb16becd8f8d"
   integrity sha1-OdcUo1NXFHg3rv1ktdy7Fr7Nj40=
 
-lodash.topath@^4.5.2:
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/lodash.topath/-/lodash.topath-4.5.2.tgz#3616351f3bba61994a0931989660bd03254fd009"
-  integrity sha1-NhY1Hzu6YZlKCTGYlmC9AyVP0Ak=
-
 lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
@@ -7982,6 +7984,13 @@ react-highlight-words@^0.16.0:
     memoize-one "^4.0.0"
     prop-types "^15.5.8"
 
+react-icons@^3.10.0:
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-3.11.0.tgz#2ca2903dfab8268ca18ebd8cc2e879921ec3b254"
+  integrity sha512-JRgiI/vdF6uyBgyZhVyYJUZAop95Sy4XDe/jmT3R/bKliFWpO/uZBwvSjWEdxwzec7SYbEPNPck0Kff2tUGM2Q==
+  dependencies:
+    camelcase "^5.0.0"
+
 react-inject-script@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-inject-script/-/react-inject-script-1.0.4.tgz"
@@ -8001,42 +8010,10 @@ react-input-autosize@^3.0.0:
   dependencies:
     prop-types "^15.5.8"
 
-react-is@^16.3.2, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.9.0:
+react-is@^16.3.2, react-is@^16.8.1, react-is@^16.9.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
-
-react-jsonschema-form-bs4@^1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/react-jsonschema-form-bs4/-/react-jsonschema-form-bs4-1.7.1.tgz#dbd7fbd0abf153a2bc8647ab94b30768e947e5d4"
-  integrity sha512-0SYhkHi9AByWsnE7lVokesFEpcb52QCCeHrhgvFO7lJ9IX6CBTr0ewjj7uERWY5OdWoCLA+tPcqO6RhA0R9TWQ==
-  dependencies:
-    "@babel/runtime-corejs2" "^7.4.5"
-    "@types/json-schema" "*"
-    "@types/react" "*"
-    ajv "^6.7.0"
-    core-js "^2.5.7"
-    lodash.get "^4.4.2"
-    lodash.pick "^4.4.0"
-    lodash.topath "^4.5.2"
-    prop-types "^15.5.8"
-    react-is "^16.8.4"
-    react-lifecycles-compat "^3.0.4"
-    shortid "^2.2.14"
-
-react-jsonschema-form@^1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/react-jsonschema-form/-/react-jsonschema-form-1.8.1.tgz"
-  integrity sha512-aaDloxNAcGXOOOcdKOxxqEEn5oDlPUZgWcs8unXXB9vjBRgCF8rCm/wVSv1u2G5ih0j/BX6Ewd/WjI2g00lPdg==
-  dependencies:
-    "@babel/runtime-corejs2" "^7.4.5"
-    ajv "^6.7.0"
-    core-js "^2.5.7"
-    lodash "^4.17.15"
-    prop-types "^15.5.8"
-    react-is "^16.8.4"
-    react-lifecycles-compat "^3.0.4"
-    shortid "^2.2.14"
 
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"

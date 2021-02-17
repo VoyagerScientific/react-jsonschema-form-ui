@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import Form from '@rjsf/core';
+import Form from '@rjsf/bootstrap-4';
 
 class SchemaForm extends React.Component {
   form = React.createRef();
