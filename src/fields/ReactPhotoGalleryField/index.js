@@ -18,8 +18,8 @@ class ReactPhotoGalleryField extends React.Component {
     const {
       fileUploadUrl,
       authenticity_token: authenticityToken
-    } = _.get(this.props, "uiSchema.ui:options", {}) || {};
-    const formData = this.createFormData(acceptedFiles);
+    } = _.get(this.props, "options") || {};
+    const formData = this.createFormData(acceptedFiles, authenticityToken);
     const response = await axios.post(fileUploadUrl, formData, {
       headers: {
         Accept: "application/json",

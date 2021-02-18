@@ -25,6 +25,15 @@ import "./App.css";
 
 import { initListenerAutoResize } from "../../src/utils/helpers";
 
+const fileUploadProps = {
+  options: {
+    fileUploadUrl: '/api/users',
+    authenticity_token: "",
+  }
+}
+
+ReactPhotoGalleryField.defaultProps = fileUploadProps;
+
 const widgets = {
   CurrencyWidget: CurrencyWidget,
   PercentWidget: PercentWidget,
@@ -447,11 +456,7 @@ const uiSchema = {
     "ui:options": { html: "<h1>Hi</h1>" },
   },
   react_photo_gallery: {
-    "ui:field": "ReactPhotoGalleryField",
-    "ui:options": {
-      fileUploadUrl: '/api/users',
-      authenticity_token: "",
-    },
+    "ui:field": "ReactPhotoGalleryField"
   },
   react_dropzone: {
     "ui:widget": "ReactDropZoneWidget",
