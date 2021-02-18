@@ -1,5 +1,5 @@
 import React from 'react';
-import IconButton from "react-jsonschema-form-bs4/lib/components/IconButton";
+import IconButton from "@rjsf/core/lib/components/IconButton";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 

@@ -1,6 +1,6 @@
 import expect from 'expect';
 import React, { Component } from 'react';
-import Form from 'react-jsonschema-form';
+import Form from '@rjsf/core';
 import {render, unmountComponentAtNode} from 'react-dom';
 
 import { ArrayFieldTemplate, CurrencyWidget, PercentWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from 'src/';

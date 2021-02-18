@@ -22,6 +22,8 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
+    "@rjsf/bootstrap-4": "^2.4.2",
+    "@rjsf/core": "^2.4.2",
     "@zxing/library": "^0.18.3",
     "accounting": "^0.4.1",
     "ag-grid-community": "^25.0.1",
@@ -44,8 +46,6 @@
     "react-fontawesome": "^1.7.1",
     "react-google-autocomplete": "^1.2.6",
     "react-inject-script": "^1.0.4",
-    "react-jsonschema-form": "^1.8.1",
-    "react-jsonschema-form-bs4": "^1.7.1",
     "react-photo-gallery": "^8.0.0",
     "react-places-autocomplete": "^7.3.0",
     "react-qr-reader": "^2.2.1",
