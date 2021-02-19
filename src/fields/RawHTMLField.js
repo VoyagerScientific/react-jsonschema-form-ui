@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Form } from "react-bootstrap";
 
 class RawHTMLField extends Component {
   constructor(props) {
@@ -13,10 +12,8 @@ class RawHTMLField extends Component {
   }
 
   render() {
-    // const { title } = _.get(this.props, "schema", {});
     return (
       <>
-        <Form.Label>{title}</Form.Label>
         <div dangerouslySetInnerHTML={this.state}></div>
       </>
     );
