@@ -58,6 +58,10 @@ textarea {
   border-radius: 12px;
 }
 
+.css-g1d714-ValueContainer {
+  height: 30px;
+}
+
 @media print {
   br,
   button[type="submit"] {

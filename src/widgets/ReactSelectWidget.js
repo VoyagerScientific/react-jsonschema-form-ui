@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Form } from "react-bootstrap";
 import AsyncSelect from "react-select/async";
 import AsyncCreatable from "react-select/async-creatable";
 import "whatwg-fetch";
@@ -190,78 +191,86 @@ class ReactSelectWidget extends Component {
       this.props.options.isMulti || this.props.schema.type === "array" || false;
     const isList = _.get(this.props, "options.isList", false);
 
+    const { title } = _.get(this.props, "schema", {});
+
     console.log("ReactSelectWidget:", this.props);
     if (isCreateable) {
       return (
-        <div>
-          <AsyncCreatable
-            classNamePrefix="react-select"
-            className={isList ? "is-list" : ""}
-            selectProps={{
-              className: isList ? "is-list-input" : "",
-            }}
-            cacheOptions
-            defaultOptions={
-              this.state.select_options.length
-                ? this.state.select_options
-                : true
-            }
-            loadOptions={this.getData()}
-            onChange={this.onChange}
-            isClearable={isClearable}
-            isMulti={isMulti}
-            isSearchable={isSearchable}
-            value={this.state.value}
-            isDisabled={this.state.disabled || this.state.readonly}
-          />
-          <input
-            name={this.props.id}
-            id={this.props.id}
-            style={{ position: "absolute", border: 0, width: 1, height: 1 }}
-            type="text"
-            onChange={(event) => {
-              return this.state.value;
-            }}
-            required={this.props.required}
-            value={this.state.value || ""}
-          />
-        </div>
+        <>
+          <Form.Label>{title}</Form.Label>
+          <div>
+            <AsyncCreatable
+              classNamePrefix="react-select"
+              className={isList ? "is-list" : ""}
+              selectProps={{
+                className: isList ? "is-list-input" : "",
+              }}
+              cacheOptions
+              defaultOptions={
+                this.state.select_options.length
+                  ? this.state.select_options
+                  : true
+              }
+              loadOptions={this.getData()}
+              onChange={this.onChange}
+              isClearable={isClearable}
+              isMulti={isMulti}
+              isSearchable={isSearchable}
+              value={this.state.value}
+              isDisabled={this.state.disabled || this.state.readonly}
+            />
+            <input
+              name={this.props.id}
+              id={this.props.id}
+              style={{ position: "absolute", border: 0, width: 1, height: 1 }}
+              type="text"
+              onChange={(event) => {
+                return this.state.value;
+              }}
+              required={this.props.required}
+              value={this.state.value || ""}
+            />
+          </div>
+        </>
       );
     } else {
       return (
-        <div>
-          <AsyncSelect
-            classNamePrefix="react-select"
-            className={isList ? "is-list" : ""}
-            cacheOptions
-            selectProps={{
-              className: isList ? "is-list-input" : "",
-            }}
-            defaultOptions={
-              this.state.select_options.length
-                ? this.state.select_options
-                : true
-            }
-            loadOptions={this.getData()}
-            onChange={this.onChange}
-            isClearable={isClearable}
-            isMulti={isMulti}
-            isSearchable={isSearchable}
-            value={this.state.value}
-            isDisabled={this.state.disabled || this.state.readonly}
-          />
-          <input
-            name={this.props.id}
-            id={this.props.id}
-            style={{ position: "absolute", border: 0, width: 1, height: 1 }}
-            type="text"
-            onChange={(event) => {
-              return this.state.value;
-            }}
-            required={this.props.required}
-            value={this.state.value || ""}
-          />
-        </div>
+        <>
+          <Form.Label>{title}</Form.Label>
+          <div>
+            <AsyncSelect
+              classNamePrefix="react-select"
+              className={isList ? "is-list" : ""}
+              cacheOptions
+              selectProps={{
+                className: isList ? "is-list-input" : "",
+              }}
+              defaultOptions={
+                this.state.select_options.length
+                  ? this.state.select_options
+                  : true
+              }
+              loadOptions={this.getData()}
+              onChange={this.onChange}
+              isClearable={isClearable}
+              isMulti={isMulti}
+              isSearchable={isSearchable}
+              value={this.state.value}
+              isDisabled={this.state.disabled || this.state.readonly}
+            />
+            <input
+              name={this.props.id}
+              id={this.props.id}
+              style={{ position: "absolute", border: 0, width: 1, height: 1 }}
+              type="text"
+              onChange={(event) => {
+                return this.state.value;
+              }}
+              required={this.props.required}
+              value={this.state.value || ""}
+            />
+          </div>
+        </>
       );
     }
   }
