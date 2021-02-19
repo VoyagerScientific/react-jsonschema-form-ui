@@ -27,10 +27,10 @@ import { initListenerAutoResize } from "../../src/utils/helpers";
 
 const fileUploadProps = {
   options: {
-    fileUploadUrl: '/api/users',
+    fileUploadUrl: "/api/users",
     authenticity_token: "",
-  }
-}
+  },
+};
 
 ReactPhotoGalleryField.defaultProps = fileUploadProps;
 
@@ -57,12 +57,12 @@ const fields = {
   ReactFormulaField: ReactFormulaField,
 };
 
-const CORS_ANYWHERE = 'https://cors-anywhere.herokuapp.com';
+const CORS_ANYWHERE = "https://cors-anywhere.herokuapp.com";
 const API_END_POINT = "https://602105a446f1e40017803b1d.mockapi.io/photos";
 
 const withCors = (url) => {
   return `${CORS_ANYWHERE}/${url}`;
-}
+};
 
 const log = (type) => console.log.bind(console, type);
 
@@ -281,9 +281,9 @@ const schema = {
           c: {
             type: "number",
             readOnly: true,
-          }
-        }
-      }
+          },
+        },
+      },
     },
     input_table_checkbox: {
       title: "Input Table (Checkbox)",
@@ -421,7 +421,7 @@ const uiSchema = {
           isMulti: false,
           remote: {
             url:
-            "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
+              "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
             headers: {
               Authorization: "Bearer keyKM5nPQi7efGQ9Z",
             },
@@ -456,7 +456,7 @@ const uiSchema = {
     "ui:options": { html: "<h1>Hi</h1>" },
   },
   react_photo_gallery: {
-    "ui:field": "ReactPhotoGalleryField"
+    "ui:field": "ReactPhotoGalleryField",
   },
   react_dropzone: {
     "ui:widget": "ReactDropZoneWidget",
@@ -591,15 +591,27 @@ const uiSchema = {
     "ui:field": "ReactInputTableWidget",
     "ui:options": {
       inputTableType: "button",
-      "rows": ["Very Likely (5)", "Likely (4)", "Possible (3)", "Unlikely (2)", "Very Unlikely (1)"],
-      "columns": ["Negligible (1)", "Minor (2)", "Moderate(3)", "Significant (4)", "Severe (5)"],
-      "values" :[
-      [5, 10, 20, 20, 25],
-      [4, 8 , 12, 16, 20],
-      [3, 6, 9, 12, 15],
-      [2, 4, 6, 8, 10],
-      [1, 2, 3, 4, 5]
-      ]
+      rows: [
+        "Very Likely (5)",
+        "Likely (4)",
+        "Possible (3)",
+        "Unlikely (2)",
+        "Very Unlikely (1)",
+      ],
+      columns: [
+        "Negligible (1)",
+        "Minor (2)",
+        "Moderate(3)",
+        "Significant (4)",
+        "Severe (5)",
+      ],
+      values: [
+        [5, 10, 20, 20, 25],
+        [4, 8, 12, 16, 20],
+        [3, 6, 9, 12, 15],
+        [2, 4, 6, 8, 10],
+        [1, 2, 3, 4, 5],
+      ],
     },
   },
 };
@@ -628,7 +640,7 @@ const formData = {
   input_table_button: {
     row: "Critical",
     column: "Low",
-    value: 10
+    value: 10,
   },
 };
 

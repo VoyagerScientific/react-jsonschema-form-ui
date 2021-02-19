@@ -6,13 +6,13 @@
   background: #f9f9f9;
 }
 
-.field-array .array-item-toolbox{
+.field-array .array-item-toolbox {
   position: absolute;
   top: 0px;
   right: 0px;
 }
 
-.field-array .array-item-toolbox .btn-group .btn{
+.field-array .array-item-toolbox .btn-group .btn {
   border-radius: 0;
   font-size: 12px;
   padding: 0px;
@@ -23,7 +23,7 @@
 }
 
 .field-array .btn-add::after {
-  content: ' Add Another';
+  content: "+ Add Another";
 }
 
 .autocomplete-dropdown-container {
@@ -41,10 +41,10 @@
 }
 
 .autocomplete-dropdown-container .suggestion:hover {
-  background-color: #DEEBFF;
+  background-color: #deebff;
 }
 .autocomplete-dropdown-container .suggestion.active {
-  background-color: #DEEBFF;
+  background-color: #deebff;
 }
 
 .autocomplete-dropdown-container .wrapper {
@@ -112,22 +112,35 @@
   vertical-align: middle !important;
 }
 
-.input_table_cell_0-0, .input_table_cell_1-1, .input_table_cell_2-2, .input_table_cell_3-3,
-.input_table_cell_0-1, .input_table_cell_1-2, .input_table_cell_2-3, .input_table_cell_3-4, .input_table_cell_4-4,
-.input_table_cell_2-1, .input_table_cell_3-2
- {
+.input_table_cell_0-0,
+.input_table_cell_1-1,
+.input_table_cell_2-2,
+.input_table_cell_3-3,
+.input_table_cell_0-1,
+.input_table_cell_1-2,
+.input_table_cell_2-3,
+.input_table_cell_3-4,
+.input_table_cell_4-4,
+.input_table_cell_2-1,
+.input_table_cell_3-2 {
   background-color: #fffa5b;
 }
-.input_table_cell_1-0, .input_table_cell_2-0, .input_table_cell_3-0,
+.input_table_cell_1-0,
+.input_table_cell_2-0,
+.input_table_cell_3-0,
 .input_table_cell_3-1,
-.input_table_cell_4-0, .input_table_cell_4-1,  .input_table_cell_4-2,  .input_table_cell_4-3
- {
+.input_table_cell_4-0,
+.input_table_cell_4-1,
+.input_table_cell_4-2,
+.input_table_cell_4-3 {
   background-color: #a0de91;
 }
 
-.input_table_cell_0-2, .input_table_cell_0-3, .input_table_cell_0-4,
-.input_table_cell_1-3, .input_table_cell_1-4,
-.input_table_cell_2-4
- {
+.input_table_cell_0-2,
+.input_table_cell_0-3,
+.input_table_cell_0-4,
+.input_table_cell_1-3,
+.input_table_cell_1-4,
+.input_table_cell_2-4 {
   background-color: #ffa293;
 }
