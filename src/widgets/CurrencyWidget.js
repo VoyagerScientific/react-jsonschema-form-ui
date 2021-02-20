@@ -33,6 +33,7 @@ class CurrencyWidget extends Component {
 
   render() {
     const { title } = _.get(this.props, "schema", {});
+  
     return (
       <>
         <Form.Label>{title}</Form.Label>

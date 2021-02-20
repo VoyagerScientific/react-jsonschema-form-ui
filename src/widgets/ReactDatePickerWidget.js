@@ -61,6 +61,7 @@ class ReactDatePickerWidget extends Component {
     let selected = null;
     if (this.state.value)
       selected = moment(this.state.value, this.dataFormat).toDate();
+ 
 
     return (
       <>
