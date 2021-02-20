@@ -1,6 +1,5 @@
 import React from "react";
-import IconButton from "@rjsf/core/lib/components/IconButton";
-// import IconButton from "@rjsf/bootstrap-4/dist/IconButton/index";
+import Button from "react-bootstrap/Button";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 
@@ -41,41 +40,41 @@ function DefaultArrayItem(props) {
             }}
           >
             {(props.hasMoveUp || props.hasMoveDown) && (
-              <IconButton
-                icon="arrow-up"
-                className="array-item-move-up d-print-none"
-                type="light"
-                tabIndex="-1"
+              <Button
+                variant="light"
                 style={btnStyle}
+                tabIndex="-1"
                 disabled={props.disabled || props.readonly || !props.hasMoveUp}
                 onClick={props.onReorderClick(props.index, props.index - 1)}
-              />
+              >
+                <i className="fas fa-long-arrow-alt-up"></i>
+              </Button>
             )}
 
             {(props.hasMoveUp || props.hasMoveDown) && (
-              <IconButton
-                icon="arrow-down"
-                className="array-item-move-down d-print-none"
-                type="light"
-                tabIndex="-1"
+              <Button
+                variant="light"
                 style={btnStyle}
+                tabIndex="-1"
                 disabled={
                   props.disabled || props.readonly || !props.hasMoveDown
                 }
                 onClick={props.onReorderClick(props.index, props.index + 1)}
-              />
+              >
+                <i className="fas fa-long-arrow-alt-down"></i>
+              </Button>
             )}
 
             {props.hasRemove && (
-              <IconButton
-                type="secondary"
-                icon="times"
-                className="array-item-remove"
-                tabIndex="-1"
+              <Button
+                variant="secondary"
                 style={btnStyle}
+                tabIndex="-1"
                 disabled={props.disabled || props.readonly}
                 onClick={props.onDropIndexClick(props.index)}
-              />
+              >
+                <i className="fas fa-times"></i>
+              </Button>
             )}
           </div>
         </div>
@@ -85,7 +84,6 @@ function DefaultArrayItem(props) {
 }
 
 function ArrayFieldTemplate(props) {
-  console.log("this is props from ArrayFieldTemplate:", props);
   return (
     <fieldset className={props.className} id={props.idSchema.$id}>
       <ArrayFieldTitle
@@ -117,14 +115,15 @@ function ArrayFieldTemplate(props) {
       {props.canAdd && (
         <div className="row">
           <p className={`col array-item-add`}>
-            <IconButton
-              type="link"
-              icon="plus"
-              className="btn-sm btn-add d-print-none"
+            <Button
+              className="btn-add"
+              variant="link"
               tabIndex="0"
               onClick={props.onAddClick}
               disabled={props.disabled || props.readonly}
-            />
+            >
+              <i className="fas fa-plus"></i>
+            </Button>
           </p>
         </div>
       )}

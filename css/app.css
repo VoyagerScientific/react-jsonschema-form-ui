@@ -23,7 +23,7 @@
 }
 
 .field-array .btn-add::after {
-  content: "+ Add Another";
+  content: " Add Another";
 }
 
 .autocomplete-dropdown-container {
@@ -70,6 +70,10 @@
   position: initial !important;
 }
 
+.is-list .react-select__value-container {
+  min-height: 30px;
+  height: unset;
+}
 .is-list .react-select__input {
   position: absolute !important;
 }

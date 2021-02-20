@@ -193,7 +193,6 @@ class ReactSelectWidget extends Component {
 
     const { title } = _.get(this.props, "schema", {});
 
-    // console.log("ReactSelectWidget:", this.props);
     if (isCreateable) {
       return (
         <>
