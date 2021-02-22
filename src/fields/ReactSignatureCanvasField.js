@@ -1,19 +1,20 @@
 import React, { Component } from "react";
+import _ from "lodash";
 import SignatureCanvas from "react-signature-canvas";
 
 class ReactSignatureCanvasField extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  static getDerivedStateFromProps(props, state) {
+    const options = _.merge(props.uiSchema["ui:options"], props.options);
+    return {
       ...props,
-      width:
-        (props.uiSchema["ui:options"] && props.uiSchema["ui:options"].width) ||
-        400,
-      height:
-        (props.uiSchema["ui:options"] && props.uiSchema["ui:options"].height) ||
-        150,
+      options: { width: options.width || 400, height: options.height || 150 },
       value: props.formData || "",
     };
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
   componentDidMount() {
@@ -35,13 +36,12 @@ class ReactSignatureCanvasField extends Component {
   }
 
   render() {
-    console.log("ReactSignatureCanvasField:", this.props);
     return (
       <div
         style={{
           position: "relative",
-          width: this.state.width + 41,
-          minHeight: this.state.height + 40,
+          width: this.state.options.width + 41,
+          minHeight: this.state.options.height + 40,
         }}
       >
         {!this.state.readonly ? (
@@ -52,8 +52,8 @@ class ReactSignatureCanvasField extends Component {
               }}
               penColor="black"
               canvasProps={{
-                width: this.state.width,
-                height: this.state.height,
+                width: this.state.options.width,
+                height: this.state.options.height,
                 className: "sigCanvas",
                 style: { border: "#ddd 3px dashed", borderRadius: 4 },
               }}
@@ -80,7 +80,7 @@ class ReactSignatureCanvasField extends Component {
                   position: "absolute",
                   right: 0,
                   top: 0,
-                  height: this.state.height + 6,
+                  height: this.state.options.height + 6,
                   fontSize: 16,
                   fontWeight: "700",
                   borderTopLeftRadius: 0,
@@ -95,15 +95,15 @@ class ReactSignatureCanvasField extends Component {
           </div>
         ) : this.state.formData ? (
           <img
-            style={{ minHeight: this.state.height }}
+            style={{ minHeight: this.state.options.height }}
             src={this.state.formData}
           />
         ) : (
           <div
             style={{
-              minHeight: this.state.height,
+              minHeight: this.state.options.height,
               fontWeight: "700",
-              lineHeight: this.state.height + "px",
+              lineHeight: this.state.options.height + "px",
               color: "#666",
               backgroundColor: "#fafafa",
               textAlign: "center",
@@ -127,5 +127,9 @@ class ReactSignatureCanvasField extends Component {
     );
   }
 }
+
+ReactSignatureCanvasField.defaultProps = {
+  options: {},
+};
 
 export default ReactSignatureCanvasField;

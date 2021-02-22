@@ -16,8 +16,15 @@ const DEFAULT_FIELDS = {
 };
 
 class ReactPlaceAutofillField extends React.Component {
+  static getDerivedStateFromProps(props, state) {
+    const options = _.merge(props.uiSchema["ui:options"], props.options);
+    return {
+      options: { ...options },
+      id: Math.floor(Math.random() * 100),
+    };
+  }
+
   state = {
-    id: Math.floor(Math.random() * 100),
   };
 
   get formProps() {
@@ -25,7 +32,7 @@ class ReactPlaceAutofillField extends React.Component {
   }
 
   get fieldNames() {
-    const newValues = _.get(this.props, "uiSchema.ui:options.fields", {});
+    const newValues = _.get(this.state, "options.fields", {});
     return _.merge(DEFAULT_FIELDS, newValues);
   }
 
@@ -85,7 +92,7 @@ class ReactPlaceAutofillField extends React.Component {
     };
 
     const updateAdjacentFields =
-      _.get(this.props, "uiSchema.ui:options.updateAdjacentFields") || false;
+      _.get(this.state, "options.updateAdjacentFields") || false;
     if (updateAdjacentFields) {
       this.formProps &&
         this.formProps.onChange({ ...oldFormData, ...addressData });
@@ -130,11 +137,7 @@ class ReactPlaceAutofillField extends React.Component {
   }
 
   render() {
-    const showFields = _.get(
-      this.props,
-      "uiSchema.ui:options.showFields",
-      false
-    );
+    const showFields = _.get(this.state, "options.showFields", false);
     console.log("ReactPlaceAutofillField:", this.props);
     return (
       <>
@@ -168,5 +171,9 @@ class ReactPlaceAutofillField extends React.Component {
     ));
   }
 }
+
+ReactPlaceAutofillField.defaultProps = {
+  options: {},
+};
 
 export default ReactPlaceAutofillField;

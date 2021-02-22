@@ -5,12 +5,19 @@ import ReactFormulaAgGridTable from "./ag-grid-table";
 import { Button, Col, Row, Container } from "react-bootstrap";
 
 class ReactFormulaField extends React.Component {
+  static getDerivedStateFromProps(props, state) {
+    const options = _.merge(props.uiSchema["ui:options"], props.options);
+    return {
+      ...props,
+      options: { ...options },
+      headers: [],
+    };
+  }
+
   constructor(props) {
     super(props);
     this.builder = new HyperFormulaBuilder();
-    this.state = {
-      headers: [],
-    };
+    this.state = {};
   }
 
   componentDidMount() {
@@ -25,11 +32,7 @@ class ReactFormulaField extends React.Component {
     return _.map(headers, ([headerKey, headerObject]) => {
       let header = { header: headerKey, ...headerObject };
       if (header.readOnly) {
-        const formula = _.get(
-          this.props,
-          `uiSchema.ui:options.formulas.${headerKey}`,
-          ""
-        );
+        const formula = _.get(this.state, `options.formulas.${headerKey}`, "");
         header.formula = formula;
       }
       return header;
@@ -44,7 +47,6 @@ class ReactFormulaField extends React.Component {
   render() {
     this.builder.withDataObjects(this.props.formData);
     const label = _.get(this.props, "schema.title", "");
-    console.log("ReactFormulaField:", this.props);
     return (
       <div>
         <Row>
@@ -58,16 +60,14 @@ class ReactFormulaField extends React.Component {
                 headers={this.state.headers}
                 value={this.props.formData}
                 onChange={this.handleChange}
-                confirmRemove={
-                  this.props.uiSchema["ui:options"].confirmRemove || false
-                }
+                confirmRemove={this.state.options.confirmRemove || false}
                 removable={
-                  this.props.uiSchema["ui:options"].removable === undefined
+                  this.state.options.removable === undefined
                     ? true
-                    : this.props.uiSchema["ui:options"].removable
+                    : this.state.options.removable
                 }
-                height={this.props.uiSchema["ui:options"].height}
-                width={this.props.uiSchema["ui:options"].width}
+                height={this.state.options.height}
+                width={this.state.options.width}
               />
             )}
           </Col>
@@ -76,5 +76,9 @@ class ReactFormulaField extends React.Component {
     );
   }
 }
+
+ReactFormulaField.defaultProps = {
+  options: {},
+};
 
 export default ReactFormulaField;

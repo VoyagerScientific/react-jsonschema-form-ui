@@ -12,7 +12,10 @@ import {
 import classNames from "classnames";
 
 class ReactPlaceField extends Component {
-  static defaultProps = { options: "sample options props" };
+  static getDerivedStateFromProps(props, state) {
+    const newOptions = _.merge(props.uiSchema["ui:options"], props.options);
+    return { options: newOptions };
+  }
 
   state = {
     googleApiLoaded: false,
@@ -38,7 +41,7 @@ class ReactPlaceField extends Component {
   async componentDidMount() {
     try {
       this.setState({ loading: true });
-      const googleApiKey = _.get(this.props, "uiSchema.ui:options.api");
+      const googleApiKey = _.get(this.state, "options.api");
       if (googleApiKey) {
         await injectScript(
           "googleapi",
@@ -106,7 +109,6 @@ class ReactPlaceField extends Component {
   render() {
     const { schema } = this.props;
     const { googleApiLoaded, hasError, loading } = this.state;
-    console.log("ReactPlaceField:", this.props);
     return (
       <div>
         <FormLabel>{schema.title}</FormLabel>
@@ -129,5 +131,9 @@ class ReactPlaceField extends Component {
     );
   }
 }
+
+ReactPlaceField.defaultProps = {
+  options: {},
+};
 
 export default ReactPlaceField;
