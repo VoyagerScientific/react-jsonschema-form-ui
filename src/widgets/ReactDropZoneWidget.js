@@ -37,7 +37,6 @@ function ReactDropZoneWidget(props) {
   const areFilesVisible =
     _.get(props, "options.withFileDisplay") && !_.isEmpty(props.value);
 
-
   return (
     <Dropzone
       onDrop={_onDrop}
@@ -70,7 +69,7 @@ function ReactDropZoneWidget(props) {
             </div>
           </section>
           {props.rawErrors &&
-            props.rawError.map((error) => {
+            props.rawErrors.map((error) => {
               return <div>{error}</div>;
             })}
           {areFilesVisible && (

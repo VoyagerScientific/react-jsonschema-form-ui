@@ -111,7 +111,7 @@ const schema = {
       type: "array",
       items: {
         type: "string",
-        enum: [],
+        enum: [""],
       },
       uniqueItems: true,
     },
@@ -144,7 +144,7 @@ const schema = {
           },
           select: {
             type: "string",
-            enum: [],
+            enum: [""],
             title: "Remote Select",
           },
         },
@@ -448,7 +448,7 @@ const uiSchema = {
   react_place_field: {
     "ui:field": "ReactPlaceField",
     "ui:options": {
-      api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU",
+      // api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU",
     },
   },
   raw_html: {
@@ -677,7 +677,8 @@ class FormComponent extends Component {
               ArrayFieldTemplate={ArrayFieldTemplate}
               widgets={widgets}
               fields={fields}
-              liveValidate
+              noValidate
+              // liveValidate
               onChange={log("changed")}
               onSubmit={this.handleSubmit}
               onError={log("errors")}

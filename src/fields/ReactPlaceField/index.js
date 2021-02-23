@@ -13,7 +13,10 @@ import classNames from "classnames";
 
 class ReactPlaceField extends Component {
   static getDerivedStateFromProps(props, state) {
-    const newOptions = _.merge(props.uiSchema["ui:options"], props.options);
+    const newOptions = _.merge(
+      props.uiSchema["ui:options"] || {},
+      props.options
+    );
     return { options: newOptions };
   }
 
