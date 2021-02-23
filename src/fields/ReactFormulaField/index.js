@@ -10,14 +10,13 @@ class ReactFormulaField extends React.Component {
     return {
       ...props,
       options: { ...options },
-      headers: [],
     };
   }
 
   constructor(props) {
     super(props);
     this.builder = new HyperFormulaBuilder();
-    this.state = {};
+    this.state = { headers: [] };
   }
 
   componentDidMount() {
@@ -47,6 +46,7 @@ class ReactFormulaField extends React.Component {
   render() {
     this.builder.withDataObjects(this.props.formData);
     const label = _.get(this.props, "schema.title", "");
+
     return (
       <div>
         <Row>

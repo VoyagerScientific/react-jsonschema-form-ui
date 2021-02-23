@@ -24,8 +24,7 @@ class ReactPlaceAutofillField extends React.Component {
     };
   }
 
-  state = {
-  };
+  state = {};
 
   get formProps() {
     return _.get(this.props.formContext, "form.current", null);
