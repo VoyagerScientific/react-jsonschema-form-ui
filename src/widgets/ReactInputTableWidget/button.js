@@ -25,7 +25,11 @@ class ButtonInputTable extends React.Component {
   };
 
   renderCell(rowData, colData, rowIndex, colIndex) {
-    const optionValueMatrix = _.get(this.props, "options.values", []);
+    const optionValueMatrix = _.get(
+      this.props,
+      "uiSchema.ui:options.values",
+      []
+    );
     const optionCellValue = _.get(
       optionValueMatrix,
       `${rowIndex}.${colIndex}`,
@@ -52,7 +56,7 @@ class ButtonInputTable extends React.Component {
   }
 
   render() {
-    const { rows, columns } = _.get(this.props, "options", {});
+    const { rows, columns } = _.get(this.props, "uiSchema.ui:options", {});
     return (
       <Table responsive>
         <tbody>

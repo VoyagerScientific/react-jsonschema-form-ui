@@ -33,7 +33,7 @@ class RadioInputTable extends React.Component {
   }
 
   renderTable = () => {
-    const { rows, columns } = _.get(this.props, "options", {});
+    const { rows, columns } = _.get(this.props, "uiSchema.ui:options", {});
     return (
       <Table responsive>
         <thead>

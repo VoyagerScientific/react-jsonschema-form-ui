@@ -6,25 +6,20 @@ import Tree from "../../objects/tree";
 import ReactTreeSelectFieldOption from "./option";
 
 class ReactTreeSelectField extends Component {
-  static getDerivedStateFromProps(props, state) {
-    const options = _.merge(props.uiSchema["ui:options"], props.options);
-    return {
-      ...props,
-      options: {
-        ...options,
-        width: options.width || 400,
-        height: options.height || 150,
-      },
-      value: props.formData || "",
-    };
-  }
-
   constructor(props) {
     super(props);
     this.select = React.createRef();
+    this.state = {
+      ...props,
+      width:
+        (props.uiSchema["ui:options"] && props.uiSchema["ui:options"].width) ||
+        400,
+      height:
+        (props.uiSchema["ui:options"] && props.uiSchema["ui:options"].height) ||
+        150,
+      value: props.formData || "",
+    };
     const remoteOptions = _.get(props, "uiSchema.ui:options.remote.data") || [];
-    this.state = {};
-    // const remoteOptions = _.get(this.sta, "options.remote.data") || [];
     this.tree = new Tree(remoteOptions, this.select);
   }
 
@@ -44,7 +39,7 @@ class ReactTreeSelectField extends Component {
   }
 
   handleChange = (valueOptions, ...args) => {
-    const isMulti = _.get(this.state, "options.isMulti", false);
+    const isMulti = _.get(this.props, "uiSchema.ui:options.isMulti", false);
     if (!isMulti) {
       const value = _.get(valueOptions, "value");
       this.props.onChange(value ? [value] : []);
@@ -57,16 +52,17 @@ class ReactTreeSelectField extends Component {
   handleInputChange = (...args) => {};
 
   isRemote() {
-    const remoteOptions = _.get(this.props, "options.remote.data") || [];
+    const remoteOptions =
+      _.get(this.props, "uiSchema.ui:options.remote.data") || [];
     return remoteOptions.length > 0;
   }
 
   getSchemaOptions() {
-    const { options } = this.state;
+    const { uiSchema } = this.props;
     if (this.isRemote()) {
-      return _.get(options, "treeOptions");
+      return _.get(uiSchema["ui:options"], "treeOptions");
     } else {
-      return _.map(_.get(options, "treeOptions"), (opt) => {
+      return _.map(_.get(uiSchema["ui:options"], "treeOptions"), (opt) => {
         if (opt.children.length === 0) {
           opt.isEnd = true;
         }
@@ -77,12 +73,14 @@ class ReactTreeSelectField extends Component {
 
   render() {
     const { schema, formData } = this.props;
-    const isMulti = _.get(this.state, "options.isMulti", false);
-    const isCreateable = _.get(this.state, "options.isCreateable", false);
+    const isMulti = _.get(this.props, "uiSchema.ui:options.isMulti", false);
+    const isCreateable = _.get(
+      this.props,
+      "uiSchema.ui:options.isCreateable",
+      false
+    );
     const schemaOptions = this.getSchemaOptions();
     const valueOptions = this.getOptionsFromValue(formData, schemaOptions);
-
-    console.log("ReactTreeSelectField state:", this.state);
     return (
       <div>
         <div>{schema.title}</div>
@@ -105,8 +103,5 @@ class ReactTreeSelectField extends Component {
     );
   }
 }
-ReactTreeSelectField.defaultProps = {
-  options: {},
-};
 
 export default ReactTreeSelectField;

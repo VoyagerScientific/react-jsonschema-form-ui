@@ -12,14 +12,6 @@ import {
 import classNames from "classnames";
 
 class ReactPlaceField extends Component {
-  static getDerivedStateFromProps(props, state) {
-    const newOptions = _.merge(
-      props.uiSchema["ui:options"] || {},
-      props.options
-    );
-    return { options: newOptions };
-  }
-
   state = {
     googleApiLoaded: false,
     loading: true,
@@ -44,7 +36,7 @@ class ReactPlaceField extends Component {
   async componentDidMount() {
     try {
       this.setState({ loading: true });
-      const googleApiKey = _.get(this.state, "options.api");
+      const googleApiKey = _.get(this.props, "uiSchema.ui:options.api");
       if (googleApiKey) {
         await injectScript(
           "googleapi",
@@ -134,9 +126,5 @@ class ReactPlaceField extends Component {
     );
   }
 }
-
-ReactPlaceField.defaultProps = {
-  options: {},
-};
 
 export default ReactPlaceField;
