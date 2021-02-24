@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Form from "../../src/forms/index";
-
 import {
   ArrayFieldTemplate,
   CurrencyWidget,
@@ -554,19 +553,19 @@ const uiSchema = {
   input_table_checkbox: {
     "ui:field": "ReactInputTableWidget",
     "ui:options": {
-      inputTableType: "checkbox",
-      rows: [
-        "Service Quality",
-        "Cleanliness",
-        "Responsiveness",
-        "Friendliness",
-      ],
-      columns: [
-        "Not Satisfied",
-        "Somewhat Satisfied",
-        "Satisfied",
-        "Very Satisfied",
-      ],
+      // inputTableType: "checkbox",
+      // rows: [
+      //   "Service Quality",
+      //   "Cleanliness",
+      //   "Responsiveness",
+      //   "Friendliness",
+      // ],
+      // columns: [
+      //   "Not Satisfied",
+      //   "Somewhat Satisfied",
+      //   "Satisfied",
+      //   "Very Satisfied",
+      // ],
     },
   },
   input_table_radio: {
@@ -677,8 +676,8 @@ class FormComponent extends Component {
               ArrayFieldTemplate={ArrayFieldTemplate}
               widgets={widgets}
               fields={fields}
-              // noValidate
-              liveValidate
+              noValidate
+              // liveValidate
               onChange={log("changed")}
               onSubmit={this.handleSubmit}
               onError={log("errors")}

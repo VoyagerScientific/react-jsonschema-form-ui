@@ -8,15 +8,14 @@ import { CHECKBOX, RADIO } from "./constants";
 
 class ReactInputTableWidget extends React.Component {
   static getDerivedStateFromProps(props, state) {
-    const options = _.merge(props.uiSchema["ui:options"], props.options);
+    const options = _.merge(props.uiSchema["ui:options"] || {}, props.options);
     return {
       options: { ...options },
       checkbox: true,
     };
   }
-  state = {
 
-  };
+  state = {};
 
   renderFooterItems() {
     return (
@@ -56,8 +55,8 @@ class ReactInputTableWidget extends React.Component {
       "options",
       {}
     );
+ 
 
-    console.log("ReactInputTableWidget state:", this.state);
     return (
       <>
         <Form.Label>{title}</Form.Label>
@@ -69,7 +68,7 @@ class ReactInputTableWidget extends React.Component {
 }
 
 ReactInputTableWidget.defaultProps = {
-  options: {},
+  options: { },
 };
 
 export default ReactInputTableWidget;

@@ -24,7 +24,6 @@ class ReactTreeSelectField extends Component {
     this.select = React.createRef();
     const remoteOptions = _.get(props, "uiSchema.ui:options.remote.data") || [];
     this.state = {};
-    // const remoteOptions = _.get(this.sta, "options.remote.data") || [];
     this.tree = new Tree(remoteOptions, this.select);
   }
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form } from "react-bootstrap";
+
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -57,15 +57,12 @@ class ReactDatePickerWidget extends Component {
   }
 
   render() {
-    const { title } = _.get(this.props, "schema", {});
     let selected = null;
     if (this.state.value)
       selected = moment(this.state.value, this.dataFormat).toDate();
- 
 
     return (
       <>
-        <Form.Label>{title}</Form.Label>
         <div style={{ display: "block" }}>
           <DatePicker
             customInput={<ButtonInput displayFormat={this.displayFormat} />}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form } from "react-bootstrap";
+
 import AsyncSelect from "react-select/async";
 import AsyncCreatable from "react-select/async-creatable";
 import "whatwg-fetch";
@@ -191,12 +191,9 @@ class ReactSelectWidget extends Component {
       this.props.options.isMulti || this.props.schema.type === "array" || false;
     const isList = _.get(this.props, "options.isList", false);
 
-    const { title } = _.get(this.props, "schema", {});
-
     if (isCreateable) {
       return (
         <>
-          <Form.Label>{title}</Form.Label>
           <div>
             <AsyncCreatable
               classNamePrefix="react-select"
@@ -235,7 +232,6 @@ class ReactSelectWidget extends Component {
     } else {
       return (
         <>
-          <Form.Label>{title}</Form.Label>
           <div>
             <AsyncSelect
               classNamePrefix="react-select"

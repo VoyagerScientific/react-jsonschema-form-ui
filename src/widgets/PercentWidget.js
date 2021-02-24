@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form } from "react-bootstrap";
+
 
 class PercentWidget extends Component {
   constructor(props) {
@@ -22,11 +22,8 @@ class PercentWidget extends Component {
   }
 
   render() {
-    const { title } = _.get(this.props, "schema", {});
-  
     return (
       <>
-        <Form.Label>{title}</Form.Label>
         <div className="input-group">
           <input
             type="text"

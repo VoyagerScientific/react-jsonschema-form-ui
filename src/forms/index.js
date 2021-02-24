@@ -1,9 +1,6 @@
 import _ from "lodash";
 import React from "react";
-// import Form from "@rjsf/core";
-import Form from "@rjsf/bootstrap-4";
-import CodeReader from "./../fields/ReactScannerField/scanner";
-
+import Form from "react-jsonschema-form";
 class SchemaForm extends React.Component {
   form = React.createRef();
 

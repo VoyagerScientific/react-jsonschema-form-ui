@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form } from "react-bootstrap";
+
 import { accounting } from "accounting";
 
 class CurrencyWidget extends Component {
@@ -32,11 +32,8 @@ class CurrencyWidget extends Component {
   }
 
   render() {
-    const { title } = _.get(this.props, "schema", {});
-  
     return (
       <>
-        <Form.Label>{title}</Form.Label>
         <input
           type="text"
           className="form-control currency"
