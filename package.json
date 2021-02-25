@@ -12,8 +12,8 @@
     "umd"
   ],
   "scripts": {
-    "postinstall": "npm run build",
-    "build": "nwb build-react-component --no-demo-build",
+    "install": "nwb build-react-component --no-demo-build",
+    "build": "nwb build-react-component",
     "clean": "nwb clean-module && nwb clean-demo",
     "prepublishOnly": "npm run build",
     "start": "nwb serve-react-demo",
