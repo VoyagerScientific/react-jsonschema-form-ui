@@ -37,6 +37,7 @@
     "jquery": "^3.4.1",
     "jsqr": "^1.3.1",
     "lodash": "^4.17.20",
+    "miragejs": "^0.1.41",
     "moment": "^2.24.0",
     "nwb": "^0.25.2",
     "popper.js": "^1.16.1",
@@ -59,9 +60,6 @@
   },
   "peerDependencies": {
     "react": "16.x"
-  },
-  "devDependencies": {
-    "miragejs": "^0.1.41"
   },
   "author": "Matt Monihan",
   "homepage": "",
