@@ -23,7 +23,7 @@ class CheckboxInputTable extends React.Component {
       obj[rowData] = valuesInRow;
       onChange && onChange(obj);
       this.forceUpdate();
-    }
+    };
   };
 
   isCellValueChecked = (rowData, colData) => {
@@ -43,8 +43,6 @@ class CheckboxInputTable extends React.Component {
       />
     );
   }
-
-
 
   renderTable() {
     const { rows, columns } = _.get(this.props, "uiSchema.ui:options", {});

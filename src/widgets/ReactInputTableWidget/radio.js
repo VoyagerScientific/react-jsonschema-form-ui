@@ -60,7 +60,6 @@ class RadioInputTable extends React.Component {
     );
   };
 
-
   render() {
     return <>{this.renderTable()}</>;
   }

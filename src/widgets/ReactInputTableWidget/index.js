@@ -40,7 +40,11 @@ class ReactInputTableWidget extends React.Component {
 
   render() {
     const { title } = _.get(this.props, "schema", {});
-    const { headerModifiable, columnModifiable } = _.get(this.props, "uiSchema.ui:options", {});
+    const { headerModifiable, columnModifiable } = _.get(
+      this.props,
+      "uiSchema.ui:options",
+      {}
+    );
     return (
       <>
         <Form.Label>{title}</Form.Label>
