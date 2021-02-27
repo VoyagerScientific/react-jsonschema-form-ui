@@ -553,19 +553,19 @@ const uiSchema = {
   input_table_checkbox: {
     "ui:field": "ReactInputTableWidget",
     "ui:options": {
-      // inputTableType: "checkbox",
-      // rows: [
-      //   "Service Quality",
-      //   "Cleanliness",
-      //   "Responsiveness",
-      //   "Friendliness",
-      // ],
-      // columns: [
-      //   "Not Satisfied",
-      //   "Somewhat Satisfied",
-      //   "Satisfied",
-      //   "Very Satisfied",
-      // ],
+      inputTableType: "checkbox",
+      rows: [
+        "Service Quality",
+        "Cleanliness",
+        "Responsiveness",
+        "Friendliness",
+      ],
+      columns: [
+        "Not Satisfied",
+        "Somewhat Satisfied",
+        "Satisfied",
+        "Very Satisfied",
+      ],
     },
   },
   input_table_radio: {
