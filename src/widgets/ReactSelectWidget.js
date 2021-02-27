@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import AsyncSelect from "react-select/async";
-import AsyncCreatable from "react-select/async-creatable";
-import "whatwg-fetch";
+import AsyncSelect from 'react-select/async';
+import AsyncCreatable from 'react-select/async-creatable';
+import 'whatwg-fetch';
 
 class ReactSelectWidget extends Component {
   constructor(props) {
@@ -73,7 +73,7 @@ class ReactSelectWidget extends Component {
 
           if (!select_options.length)
             console.warn(
-              "ReactSelectWidget: There's no options being generated from the remote data. Check that paths were set properly. "
+              'ReactSelectWidget: There\'s no options being generated from the remote data. Check that paths were set properly. '
             );
 
           let value = this.state.value;
@@ -143,10 +143,10 @@ class ReactSelectWidget extends Component {
 
   async getRemoteData() {
     const response = await fetch(this.state.options.remote.url, {
-      method: this.state.options.remote.method || "GET",
+      method: this.state.options.remote.method || 'GET',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
         ...this.state.options.remote.headers,
       },
     });
@@ -173,7 +173,7 @@ class ReactSelectWidget extends Component {
     let value = undefined;
     if (
       e &&
-      (this.props.options.isMulti || this.props.schema.type === "array")
+      (this.props.options.isMulti || this.props.schema.type === 'array')
     ) {
       value = Array.from(e, (item) => item.value);
       this.props.onChange(value);
@@ -188,8 +188,8 @@ class ReactSelectWidget extends Component {
   render() {
     const { isClearable, isSearchable, isCreateable } = this.props.options;
     const isMulti =
-      this.props.options.isMulti || this.props.schema.type === "array" || false;
-    const isList = _.get(this.props, "options.isList", false);
+      this.props.options.isMulti || this.props.schema.type === 'array' || false;
+    const isList = _.get(this.props, 'options.isList', false);
 
     if (isCreateable) {
       return (
@@ -197,9 +197,9 @@ class ReactSelectWidget extends Component {
           <div>
             <AsyncCreatable
               classNamePrefix="react-select"
-              className={isList ? "is-list" : ""}
+              className={isList ? 'is-list' : ''}
               selectProps={{
-                className: isList ? "is-list-input" : "",
+                className: isList ? 'is-list-input' : '',
               }}
               cacheOptions
               defaultOptions={
@@ -218,13 +218,13 @@ class ReactSelectWidget extends Component {
             <input
               name={this.props.id}
               id={this.props.id}
-              style={{ position: "absolute", border: 0, width: 1, height: 1 }}
+              style={{ position: 'absolute', border: 0, width: 1, height: 1 }}
               type="text"
               onChange={(event) => {
                 return this.state.value;
               }}
               required={this.props.required}
-              value={this.state.value || ""}
+              value={this.state.value || ''}
             />
           </div>
         </>
@@ -235,10 +235,10 @@ class ReactSelectWidget extends Component {
           <div>
             <AsyncSelect
               classNamePrefix="react-select"
-              className={isList ? "is-list" : ""}
+              className={isList ? 'is-list' : ''}
               cacheOptions
               selectProps={{
-                className: isList ? "is-list-input" : "",
+                className: isList ? 'is-list-input' : '',
               }}
               defaultOptions={
                 this.state.select_options.length
@@ -256,13 +256,13 @@ class ReactSelectWidget extends Component {
             <input
               name={this.props.id}
               id={this.props.id}
-              style={{ position: "absolute", border: 0, width: 1, height: 1 }}
+              style={{ position: 'absolute', border: 0, width: 1, height: 1 }}
               type="text"
               onChange={(event) => {
                 return this.state.value;
               }}
               required={this.props.required}
-              value={this.state.value || ""}
+              value={this.state.value || ''}
             />
           </div>
         </>

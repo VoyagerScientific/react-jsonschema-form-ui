@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import _ from "lodash";
-import SignatureCanvas from "react-signature-canvas";
+import React, { Component } from 'react';
+import _ from 'lodash';
+import SignatureCanvas from 'react-signature-canvas';
 
 class ReactSignatureCanvasField extends Component {
   static getDerivedStateFromProps(props, state) {
-    const options = _.merge(props.uiSchema["ui:options"], props.options);
+    const options = _.merge(props.uiSchema['ui:options'], props.options);
     return {
       ...props,
       options: { width: options.width || 400, height: options.height || 150 },
-      value: props.formData || "",
+      value: props.formData || '',
     };
   }
 
@@ -25,10 +25,10 @@ class ReactSignatureCanvasField extends Component {
   _clear(e) {
     e.preventDefault();
 
-    const confirmed = confirm("Clear the signature?");
+    const confirmed = confirm('Clear the signature?');
     if (confirmed) {
       this.sigCanvas.clear();
-      this.setState({ value: "" });
+      this.setState({ value: '' });
       this.state.onChange();
     } else {
       return false;
@@ -39,7 +39,7 @@ class ReactSignatureCanvasField extends Component {
     return (
       <div
         style={{
-          position: "relative",
+          position: 'relative',
           width: this.state.options.width + 41,
           minHeight: this.state.options.height + 40,
         }}
@@ -54,8 +54,8 @@ class ReactSignatureCanvasField extends Component {
               canvasProps={{
                 width: this.state.options.width,
                 height: this.state.options.height,
-                className: "sigCanvas",
-                style: { border: "#ddd 3px dashed", borderRadius: 4 },
+                className: 'sigCanvas',
+                style: { border: '#ddd 3px dashed', borderRadius: 4 },
               }}
               backgroundColor="#fafafa"
               onEnd={(value) => {
@@ -77,12 +77,12 @@ class ReactSignatureCanvasField extends Component {
               <button
                 className="btn btn-secondary d-print-none"
                 style={{
-                  position: "absolute",
+                  position: 'absolute',
                   right: 0,
                   top: 0,
                   height: this.state.options.height + 6,
                   fontSize: 16,
-                  fontWeight: "700",
+                  fontWeight: '700',
                   borderTopLeftRadius: 0,
                   borderBottomLeftRadius: 0,
                   borderWidth: 3,
@@ -102,11 +102,11 @@ class ReactSignatureCanvasField extends Component {
           <div
             style={{
               minHeight: this.state.options.height,
-              fontWeight: "700",
-              lineHeight: this.state.options.height + "px",
-              color: "#666",
-              backgroundColor: "#fafafa",
-              textAlign: "center",
+              fontWeight: '700',
+              lineHeight: this.state.options.height + 'px',
+              color: '#666',
+              backgroundColor: '#fafafa',
+              textAlign: 'center',
             }}
           >
             No Signature
@@ -117,7 +117,7 @@ class ReactSignatureCanvasField extends Component {
             style={{
               paddingTop: 10,
               marginTop: 15,
-              borderTop: "#444 1px solid",
+              borderTop: '#444 1px solid',
             }}
           >
             {this.state.schema.title}

@@ -58,6 +58,9 @@
     "react": "16.x"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.20.0",
+    "eslint-plugin-react": "^7.22.0",
     "miragejs": "^0.1.41",
     "nwb": "0.25.x",
     "react": "^16.13.0"

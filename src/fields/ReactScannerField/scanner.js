@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import videoCanvas from 'video-canvas';
 
@@ -56,7 +56,7 @@ class CodeReader extends Component {
     videoCanvas(video, {
       canvas: document.querySelector('#video-canvas'),
       drawCall: function (ctx, video) {
-        ctx.fillStyle = "#fff";
+        ctx.fillStyle = '#fff';
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         const aspectWidth = (ctx.canvas.width / ctx.canvas.offsetWidth);
         const aspectHeight = (ctx.canvas.height / ctx.canvas.offsetHeight);

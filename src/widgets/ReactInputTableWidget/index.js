@@ -1,14 +1,14 @@
-import React from "react";
-import _ from "lodash";
-import { Form, Row, Col, Button } from "react-bootstrap";
-import ButtonInputTable from "./button";
-import CheckboxInputTable from "./checkbox";
-import RadioInputTable from "./radio";
-import { CHECKBOX, RADIO } from "./constants";
+import React from 'react';
+import _ from 'lodash';
+import { Form, Row, Col, Button } from 'react-bootstrap';
+import ButtonInputTable from './button';
+import CheckboxInputTable from './checkbox';
+import RadioInputTable from './radio';
+import { CHECKBOX, RADIO } from './constants';
 
 class ReactInputTableWidget extends React.Component {
   static getDerivedStateFromProps(props, state) {
-    const options = _.merge(props.uiSchema["ui:options"] || {}, props.options);
+    const options = _.merge(props.uiSchema['ui:options'] || {}, props.options);
     return {
       options: { ...options },
       checkbox: true,
@@ -33,7 +33,7 @@ class ReactInputTableWidget extends React.Component {
   }
 
   renderTable() {
-    const { inputTableType } = _.get(this.state, "options", {});
+    const { inputTableType } = _.get(this.state, 'options', {});
     switch (inputTableType) {
       case CHECKBOX:
         return (
@@ -49,10 +49,10 @@ class ReactInputTableWidget extends React.Component {
   }
 
   render() {
-    const { title } = _.get(this.props, "schema", {});
+    const { title } = _.get(this.props, 'schema', {});
     const { headerModifiable, columnModifiable } = _.get(
       this.state,
-      "options",
+      'options',
       {}
     );
  

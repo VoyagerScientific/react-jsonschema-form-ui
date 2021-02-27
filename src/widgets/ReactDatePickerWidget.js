@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import PropTypes from "prop-types";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import moment from "moment";
+import PropTypes from 'prop-types';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 class ButtonInput extends React.Component {
   handleClick = (e) => {
@@ -18,7 +18,7 @@ class ButtonInput extends React.Component {
     return (
       <a
         className="btn btn-sm btn-secondary"
-        href={"#!"}
+        href={'#!'}
         onClick={this.handleClick}
       >
         {value || <span className="d-print-none">Choose Date</span>}
@@ -40,11 +40,11 @@ class ReactDatePickerWidget extends Component {
     };
 
     this.dataFormat = null;
-    this.displayFormat = "MM/DD/YYYY";
+    this.displayFormat = 'MM/DD/YYYY';
 
     if (this.state.options && this.state.options.format) {
       if (
-        typeof this.state.options.format === "object" &&
+        typeof this.state.options.format === 'object' &&
         this.state.options.format !== null
       ) {
         this.dataFormat = this.state.options.format.data;
@@ -63,7 +63,7 @@ class ReactDatePickerWidget extends Component {
 
     return (
       <>
-        <div style={{ display: "block" }}>
+        <div style={{ display: 'block' }}>
           <DatePicker
             customInput={<ButtonInput displayFormat={this.displayFormat} />}
             selected={selected}
@@ -83,13 +83,13 @@ class ReactDatePickerWidget extends Component {
           <input
             name={this.props.id}
             id={this.props.id}
-            style={{ position: "absolute", border: 0, width: 1, height: 1 }}
+            style={{ position: 'absolute', border: 0, width: 1, height: 1 }}
             type="text"
             onChange={(event) => {
               return this.state.value;
             }}
             required={this.props.required}
-            value={this.state.value || ""}
+            value={this.state.value || ''}
           />
         </div>
       </>

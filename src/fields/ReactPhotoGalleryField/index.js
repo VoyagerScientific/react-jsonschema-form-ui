@@ -1,10 +1,10 @@
-import React from "react";
-import axios from "axios";
-import { Form } from "react-bootstrap";
-import Gallery from "react-photo-gallery";
+import React from 'react';
+import axios from 'axios';
+import { Form } from 'react-bootstrap';
+import Gallery from 'react-photo-gallery';
 
-import { ReactDropZoneWidget } from "../../index";
-import PhotoItem from "./components/PhotoItem";
+import { ReactDropZoneWidget } from '../../index';
+import PhotoItem from './components/PhotoItem';
 
 class ReactPhotoGalleryField extends React.Component {
   handleRemoveFile = (index) => {
@@ -18,15 +18,15 @@ class ReactPhotoGalleryField extends React.Component {
     const {
       fileUploadUrl,
       authenticity_token: authenticityToken
-    } = _.get(this.props, "options") || {};
+    } = _.get(this.props, 'options') || {};
     const formData = this.createFormData(acceptedFiles, authenticityToken);
     const response = await axios.post(fileUploadUrl, formData, {
       headers: {
-        Accept: "application/json",
-        "X-CSRF-Token": authenticityToken,
+        Accept: 'application/json',
+        'X-CSRF-Token': authenticityToken,
       },
     });
-    const responseData = _.get(response, "data");
+    const responseData = _.get(response, 'data');
     const attachments = this.getAttachments();
     if (_.isArray(responseData)) {
       const newAttachments = [...attachments, ...responseData];
@@ -46,14 +46,14 @@ class ReactPhotoGalleryField extends React.Component {
   createFormData(acceptedFiles, authenticityToken) {
     var data = new FormData();
     for (const file of acceptedFiles) {
-      data.append("attachments", file, file.name);
+      data.append('attachments', file, file.name);
     }
-    data.append("authenticity_token", authenticityToken);
+    data.append('authenticity_token', authenticityToken);
     return data;
   }
 
   getAttachments() {
-    const attachments = _.get(this.props, "formData", []) || [];
+    const attachments = _.get(this.props, 'formData', []) || [];
     if (_.isArray(attachments)) {
       return attachments;
     } else {
@@ -82,7 +82,7 @@ class ReactPhotoGalleryField extends React.Component {
       photos={renderedAttachments}
       renderImage={this.renderPhotos}
       columns={2}
-      direction={this.isColumnLayout() ? "column" : "row"}
+      direction={this.isColumnLayout() ? 'column' : 'row'}
     />
   }
 
@@ -96,9 +96,9 @@ class ReactPhotoGalleryField extends React.Component {
           {!this.isDisabled() && (
             <UploadComponent
               title={schema.title}
-              accepted={["image/*"]}
+              accepted={['image/*']}
               onAcceptedFiles={this.handleAcceptFiles}
-              className={"d-print-none"}
+              className={'d-print-none'}
             />
           )}
           {this.renderGallery()}

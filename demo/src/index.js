@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import createServer from '../../server';
-import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 

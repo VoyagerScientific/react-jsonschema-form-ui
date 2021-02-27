@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
 const imgStyle = {
-  transition: "transform .3s cubic-bezier(0.0,0.0,0.2,1),opacity linear .5s"
+  transition: 'transform .3s cubic-bezier(0.0,0.0,0.2,1),opacity linear .5s'
 }
 const selectedImgStyle = {
-  transform: "translateZ(0px) scale3d(0.9, 0.9, 1)",
-  transition: "transform .3s cubic-bezier(0.0,0.0,0.2,1),opacity linear .5s"
+  transform: 'translateZ(0px) scale3d(0.9, 0.9, 1)',
+  transition: 'transform .3s cubic-bezier(0.0,0.0,0.2,1),opacity linear .5s'
 }
 
 const PhotoItem = (props) => {

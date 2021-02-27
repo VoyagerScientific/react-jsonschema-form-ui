@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import _ from "lodash";
-import PlacesAutocomplete from "react-places-autocomplete";
-import injectScript from "react-inject-script";
+import React, { Component } from 'react';
+import _ from 'lodash';
+import PlacesAutocomplete from 'react-places-autocomplete';
+import injectScript from 'react-inject-script';
 import {
   InputGroup,
   FormControl,
   FormLabel,
   Spinner,
   Card,
-} from "react-bootstrap";
-import classNames from "classnames";
+} from 'react-bootstrap';
+import classNames from 'classnames';
 
 class ReactPlaceField extends Component {
   static getDerivedStateFromProps(props, state) {
     const newOptions = _.merge(
-      props.uiSchema["ui:options"] || {},
+      props.uiSchema['ui:options'] || {},
       props.options
     );
     return { options: newOptions };
@@ -23,7 +23,7 @@ class ReactPlaceField extends Component {
   state = {
     googleApiLoaded: false,
     loading: true,
-    value: "",
+    value: '',
     hasError: false,
     id: Math.floor(Math.random() * 100),
   };
@@ -44,21 +44,21 @@ class ReactPlaceField extends Component {
   async componentDidMount() {
     try {
       this.setState({ loading: true });
-      const googleApiKey = _.get(this.state, "options.api");
+      const googleApiKey = _.get(this.state, 'options.api');
       if (googleApiKey) {
         await injectScript(
-          "googleapi",
+          'googleapi',
           `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places`
         );
         setTimeout(() => {
           this.setState({ googleApiLoaded: true, loading: false });
         }, 2000);
       } else {
-        throw Error("No Google API Key");
+        throw Error('No Google API Key');
       }
     } catch (error) {
       this.setState({
-        hasError: "Cannot load because of missing Google API key",
+        hasError: 'Cannot load because of missing Google API key',
         loading: false,
       });
     }
@@ -74,7 +74,7 @@ class ReactPlaceField extends Component {
     return (
       <>
         <InputGroup className="mb-3">
-          <FormControl {...getInputProps()} />{" "}
+          <FormControl {...getInputProps()} />{' '}
           {!_.isEmpty(suggestions) && (
             <div className="autocomplete-dropdown-container">
               <div className="wrapper">

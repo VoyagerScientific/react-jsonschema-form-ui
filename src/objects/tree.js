@@ -96,7 +96,7 @@ class Tree {
         label,
         id: record.id,
         value: value,
-        children: isParentInLastDepth ? [] : [""],
+        children: isParentInLastDepth ? [] : [''],
         parent: parent ? parent.value : null,
         depth: parent ? parent.depth + 1 : 0,
       };

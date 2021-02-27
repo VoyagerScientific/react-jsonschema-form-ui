@@ -1,6 +1,6 @@
-import React from "react";
-import _ from "lodash";
-import { Table, Form, Row, Col, Button } from "react-bootstrap";
+import React from 'react';
+import _ from 'lodash';
+import { Table, Form, Row, Col, Button } from 'react-bootstrap';
 
 class CheckboxInputTable extends React.Component {
   state = {
@@ -39,13 +39,13 @@ class CheckboxInputTable extends React.Component {
         name={`radioGroup-${this.id}-${rowIndex}`}
         onChange={this.handleChange(rowData, colData, rowIndex, colIndex)}
         type="checkbox"
-        style={{ display: "flex", justifyContent: "center" }}
+        style={{ display: 'flex', justifyContent: 'center' }}
       />
     );
   }
 
   renderTable() {
-    const { rows, columns } = _.get(this.props, "options", {});
+    const { rows, columns } = _.get(this.props, 'options', {});
     return (
       <Table responsive>
         <thead>

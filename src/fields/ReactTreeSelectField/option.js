@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { Row, Col, Spinner } from 'react-bootstrap';  
-import "intelligent-tree-select/lib/styles.css";
-import FontAwesome from "react-fontawesome";
+import 'intelligent-tree-select/lib/styles.css';
+import FontAwesome from 'react-fontawesome';
 
 class ReactTreeSelectFieldOption extends Component {
   handleClick = (event) => {
@@ -32,20 +32,20 @@ class ReactTreeSelectFieldOption extends Component {
     return (
       <li style={{ listStyleType: 'none', ...this.props.optionStyle }}>
       <Row
-        style={{ margin: `5px` }}
+        style={{ margin: '5px' }}
         className="align-items-center">
         <Col
           xs="auto"
           md="auto"
           onClick={this.handleToggle}
           style={{ padding: '0 5px', margin: 0 }}
-          className={"btn"}
+          className={'btn'}
           >
             {(fetching && `${this.props.focusedOptionIndex}` === `${this.props.optionIndex}`) && (<Spinner size="sm" animation="border" />)}
             {!(fetching && `${this.props.focusedOptionIndex}` === `${this.props.optionIndex}`) && !this.props.option.isEnd && (
             <div>
               <FontAwesome 
-                name={expanded ? "minus-circle" : "plus-circle"} />
+                name={expanded ? 'minus-circle' : 'plus-circle'} />
             </div>
               )}
             
@@ -53,7 +53,7 @@ class ReactTreeSelectFieldOption extends Component {
         <Col
           xs="auto"
           style={{ padding: 0, margin: 0, fontWeight: isSelected ? 'bold': 'normal' }}
-          className={"btn"}
+          className={'btn'}
           onClick={this.handleClick}
         >{this.props.option.label}</Col>
       </Row>
