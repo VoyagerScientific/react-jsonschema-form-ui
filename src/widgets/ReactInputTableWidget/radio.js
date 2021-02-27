@@ -1,6 +1,6 @@
-import React from 'react';
-import _ from 'lodash';
-import { Table, Form, Row, Col, Button } from 'react-bootstrap';
+import React from "react";
+import _ from "lodash";
+import { Table, Form, Row, Col, Button } from "react-bootstrap";
 
 class RadioInputTable extends React.Component {
   id = Math.floor(Math.random() * 100);
@@ -27,13 +27,13 @@ class RadioInputTable extends React.Component {
         name={`radioGroup-${this.id}-${rowIndex}`}
         onChange={this.handleCheck(rowData, colData, rowIndex, colIndex)}
         type="radio"
-        style={{ display: 'flex', justifyContent: 'center' }}
+        style={{ display: "flex", justifyContent: "center" }}
       />
     );
   }
 
   renderTable = () => {
-    const { rows, columns } = _.get(this.props, 'options', {});
+    const { rows, columns } = _.get(this.props, "options", {});
     return (
       <Table responsive>
         <thead>

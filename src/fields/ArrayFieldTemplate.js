@@ -1,7 +1,7 @@
-import React from 'react';
-import IconButton from 'react-jsonschema-form-bs4/lib/components/IconButton';
-import '@fortawesome/fontawesome-free/css/all.css';
-import '@fortawesome/fontawesome-free/js/all.js';
+import React from "react";
+import IconButton from "react-jsonschema-form-bs4/lib/components/IconButton";
+import "@fortawesome/fontawesome-free/css/all.css";
+import "@fortawesome/fontawesome-free/js/all.js";
 
 function ArrayFieldTitle({ TitleField, idSchema, title, required }) {
   if (!title) {
@@ -24,7 +24,7 @@ function DefaultArrayItem(props) {
     flex: 1,
     paddingLeft: 6,
     paddingRight: 6,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   };
   return (
     <div key={props.key} className={props.className}>
@@ -35,8 +35,8 @@ function DefaultArrayItem(props) {
           <div
             className="btn-group"
             style={{
-              display: 'flex',
-              justifyContent: 'space-around',
+              display: "flex",
+              justifyContent: "space-around",
             }}
           >
             {(props.hasMoveUp || props.hasMoveDown) && (
@@ -84,24 +84,24 @@ function DefaultArrayItem(props) {
 }
 
 function ArrayFieldTemplate(props) {
-  console.log('this is props from ArrayFieldTemplate:', props);
+  console.log("this is props from ArrayFieldTemplate:", props);
   return (
     <fieldset className={props.className} id={props.idSchema.$id}>
       <ArrayFieldTitle
         key={`array-field-title-${props.idSchema.$id}`}
         TitleField={props.TitleField}
         idSchema={props.idSchema}
-        title={props.uiSchema['ui:title'] || props.title}
+        title={props.uiSchema["ui:title"] || props.title}
         required={props.required}
       />
 
-      {(props.uiSchema['ui:description'] || props.schema.description) && (
+      {(props.uiSchema["ui:description"] || props.schema.description) && (
         <ArrayFieldDescription
           key={`array-field-description-${props.idSchema.$id}`}
           DescriptionField={props.DescriptionField}
           idSchema={props.idSchema}
           description={
-            props.uiSchema['ui:description'] || props.schema.description
+            props.uiSchema["ui:description"] || props.schema.description
           }
         />
       )}
@@ -115,7 +115,7 @@ function ArrayFieldTemplate(props) {
 
       {props.canAdd && (
         <div className="row">
-          <p className={'col array-item-add'}>
+          <p className={"col array-item-add"}>
             <IconButton
               type="link"
               icon="plus"

@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import Dropzone from 'react-dropzone';
-import _ from 'lodash';
-import FileDisplay from './components/FileDisplay';
-import { Spinner } from 'react-bootstrap';
+import React, { useState } from "react";
+import Dropzone from "react-dropzone";
+import _ from "lodash";
+import FileDisplay from "./components/FileDisplay";
+import { Spinner } from "react-bootstrap";
 
 function ReactDropZoneWidget(props) {
   const { isReading, onAcceptedFiles, onChange } = props;
   const [saving, setSaving] = useState(false);
-  const acceptedFiles = _.get(props, 'options.accepted');
+  const acceptedFiles = _.get(props, "options.accepted");
   const originalValue = _.isArray(props.value) ? props.value : [];
 
   const _onDrop = async (acceptedFiles) => {
@@ -35,19 +35,19 @@ function ReactDropZoneWidget(props) {
   };
 
   const areFilesVisible =
-    _.get(props, 'options.withFileDisplay') && !_.isEmpty(props.value);
+    _.get(props, "options.withFileDisplay") && !_.isEmpty(props.value);
 
   return (
     <Dropzone
       onDrop={_onDrop}
-      accept={acceptedFiles || ['image/*']}
+      accept={acceptedFiles || ["image/*"]}
       disabled={saving}
     >
       {({ getRootProps, getInputProps, isDragActive }) => (
         <>
           <section className="d-print-none">
             <div
-              className={`dropzone ${isDragActive ? 'active' : ''}`}
+              className={`dropzone ${isDragActive ? "active" : ""}`}
               {...getRootProps()}
             >
               <input {...getInputProps()} name={props.id} />

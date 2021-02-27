@@ -1,12 +1,12 @@
-import React from 'react';
-import _ from 'lodash';
-import HyperFormulaBuilder from './../../components/hyperformula/builder';
-import ReactFormulaAgGridTable from './ag-grid-table';
-import { Button, Col, Row, Container } from 'react-bootstrap';
+import React from "react";
+import _ from "lodash";
+import HyperFormulaBuilder from "./../../components/hyperformula/builder";
+import ReactFormulaAgGridTable from "./ag-grid-table";
+import { Button, Col, Row, Container } from "react-bootstrap";
 
 class ReactFormulaField extends React.Component {
   static getDerivedStateFromProps(props, state) {
-    const options = _.merge(props.uiSchema['ui:options'], props.options);
+    const options = _.merge(props.uiSchema["ui:options"], props.options);
     return {
       ...props,
       options: { ...options },
@@ -26,12 +26,12 @@ class ReactFormulaField extends React.Component {
   }
 
   getHeaders() {
-    const properties = _.get(this.props, 'schema.items.properties', {});
+    const properties = _.get(this.props, "schema.items.properties", {});
     const headers = _.toPairs(properties);
     return _.map(headers, ([headerKey, headerObject]) => {
       let header = { header: headerKey, ...headerObject };
       if (header.readOnly) {
-        const formula = _.get(this.state, `options.formulas.${headerKey}`, '');
+        const formula = _.get(this.state, `options.formulas.${headerKey}`, "");
         header.formula = formula;
       }
       return header;
@@ -45,7 +45,7 @@ class ReactFormulaField extends React.Component {
 
   render() {
     this.builder.withDataObjects(this.props.formData);
-    const label = _.get(this.props, 'schema.title', '');
+    const label = _.get(this.props, "schema.title", "");
 
     return (
       <div>

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { accounting } from 'accounting';
+import { accounting } from "accounting";
 
 class CurrencyWidget extends Component {
   constructor(props) {
@@ -11,16 +11,16 @@ class CurrencyWidget extends Component {
 
     accounting.settings = {
       currency: {
-        symbol: !props.options.symbol ? '$' : props.options.symbol, // default currency symbol is '$'
-        format: !props.options.format ? '%s%v' : props.options.format, // controls output: %s = symbol, %v = value/number
-        decimal: '.', // decimal point separator
-        thousand: ',', // thousands separator
+        symbol: !props.options.symbol ? "$" : props.options.symbol, // default currency symbol is '$'
+        format: !props.options.format ? "%s%v" : props.options.format, // controls output: %s = symbol, %v = value/number
+        decimal: ".", // decimal point separator
+        thousand: ",", // thousands separator
         precision: this.precision, // decimal places
       },
       number: {
         precision: this.precision, // default precision on numbers is 0
-        thousand: ',',
-        decimal: '.',
+        thousand: ",",
+        decimal: ".",
       },
     };
 
@@ -37,7 +37,7 @@ class CurrencyWidget extends Component {
         <input
           type="text"
           className="form-control currency"
-          style={{ textAlign: 'right' }}
+          style={{ textAlign: "right" }}
           value={this.state.value}
           required={this.state.required}
           onBlur={(event) => {

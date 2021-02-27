@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 
 const imgStyle = {
-  transition: 'transform .3s cubic-bezier(0.0,0.0,0.2,1),opacity linear .5s'
+  transition: "transform .3s cubic-bezier(0.0,0.0,0.2,1),opacity linear .5s"
 }
 const selectedImgStyle = {
-  transform: 'translateZ(0px) scale3d(0.9, 0.9, 1)',
-  transition: 'transform .3s cubic-bezier(0.0,0.0,0.2,1),opacity linear .5s'
+  transform: "translateZ(0px) scale3d(0.9, 0.9, 1)",
+  transition: "transform .3s cubic-bezier(0.0,0.0,0.2,1),opacity linear .5s"
 }
 
 const PhotoItem = (props) => {
@@ -24,7 +24,7 @@ const PhotoItem = (props) => {
   return (
     <div
       className="img-wrap"
-      style={{ height, width, top, left, position: isColumn ? 'absolute' : 'relative' }}
+      style={{ height, width, top, left, position: isColumn ? "absolute" : "relative" }}
       onMouseEnter={_onMouseEnter}
       onMouseLeave={_onMouseLeave}
     >

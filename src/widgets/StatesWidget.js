@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { us_states } from '../helpers/us_states';
+import React, { Component } from "react";
+import { us_states } from "../helpers/us_states";
 
 const StatesWidget = (props) => {
   const state_abbreviations = Object.keys(us_states);

@@ -1,6 +1,6 @@
-import React from 'react';
-import _ from 'lodash';
-import { Table, Button } from 'react-bootstrap';
+import React from "react";
+import _ from "lodash";
+import { Table, Button } from "react-bootstrap";
 
 class ButtonInputTable extends React.Component {
   state = {
@@ -25,7 +25,7 @@ class ButtonInputTable extends React.Component {
   };
 
   renderCell(rowData, colData, rowIndex, colIndex) {
-    const optionValueMatrix = _.get(this.props, 'options.values', []);
+    const optionValueMatrix = _.get(this.props, "options.values", []);
     const optionCellValue = _.get(
       optionValueMatrix,
       `${rowIndex}.${colIndex}`,
@@ -38,21 +38,21 @@ class ButtonInputTable extends React.Component {
     );
     return optionCellValue ? (
       <Button
-        as={'span'}
+        as={"span"}
         className="buttonCell"
-        variant={isSelected ? 'secondary' : 'outlined'}
+        variant={isSelected ? "secondary" : "outlined"}
         active={isSelected}
         onClick={this.handleButtonClick(rowData, colData, optionCellValue)}
       >
         {optionCellValue}
       </Button>
     ) : (
-      ''
+      ""
     );
   }
 
   render() {
-    const { rows, columns } = _.get(this.props, 'options', {});
+    const { rows, columns } = _.get(this.props, "options", {});
     return (
       <Table responsive>
         <tbody>

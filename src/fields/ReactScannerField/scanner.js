@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import videoCanvas from 'video-canvas';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import videoCanvas from "video-canvas";
 
 const wrapperStyles = {
-  overflowY: 'hidden',
-  position: 'static',
-  width: '100%',
+  overflowY: "hidden",
+  position: "static",
+  width: "100%",
 };
 
 const styles = {
   fullScreen: {
-    width: '100vw',
-    height: '100vh',
-    background: 'aqua',
-    position: 'fixed',
-    top: '0px',
-    left: '0px',
+    width: "100vw",
+    height: "100vh",
+    background: "aqua",
+    position: "fixed",
+    top: "0px",
+    left: "0px",
   }
 };
 
@@ -48,15 +48,15 @@ class CodeReader extends Component {
 
     const firstDeviceId = videoInputDevices[0].deviceId;
     this.props.codeReader
-      .decodeOnceFromVideoDevice(firstDeviceId, 'video')
+      .decodeOnceFromVideoDevice(firstDeviceId, "video")
       .then(this.handleSuccess)
       .catch(this.handleError);
 
-    const video = document.querySelector('video');
+    const video = document.querySelector("video");
     videoCanvas(video, {
-      canvas: document.querySelector('#video-canvas'),
+      canvas: document.querySelector("#video-canvas"),
       drawCall: function (ctx, video) {
-        ctx.fillStyle = '#fff';
+        ctx.fillStyle = "#fff";
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         const aspectWidth = (ctx.canvas.width / ctx.canvas.offsetWidth);
         const aspectHeight = (ctx.canvas.height / ctx.canvas.offsetHeight);
@@ -70,7 +70,7 @@ class CodeReader extends Component {
         const rectangleWidth = aspectWidth * (video.videoWidth - 250);
         const rectangleHeight = aspectHeight * (video.videoHeight - 100);
         ctx.lineWidth = 10;
-        ctx.strokeStyle  = 'rgba(100,100,100,0.5)';
+        ctx.strokeStyle  = "rgba(100,100,100,0.5)";
         ctx.rect(
           ((ctx.canvas.offsetWidth - ctx.canvas.width + 250) / 2) * aspectWidth,
           ((ctx.canvas.offsetHeight - ctx.canvas.height + 100) / 2) * aspectHeight,
@@ -89,7 +89,7 @@ class CodeReader extends Component {
           : null}
         <video
           id="video"
-          style={{ display: 'none' }}
+          style={{ display: "none" }}
         ></video>
         <canvas
           id="video-canvas"

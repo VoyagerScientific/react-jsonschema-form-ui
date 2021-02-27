@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Form from '../../src/forms/index';
+import React, { Component } from "react";
+import Form from "../../src/forms/index";
 import {
   ArrayFieldTemplate,
   CurrencyWidget,
@@ -18,16 +18,16 @@ import {
   ReactQRReaderField,
   ReactScannerField,
   ReactTreeSelectField,
-} from '../../src/index';
-import treeOptions from './tree-options';
-import './App.css';
+} from "../../src/index";
+import treeOptions from "./tree-options";
+import "./App.css";
 
-import { initListenerAutoResize } from '../../src/utils/helpers';
+import { initListenerAutoResize } from "../../src/utils/helpers";
 
 const fileUploadProps = {
   options: {
-    fileUploadUrl: '/api/users',
-    authenticity_token: '',
+    fileUploadUrl: "/api/users",
+    authenticity_token: "",
   },
 };
 
@@ -56,8 +56,8 @@ const fields = {
   ReactFormulaField: ReactFormulaField,
 };
 
-const CORS_ANYWHERE = 'https://cors-anywhere.herokuapp.com';
-const API_END_POINT = 'https://602105a446f1e40017803b1d.mockapi.io/photos';
+const CORS_ANYWHERE = "https://cors-anywhere.herokuapp.com";
+const API_END_POINT = "https://602105a446f1e40017803b1d.mockapi.io/photos";
 
 const withCors = (url) => {
   return `${CORS_ANYWHERE}/${url}`;
@@ -66,292 +66,292 @@ const withCors = (url) => {
 const log = (type) => console.log.bind(console, type);
 
 const schema = {
-  type: 'object',
+  type: "object",
   // readOnly: true,
   required: [
-    'prepopulated_address',
-    'react_dropzone',
-    'react_dropzone_2',
-    'test_react_select_without_enumNames',
+    "prepopulated_address",
+    "react_dropzone",
+    "react_dropzone_2",
+    "test_react_select_without_enumNames",
   ],
   properties: {
     textarea: {
-      title: 'Textarea auto resize content',
-      type: 'string',
+      title: "Textarea auto resize content",
+      type: "string",
     },
     test_react_select_without_enumNames: {
-      title: 'Test React Select (WITHOUT enumNames)',
-      type: 'string',
-      enum: ['1', '2', '3'],
+      title: "Test React Select (WITHOUT enumNames)",
+      type: "string",
+      enum: ["1", "2", "3"],
     },
     test_react_select_with_enumNames: {
-      title: 'Test React Select (WITH enumNames)',
-      type: 'string',
-      enum: ['1', '2', '3'],
-      enumNames: ['One', 'Two', 'Three'],
+      title: "Test React Select (WITH enumNames)",
+      type: "string",
+      enum: ["1", "2", "3"],
+      enumNames: ["One", "Two", "Three"],
     },
     test_react_select_createable: {
-      title: 'Test React Select (createable)',
-      type: 'string',
-      enum: ['1', '2', '3'],
+      title: "Test React Select (createable)",
+      type: "string",
+      enum: ["1", "2", "3"],
     },
     test_react_select_array: {
-      title: 'Test React Select (ARRAY)',
-      type: 'array',
+      title: "Test React Select (ARRAY)",
+      type: "array",
       items: {
-        type: 'string',
-        enum: ['1', '2', '3'],
-        enumNames: ['One', 'Two', 'Three'],
+        type: "string",
+        enum: ["1", "2", "3"],
+        enumNames: ["One", "Two", "Three"],
       },
       uniqueItems: true,
     },
     test_react_select_remote: {
-      title: 'Test React Select (Remote)',
-      type: 'array',
+      title: "Test React Select (Remote)",
+      type: "array",
       items: {
-        type: 'string',
-        enum: [''],
+        type: "string",
+        enum: [""],
       },
       uniqueItems: true,
     },
     currency: {
-      title: 'Currency Demo',
-      type: 'number',
+      title: "Currency Demo",
+      type: "number",
     },
     percent: {
-      title: 'Percent',
-      type: 'number',
+      title: "Percent",
+      type: "number",
     },
     date: {
-      title: 'Date',
-      type: 'string',
+      title: "Date",
+      type: "string",
     },
     array_template: {
-      type: 'array',
-      title: 'Custom Array Template',
+      type: "array",
+      title: "Custom Array Template",
       minItems: 1,
       items: {
-        type: 'object',
+        type: "object",
         properties: {
           string: {
-            type: 'string',
-            title: 'String',
+            type: "string",
+            title: "String",
           },
           checkbox: {
-            type: 'boolean',
-            title: 'Checkbox',
+            type: "boolean",
+            title: "Checkbox",
           },
           select: {
-            type: 'string',
-            enum: [''],
-            title: 'Remote Select',
+            type: "string",
+            enum: [""],
+            title: "Remote Select",
           },
         },
       },
     },
     us_states: {
-      type: 'string',
-      title: 'US States',
+      type: "string",
+      title: "US States",
     },
     react_place_field: {
-      type: 'string',
-      title: 'Places',
+      type: "string",
+      title: "Places",
     },
     signature: {
-      type: 'string',
-      title: 'Signer',
-      format: 'data-url',
+      type: "string",
+      title: "Signer",
+      format: "data-url",
     },
     raw_html: {
-      type: 'string',
-      title: 'Raw HTML',
+      type: "string",
+      title: "Raw HTML",
     },
     react_photo_gallery: {
-      title: 'Photo Gallery',
-      type: 'object',
-      required: ['attachments'],
+      title: "Photo Gallery",
+      type: "object",
+      required: ["attachments"],
       properties: {
-        attachments: { type: 'array' },
+        attachments: { type: "array" },
       },
     },
     react_dropzone: {
-      title: 'Dropzone',
+      title: "Dropzone",
       minItems: 1,
-      type: 'array',
+      type: "array",
       items: {
-        type: 'string',
-        format: 'data-url',
+        type: "string",
+        format: "data-url",
       },
       // required: true
     },
     react_dropzone_2: {
-      title: 'Dropzone (Duplicate)',
+      title: "Dropzone (Duplicate)",
       minItems: 1,
-      type: 'array',
+      type: "array",
       items: {
-        type: 'string',
-        format: 'data-url',
+        type: "string",
+        format: "data-url",
       },
       // required: true
     },
     react_qr_reader: {
-      title: 'QR Reader',
-      type: 'string',
+      title: "QR Reader",
+      type: "string",
     },
     react_scanner: {
-      title: 'Scanner',
-      type: 'string',
+      title: "Scanner",
+      type: "string",
     },
     react_tree_select: {
-      title: 'Tree Select',
-      type: 'array',
+      title: "Tree Select",
+      type: "array",
     },
     react_remote_tree_select: {
-      title: 'Tree Select Remote',
-      type: 'array',
+      title: "Tree Select Remote",
+      type: "array",
     },
     react_formula_field: {
-      title: 'Calculations',
-      type: 'array',
+      title: "Calculations",
+      type: "array",
       items: {
-        type: 'object',
+        type: "object",
         properties: {
           a: {
-            type: 'number',
+            type: "number",
           },
           b: {
-            type: 'number',
+            type: "number",
           },
           c: {
-            type: 'number',
+            type: "number",
             readOnly: true,
           },
         },
       },
     },
     prepopulated_address: {
-      title: 'Prepopulated Address',
-      type: 'object',
+      title: "Prepopulated Address",
+      type: "object",
     },
     first_address: {
-      title: 'First Address (Prepopulated)',
-      type: 'string',
+      title: "First Address (Prepopulated)",
+      type: "string",
     },
     second_address: {
-      title: 'Second Address (Prepopulated)',
-      type: 'string',
+      title: "Second Address (Prepopulated)",
+      type: "string",
     },
     city: {
-      title: 'City (Prepopulated)',
-      type: 'string',
+      title: "City (Prepopulated)",
+      type: "string",
     },
     state: {
-      title: 'State (Prepopulated)',
-      type: 'string',
+      title: "State (Prepopulated)",
+      type: "string",
     },
     country: {
-      title: 'Country (Prepopulated)',
-      type: 'string',
+      title: "Country (Prepopulated)",
+      type: "string",
     },
     postcode: {
-      title: 'Postal Code (Prepopulated)',
-      type: 'string',
+      title: "Postal Code (Prepopulated)",
+      type: "string",
     },
     latitude: {
-      title: 'Latitude (Prepopulated)',
-      type: 'string',
+      title: "Latitude (Prepopulated)",
+      type: "string",
     },
     longitude: {
-      title: 'Longitude (Prepopulated)',
-      type: 'string',
+      title: "Longitude (Prepopulated)",
+      type: "string",
     },
     react_formula_field: {
-      title: 'Calculations',
-      type: 'array',
+      title: "Calculations",
+      type: "array",
       items: {
-        type: 'object',
+        type: "object",
         properties: {
           a: {
-            type: 'number',
+            type: "number",
           },
           b: {
-            type: 'number',
+            type: "number",
           },
           c: {
-            type: 'number',
+            type: "number",
             readOnly: true,
           },
         },
       },
     },
     input_table_checkbox: {
-      title: 'Input Table (Checkbox)',
-      type: 'object',
+      title: "Input Table (Checkbox)",
+      type: "object",
       properties: {
-        'Service Quality': {
-          type: 'array',
+        "Service Quality": {
+          type: "array",
           items: {
-            type: 'string',
+            type: "string",
           },
         },
         Cleanliness: {
-          type: 'array',
+          type: "array",
           items: {
-            type: 'string',
+            type: "string",
           },
         },
         Responsiveness: {
-          type: 'array',
+          type: "array",
           items: {
-            type: 'string',
+            type: "string",
           },
         },
         Friendliness: {
-          type: 'array',
+          type: "array",
           items: {
-            type: 'string',
+            type: "string",
           },
         },
       },
     },
     input_table_radio: {
-      title: 'Input Table (Radio)',
-      type: 'object',
+      title: "Input Table (Radio)",
+      type: "object",
       properties: {
-        'Service Quality': {
-          type: 'string',
+        "Service Quality": {
+          type: "string",
         },
         Cleanliness: {
-          type: 'string',
+          type: "string",
         },
         Responsiveness: {
-          type: 'string',
+          type: "string",
         },
         Friendliness: {
-          type: 'string',
+          type: "string",
         },
       },
     },
     input_table_button: {
-      title: 'Risk Matrix: Likelihood x Consequences',
-      type: 'string',
+      title: "Risk Matrix: Likelihood x Consequences",
+      type: "string",
     },
   },
 };
 
 const uiSchema = {
   textarea: {
-    'ui:widget': 'textarea',
-    'ui:options': {
+    "ui:widget": "textarea",
+    "ui:options": {
       rows: 4,
     },
   },
   test_react_select_with_enumNames: {
-    'ui:widget': 'ReactSelectWidget',
+    "ui:widget": "ReactSelectWidget",
   },
   test_react_select_without_enumNames: {
-    'ui:widget': 'ReactSelectWidget',
-    'ui:options': {
+    "ui:widget": "ReactSelectWidget",
+    "ui:options": {
       isSearchable: true,
       isClearable: true,
       remote: {
@@ -361,73 +361,73 @@ const uiSchema = {
     },
   },
   test_react_select_createable: {
-    'ui:widget': 'ReactSelectWidget',
-    'ui:options': {
+    "ui:widget": "ReactSelectWidget",
+    "ui:options": {
       isCreateable: true, //props
       isMulti: true,
     },
   },
   test_react_select_array: {
-    'ui:widget': 'ReactSelectWidget',
-    'ui:options': {
+    "ui:widget": "ReactSelectWidget",
+    "ui:options": {
       isList: true,
     },
   },
   test_react_select_remote: {
-    'ui:widget': 'ReactSelectWidget',
-    'ui:options': {
+    "ui:widget": "ReactSelectWidget",
+    "ui:options": {
       isMulti: true,
       remote: {
         url:
-          'https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View',
+          "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
         headers: {
-          Authorization: 'Bearer keyKM5nPQi7efGQ9Z',
+          Authorization: "Bearer keyKM5nPQi7efGQ9Z",
         },
         paths: {
-          record: ['records'],
-          value: ['id'],
-          label: ['fields', 'Name'],
+          record: ["records"],
+          value: ["id"],
+          label: ["fields", "Name"],
         },
       },
     },
   },
   currency: {
-    'ui:widget': 'CurrencyWidget',
-    'ui:options': {
+    "ui:widget": "CurrencyWidget",
+    "ui:options": {
       precision: 2,
     },
   },
   percent: {
-    'ui:widget': 'PercentWidget',
-    'ui:options': {
+    "ui:widget": "PercentWidget",
+    "ui:options": {
       digits: 0,
     },
   },
   date: {
-    'ui:widget': 'ReactDatePickerWidget',
-    'ui:options': {
+    "ui:widget": "ReactDatePickerWidget",
+    "ui:options": {
       format: {
-        data: 'MM-DD-YYYY',
-        display: 'DD/MM/YYYY',
+        data: "MM-DD-YYYY",
+        display: "DD/MM/YYYY",
       },
     },
   },
   array_template: {
     items: {
       select: {
-        'ui:widget': 'ReactSelectWidget',
-        'ui:options': {
+        "ui:widget": "ReactSelectWidget",
+        "ui:options": {
           isMulti: false,
           remote: {
             url:
-              'https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View',
+              "https://api.airtable.com/v0/appB2bqf1uwbjCLul/Assignees?&view=Main%20View",
             headers: {
-              Authorization: 'Bearer keyKM5nPQi7efGQ9Z',
+              Authorization: "Bearer keyKM5nPQi7efGQ9Z",
             },
             paths: {
-              record: ['records'],
-              value: ['id'],
-              label: ['fields', 'Name'],
+              record: ["records"],
+              value: ["id"],
+              label: ["fields", "Name"],
             },
           },
         },
@@ -435,124 +435,124 @@ const uiSchema = {
     },
   },
   signature: {
-    'ui:field': 'ReactSignatureCanvasField',
-    'ui:options': {
+    "ui:field": "ReactSignatureCanvasField",
+    "ui:options": {
       width: 300,
       height: 100,
     },
   },
   us_states: {
-    'ui:widget': 'StatesWidget',
+    "ui:widget": "StatesWidget",
   },
   react_place_field: {
-    'ui:field': 'ReactPlaceField',
-    'ui:options': {
-      api: 'AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU',
+    "ui:field": "ReactPlaceField",
+    "ui:options": {
+      api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU",
     },
   },
   raw_html: {
-    'ui:field': 'RawHTMLField',
-    'ui:options': { html: '<h1>Hi</h1>' },
+    "ui:field": "RawHTMLField",
+    "ui:options": { html: "<h1>Hi</h1>" },
   },
   react_photo_gallery: {
-    'ui:field': 'ReactPhotoGalleryField',
+    "ui:field": "ReactPhotoGalleryField",
   },
   react_dropzone: {
-    'ui:widget': 'ReactDropZoneWidget',
-    fieldType: 'react-drop-zone',
-    'ui:options': {
-      accepted: ['image/*', 'application/pdf'],
+    "ui:widget": "ReactDropZoneWidget",
+    fieldType: "react-drop-zone",
+    "ui:options": {
+      accepted: ["image/*", "application/pdf"],
       withFileDisplay: true,
     },
   },
   react_dropzone_2: {
-    'ui:widget': 'ReactDropZoneWidget',
-    fieldType: 'react-drop-zone',
-    'ui:options': {
-      accepted: ['application/pdf'],
+    "ui:widget": "ReactDropZoneWidget",
+    fieldType: "react-drop-zone",
+    "ui:options": {
+      accepted: ["application/pdf"],
       withFileDisplay: true,
     },
   },
   react_qr_reader: {
-    'ui:field': 'ReactQRReaderField',
+    "ui:field": "ReactQRReaderField",
   },
   react_scanner: {
-    'ui:field': 'ReactScannerField',
+    "ui:field": "ReactScannerField",
   },
   react_tree_select: {
-    'ui:field': 'ReactTreeSelectField',
-    'ui:options': {
+    "ui:field": "ReactTreeSelectField",
+    "ui:options": {
       treeOptions: [...treeOptions],
     },
   },
   react_formula_field: {
-    'ui:field': 'ReactFormulaField',
-    'ui:options': {
+    "ui:field": "ReactFormulaField",
+    "ui:options": {
       formulas: {
-        c: 'a[i]+b[i]',
+        c: "a[i]+b[i]",
       },
       confirmRemove: true,
       removable: true,
       height: 200,
-      width: '100%',
+      width: "100%",
     },
   },
 
   react_remote_tree_select: {
-    'ui:field': 'ReactTreeSelectField',
-    'ui:options': {
+    "ui:field": "ReactTreeSelectField",
+    "ui:options": {
       isCreateable: false,
       isMulti: true,
       remote: {
         data: [
           {
             id: 1,
-            url: 'https://5fe385bb8bf8af001766e7a1.mockapi.io/homes',
-            record: ['items'],
-            label: ['name'],
-            value: ['id'],
+            url: "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes",
+            record: ["items"],
+            label: ["name"],
+            value: ["id"],
           },
           {
             id: 2,
             parent: 3,
             url:
-              'https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances/{{parent[1]}}/parts',
-            record: ['parts'],
-            label: ['item'],
-            value: ['partCode'],
+              "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances/{{parent[1]}}/parts",
+            record: ["parts"],
+            label: ["item"],
+            value: ["partCode"],
           },
           {
             id: 3,
             parent: 1,
             url:
-              'https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances',
-            record: ['items'],
-            label: ['appliance'],
-            value: ['code'],
+              "https://5fe385bb8bf8af001766e7a1.mockapi.io/homes/{{parent[0]}}/appliances",
+            record: ["items"],
+            label: ["appliance"],
+            value: ["code"],
           },
         ],
       },
     },
   },
   prepopulated_address: {
-    'ui:field': 'ReactPlaceAutofillField',
-    'ui:options': {
-      api: 'AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU',
+    "ui:field": "ReactPlaceAutofillField",
+    "ui:options": {
+      api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU",
       showFields: true,
       updateAdjacentFields: true,
       fields: {
-        address_1: 'first_address',
-        address_2: 'second_address',
-        city: 'city',
-        state: 'state',
-        postal_code: 'postcode',
-        country: 'country',
+        address_1: "first_address",
+        address_2: "second_address",
+        city: "city",
+        state: "state",
+        postal_code: "postcode",
+        country: "country",
       },
     },
   },
   input_table_checkbox: {
-    'ui:field': 'ReactInputTableWidget',
-    'ui:options': {
+    "ui:field": "ReactInputTableWidget",
+    "ui:options": {
       // inputTableType: "checkbox",
       // rows: [
       //   "Service Quality",
@@ -569,40 +569,40 @@ const uiSchema = {
     },
   },
   input_table_radio: {
-    'ui:field': 'ReactInputTableWidget',
-    'ui:options': {
-      inputTableType: 'radio',
+    "ui:field": "ReactInputTableWidget",
+    "ui:options": {
+      inputTableType: "radio",
       rows: [
-        'Service Quality',
-        'Cleanliness',
-        'Responsiveness',
-        'Friendliness',
+        "Service Quality",
+        "Cleanliness",
+        "Responsiveness",
+        "Friendliness",
       ],
       columns: [
-        'Not Satisfied',
-        'Somewhat Satisfied',
-        'Satisfied',
-        'Very Satisfied',
+        "Not Satisfied",
+        "Somewhat Satisfied",
+        "Satisfied",
+        "Very Satisfied",
       ],
     },
   },
   input_table_button: {
-    'ui:field': 'ReactInputTableWidget',
-    'ui:options': {
-      inputTableType: 'button',
+    "ui:field": "ReactInputTableWidget",
+    "ui:options": {
+      inputTableType: "button",
       rows: [
-        'Very Likely (5)',
-        'Likely (4)',
-        'Possible (3)',
-        'Unlikely (2)',
-        'Very Unlikely (1)',
+        "Very Likely (5)",
+        "Likely (4)",
+        "Possible (3)",
+        "Unlikely (2)",
+        "Very Unlikely (1)",
       ],
       columns: [
-        'Negligible (1)',
-        'Minor (2)',
-        'Moderate(3)',
-        'Significant (4)',
-        'Severe (5)',
+        "Negligible (1)",
+        "Minor (2)",
+        "Moderate(3)",
+        "Significant (4)",
+        "Severe (5)",
       ],
       values: [
         [5, 10, 20, 20, 25],
@@ -616,7 +616,7 @@ const uiSchema = {
 };
 
 const formData = {
-  react_tree_select: ['child1', 'child2', 'child3'],
+  react_tree_select: ["child1", "child2", "child3"],
   react_dropzone: [],
   react_dropzone_2: [],
   react_formula_field: [
@@ -625,20 +625,20 @@ const formData = {
     { a: 3, b: 6 },
   ],
   input_table_checkbox: {
-    Cleanliness: ['Satisfied', 'Somewhat Satisfied'],
-    'Service Quality': ['Somewhat Satisfied'],
-    Responsiveness: ['Not Satisfied', 'Very Satisfied'],
-    Friendliness: ['Satisfied'],
+    Cleanliness: ["Satisfied", "Somewhat Satisfied"],
+    "Service Quality": ["Somewhat Satisfied"],
+    Responsiveness: ["Not Satisfied", "Very Satisfied"],
+    Friendliness: ["Satisfied"],
   },
   input_table_radio: {
-    Cleanliness: 'Somewhat Satisfied',
-    'Service Quality': 'Not Satisfied',
-    Responsiveness: 'Satisfied',
-    Friendliness: 'Very Satisfied',
+    Cleanliness: "Somewhat Satisfied",
+    "Service Quality": "Not Satisfied",
+    Responsiveness: "Satisfied",
+    Friendliness: "Very Satisfied",
   },
   input_table_button: {
-    row: 'Critical',
-    column: 'Low',
+    row: "Critical",
+    column: "Low",
     value: 10,
   },
 };
@@ -657,7 +657,7 @@ class FormComponent extends Component {
 
   handleSubmit = (formData) => {
     alert(`submitted data is ${JSON.stringify(formData)}`);
-    console.log('submitted', formData);
+    console.log("submitted", formData);
   };
 
   render() {
@@ -678,9 +678,9 @@ class FormComponent extends Component {
               fields={fields}
               noValidate
               // liveValidate
-              onChange={log('changed')}
+              onChange={log("changed")}
               onSubmit={this.handleSubmit}
-              onError={log('errors')}
+              onError={log("errors")}
               showErrorList={true}
             >
               <div>

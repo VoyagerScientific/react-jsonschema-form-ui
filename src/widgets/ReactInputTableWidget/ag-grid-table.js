@@ -1,9 +1,9 @@
-import React from 'react';
-import _ from 'lodash';
-import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import React from "react";
+import _ from "lodash";
+import { AgGridColumn, AgGridReact } from "ag-grid-react";
+import "ag-grid-community/dist/styles/ag-grid.css";
+import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 class ReactAgGridInputTable extends React.Component {
   state = {
@@ -68,7 +68,7 @@ class ReactAgGridInputTable extends React.Component {
   createColumnDefs(headers) {
     let columnDefs = _.map(headers, (header) => {
       const additionalProps = header.readOnly ? {
-        cellRenderer: 'cellRenderer',
+        cellRenderer: "cellRenderer",
         cellRendererParams: { header },
       } : {};
       return {
@@ -121,7 +121,7 @@ class ReactAgGridInputTable extends React.Component {
     return (
       <Container>
         <Row>
-          <div className="ag-theme-alpine" style={{ height: 400, width: '100%' }}>
+          <div className="ag-theme-alpine" style={{ height: 400, width: "100%" }}>
             <AgGridReact
               groupSelectsChildren={true}
               columnDefs={columnDefs}
@@ -130,7 +130,7 @@ class ReactAgGridInputTable extends React.Component {
                 onRowValueChanged: this.handleRowChange,
                 onCellValueChanged: this.handleCellValueChange,
                 components: {
-                  'cellRenderer': this.cellRenderer,
+                  "cellRenderer": this.cellRenderer,
                 }
               }}
               onFirstDataRendered={this.resizeColumns}

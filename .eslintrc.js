@@ -26,6 +26,6 @@ module.exports = {
     "rules": {
         "react/prop-types": 0,
         "react/react-in-jsx-scope": 0,
-        "quotes": [2, "single"],
+        "quotes": [2, "double"],
     }
 };

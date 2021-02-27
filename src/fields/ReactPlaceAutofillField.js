@@ -1,23 +1,23 @@
-import React from 'react';
-import _ from 'lodash';
-import { geocodeByPlaceId } from 'react-places-autocomplete';
-import ReactPlaceField from './ReactPlaceField';
-import { Card, Form, Row } from 'react-bootstrap';
+import React from "react";
+import _ from "lodash";
+import { geocodeByPlaceId } from "react-places-autocomplete";
+import ReactPlaceField from "./ReactPlaceField";
+import { Card, Form, Row } from "react-bootstrap";
 
 const DEFAULT_FIELDS = {
-  address_1: 'address_1',
-  address_2: 'address_2',
-  city: 'city',
-  state: 'state',
-  postal_code: 'postal_code',
-  country: 'country',
-  latitude: 'latitude',
-  longitude: 'longitude',
+  address_1: "address_1",
+  address_2: "address_2",
+  city: "city",
+  state: "state",
+  postal_code: "postal_code",
+  country: "country",
+  latitude: "latitude",
+  longitude: "longitude",
 };
 
 class ReactPlaceAutofillField extends React.Component {
   static getDerivedStateFromProps(props, state) {
-    const options = _.merge(props.uiSchema['ui:options'], props.options);
+    const options = _.merge(props.uiSchema["ui:options"], props.options);
     return {
       options: { ...options },
       id: Math.floor(Math.random() * 100),
@@ -27,11 +27,11 @@ class ReactPlaceAutofillField extends React.Component {
   state = {};
 
   get formProps() {
-    return _.get(this.props.formContext, 'form.current', null);
+    return _.get(this.props.formContext, "form.current", null);
   }
 
   get fieldNames() {
-    const newValues = _.get(this.state, 'options.fields', {});
+    const newValues = _.get(this.state, "options.fields", {});
     return _.merge(DEFAULT_FIELDS, newValues);
   }
 
@@ -47,7 +47,7 @@ class ReactPlaceAutofillField extends React.Component {
     const fieldNames = this.fieldNames;
     const oldFormData = _.get(
       this,
-      'formProps.state.formData',
+      "formProps.state.formData",
       this.props.formData
     );
     if (!address) {
@@ -67,17 +67,17 @@ class ReactPlaceAutofillField extends React.Component {
 
     const [geocode] = await geocodeByPlaceId(address.placeId);
     const firstAddress = this.getFieldByGeoCode(geocode, [
-      'street_number',
-      'route',
-      'neighborhood',
+      "street_number",
+      "route",
+      "neighborhood",
     ]);
-    const city = this.getFieldByGeoCode(geocode, 'locality');
+    const city = this.getFieldByGeoCode(geocode, "locality");
     const state = this.getFieldByGeoCode(
       geocode,
-      'administrative_area_level_1'
+      "administrative_area_level_1"
     );
-    const country = this.getFieldByGeoCode(geocode, 'country');
-    const postalCode = this.getFieldByGeoCode(geocode, 'postal_code');
+    const country = this.getFieldByGeoCode(geocode, "country");
+    const postalCode = this.getFieldByGeoCode(geocode, "postal_code");
     const { lat, lng } = this.getFieldLocation(geocode);
     const addressData = {
       [fieldNames.address_1]: firstAddress,
@@ -91,7 +91,7 @@ class ReactPlaceAutofillField extends React.Component {
     };
 
     const updateAdjacentFields =
-      _.get(this.state, 'options.updateAdjacentFields') || false;
+      _.get(this.state, "options.updateAdjacentFields") || false;
     if (updateAdjacentFields) {
       this.formProps &&
         this.formProps.onChange({ ...oldFormData, ...addressData });
@@ -112,7 +112,7 @@ class ReactPlaceAutofillField extends React.Component {
       const placeTerms = _.map(placeType, (type) =>
         this.getAddressComponentByType(addressComponents, type)
       );
-      return _.compact(placeTerms).join(', ');
+      return _.compact(placeTerms).join(", ");
     }
 
     const selectedComponent = _.find(addressComponents, (component) =>
@@ -136,8 +136,8 @@ class ReactPlaceAutofillField extends React.Component {
   }
 
   render() {
-    const showFields = _.get(this.state, 'options.showFields', false);
-    console.log('ReactPlaceAutofillField:', this.props);
+    const showFields = _.get(this.state, "options.showFields", false);
+    console.log("ReactPlaceAutofillField:", this.props);
     return (
       <>
         <ReactPlaceField
@@ -147,7 +147,7 @@ class ReactPlaceAutofillField extends React.Component {
           onPlaceSelect={this.handlePlaceSelect}
         />
         {showFields && (
-          <Card key={'a'}>
+          <Card key={"a"}>
             <Card.Body>{this.renderFormFields()}</Card.Body>
           </Card>
         )}
@@ -160,10 +160,10 @@ class ReactPlaceAutofillField extends React.Component {
     return _.map(this.fieldNames, (fieldName, key) => (
       <Row className="p-4" key={`form-${this.state.id}-${key}`}>
         <Form.Label>
-          {_.chain(fieldName).split('_').map(_.capitalize).join(' ').value()}
+          {_.chain(fieldName).split("_").map(_.capitalize).join(" ").value()}
         </Form.Label>
         <Form.Control
-          value={propsValue[fieldName] || ''}
+          value={propsValue[fieldName] || ""}
           onChange={this.handleFieldChange(key, fieldName)}
         />
       </Row>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 
 class PercentWidget extends Component {
@@ -14,8 +14,8 @@ class PercentWidget extends Component {
     const digits =
       this.state.options.digits == undefined ? 2 : this.state.options.digits;
 
-    let value = event.target.value.replace(/[^0-9.]/g, '');
-    if (event.type === 'blur' && event.target.value)
+    let value = event.target.value.replace(/[^0-9.]/g, "");
+    if (event.type === "blur" && event.target.value)
       value = parseFloat(value).toFixed(digits);
     this.setState({ value: value });
     this.state.onChange(value / 100);
@@ -29,7 +29,7 @@ class PercentWidget extends Component {
             type="text"
             id={this.props.id}
             className="form-control percent"
-            style={{ textAlign: 'right' }}
+            style={{ textAlign: "right" }}
             value={this.state.value}
             required={this.state.required}
             onBlur={(event) => {

@@ -1,6 +1,6 @@
-import _ from 'lodash';
-import React from 'react';
-import Form from 'react-jsonschema-form';
+import _ from "lodash";
+import React from "react";
+import Form from "react-jsonschema-form";
 class SchemaForm extends React.Component {
   form = React.createRef();
 

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Col, Row } from 'react-bootstrap';
-import FontAwesome from 'react-fontawesome';
+import React from "react";
+import { Col, Row } from "react-bootstrap";
+import FontAwesome from "react-fontawesome";
 
 class FileDisplay extends React.Component {
   handleRemove = (file, index) => {
