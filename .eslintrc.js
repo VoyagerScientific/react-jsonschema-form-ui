@@ -27,5 +27,6 @@ module.exports = {
         "react/prop-types": 0,
         "react/react-in-jsx-scope": 0,
         "quotes": [2, "double"],
+        "object-curly-spacing": ["error", "always"]
     }
 };

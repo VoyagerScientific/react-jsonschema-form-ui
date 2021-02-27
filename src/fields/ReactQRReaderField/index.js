@@ -17,7 +17,7 @@ class ReactQRReaderField extends Component{
     if (data) {
       console.log(data);
       this.props.onChange(data);
-      this.setState({showScanner: false, value: data});
+      this.setState({ showScanner: false, value: data });
     }
   }
   handleError = err => {
@@ -59,7 +59,7 @@ class ReactQRReaderField extends Component{
             onError={this.handleError}
             onScan={this.handleScan}
             className={"QRReader_container"}
-            style={{ width: "100%"}}
+            style={{ width: "100%" }}
             facingMode={"environment"}
            />
           <button style={{
@@ -68,8 +68,8 @@ class ReactQRReaderField extends Component{
             bottom: 0,
             borderRadius: 0,
             margin: "auto",
-            zIndex: 10}}
-            onClick={() => this.setState({showScanner: false})}
+            zIndex: 10 }}
+            onClick={() => this.setState({ showScanner: false })}
             className="btn btn-block btn-secondary">Close</button>
         </div>
       ),
@@ -90,13 +90,13 @@ class ReactQRReaderField extends Component{
           { this.isiOS() && !this.supportsWebRTCMedia() ?
             <button className="btn btn-sm btn-outline-danger" onClick={(e)=> {e.preventDefault(); alert("This browser does not support the camera. On iPhone, use Safari.")}}>QR</button>
           :
-            <button onClick={() => this.setState({showScanner: true})} className="btn btn-sm btn-secondary">QR</button>
+            <button onClick={() => this.setState({ showScanner: true })} className="btn btn-sm btn-secondary">QR</button>
           }
           {this.state.value &&
             <button onClick={() => {
               const clearValue = confirm("Are you sure?");
               if(clearValue)
-                this.setState({value: null})
+                this.setState({ value: null })
             }} className="btn btn-sm btn-secondary ml-1">&times;</button>
           }
         </span>

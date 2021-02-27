@@ -1,7 +1,7 @@
 import expect from "expect";
 import React, { Component } from "react";
 import Form from "@rjsf/core";
-import {render, unmountComponentAtNode} from "react-dom";
+import { render, unmountComponentAtNode } from "react-dom";
 
 import { ArrayFieldTemplate, CurrencyWidget, PercentWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from "src/";
 
@@ -203,7 +203,7 @@ const uiSchema = {
   },
   raw_html: {
     "ui:field": "RawHTMLField",
-    "ui:options": {html: "<h1>Hi</h1>"}
+    "ui:options": { html: "<h1>Hi</h1>" }
   }
 };
 
@@ -262,7 +262,7 @@ describe("FormComponent", () => {
   })
 
   it("Show form readyOnly mode", () => {
-    render(<FormComponent schema={{...schema, readOnly: true}} uiSchema={uiSchema} />, node, () => {
+    render(<FormComponent schema={{ ...schema, readOnly: true }} uiSchema={uiSchema} />, node, () => {
       expect(node.innerHTML).toContain("No Signature");
 
       const inputElements = node.getElementsByTagName("input");
