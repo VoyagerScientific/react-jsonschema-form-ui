@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
+import _ from "lodash";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
