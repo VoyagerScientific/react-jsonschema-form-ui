@@ -1,4 +1,5 @@
 import HyperFormula from "hyperformula";
+import _ from "lodash";
 
 function toColumnName(num) {
   for (var ret = "", a = 1, b = 26; (num -= a) >= 0; a = b, b *= 26) {

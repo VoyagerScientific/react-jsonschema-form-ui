@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import { accounting } from "accounting";
-
+import _ from "lodash";
 class CurrencyWidget extends Component {
   constructor(props) {
     super(props);

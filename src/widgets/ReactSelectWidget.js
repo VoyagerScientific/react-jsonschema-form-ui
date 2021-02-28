@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import AsyncSelect from "react-select/async";
 import AsyncCreatable from "react-select/async-creatable";
+import _ from "lodash";
 import "whatwg-fetch";
 
 class ReactSelectWidget extends Component {

@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Form } from "react-bootstrap";
 import Gallery from "react-photo-gallery";
-
+import _ from "lodash";
 import { ReactDropZoneWidget } from "../../index";
 import PhotoItem from "./components/PhotoItem";
 
