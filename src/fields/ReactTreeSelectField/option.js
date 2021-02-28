@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import _ from 'lodash';
-import { Row, Col, Spinner } from 'react-bootstrap';  
+import React, { Component } from "react";
+import _ from "lodash";
+import { Row, Col, Spinner } from "react-bootstrap";  
 import "intelligent-tree-select/lib/styles.css";
 import FontAwesome from "react-fontawesome";
 
@@ -30,15 +30,15 @@ class ReactTreeSelectFieldOption extends Component {
     const expanded = this.props.option.expanded;
     const isSelected = this.isOptionSelected();
     return (
-      <li style={{ listStyleType: 'none', ...this.props.optionStyle }}>
+      <li style={{ listStyleType: "none", ...this.props.optionStyle }}>
       <Row
-        style={{ margin: `5px` }}
+        style={{ margin: "5px" }}
         className="align-items-center">
         <Col
           xs="auto"
           md="auto"
           onClick={this.handleToggle}
-          style={{ padding: '0 5px', margin: 0 }}
+          style={{ padding: "0 5px", margin: 0 }}
           className={"btn"}
           >
             {(fetching && `${this.props.focusedOptionIndex}` === `${this.props.optionIndex}`) && (<Spinner size="sm" animation="border" />)}
@@ -52,7 +52,7 @@ class ReactTreeSelectFieldOption extends Component {
         </Col>
         <Col
           xs="auto"
-          style={{ padding: 0, margin: 0, fontWeight: isSelected ? 'bold': 'normal' }}
+          style={{ padding: 0, margin: 0, fontWeight: isSelected ? "bold": "normal" }}
           className={"btn"}
           onClick={this.handleClick}
         >{this.props.option.label}</Col>

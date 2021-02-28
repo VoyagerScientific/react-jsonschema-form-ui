@@ -1,10 +1,10 @@
-import expect from 'expect';
-import Tree from '../../src/objects/tree';
+import expect from "expect";
+import Tree from "../../src/objects/tree";
 
-describe('src/objects/tree', () => {
+describe("src/objects/tree", () => {
   let node;
 
-  it('Show form normal mode', () => {
+  it("Show form normal mode", () => {
     // given
     const remoteData = [
       {

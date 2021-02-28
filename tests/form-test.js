@@ -1,9 +1,9 @@
-import expect from 'expect';
-import React, { Component } from 'react';
-import Form from '@rjsf/core';
-import {render, unmountComponentAtNode} from 'react-dom';
+import expect from "expect";
+import React, { Component } from "react";
+import Form from "@rjsf/core";
+import { render, unmountComponentAtNode } from "react-dom";
 
-import { ArrayFieldTemplate, CurrencyWidget, PercentWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from 'src/';
+import { ArrayFieldTemplate, CurrencyWidget, PercentWidget, RawHTMLField, ReactDatePickerWidget, ReactSelectWidget, ReactSignatureCanvasField, StatesWidget } from "src/";
 
 const widgets = {
   CurrencyWidget: CurrencyWidget,
@@ -203,7 +203,7 @@ const uiSchema = {
   },
   raw_html: {
     "ui:field": "RawHTMLField",
-    "ui:options": {html: "<h1>Hi</h1>"}
+    "ui:options": { html: "<h1>Hi</h1>" }
   }
 };
 
@@ -242,33 +242,33 @@ class FormComponent extends Component {
   }
 }
 
-describe('FormComponent', () => {
+describe("FormComponent", () => {
   let node;
 
   beforeEach(() => {
-    node = document.createElement('div');
+    node = document.createElement("div");
   })
 
   afterEach(() => {
     unmountComponentAtNode(node);
   })
 
-  it('Show form normal mode', () => {
+  it("Show form normal mode", () => {
     render(<FormComponent schema={schema} uiSchema={uiSchema} />, node, () => {
-      expect(node.innerHTML).toNotContain('No Signature');
+      expect(node.innerHTML).toNotContain("No Signature");
 
-      expect(node.innerHTML).toContain('Test React Select (WITHOUT enumNames)');
+      expect(node.innerHTML).toContain("Test React Select (WITHOUT enumNames)");
     })
   })
 
-  it('Show form readyOnly mode', () => {
-    render(<FormComponent schema={{...schema, readOnly: true}} uiSchema={uiSchema} />, node, () => {
-      expect(node.innerHTML).toContain('No Signature');
+  it("Show form readyOnly mode", () => {
+    render(<FormComponent schema={{ ...schema, readOnly: true }} uiSchema={uiSchema} />, node, () => {
+      expect(node.innerHTML).toContain("No Signature");
 
-      const inputElements = node.getElementsByTagName('input');
+      const inputElements = node.getElementsByTagName("input");
       const inputList = Array.prototype.slice.call(inputElements);
       inputList.forEach((element) => {
-        expect(element.hasAttribute('disabled') || element.hasAttribute('readonly') ).toBeTruthy();
+        expect(element.hasAttribute("disabled") || element.hasAttribute("readonly") ).toBeTruthy();
       });
     })
   })
