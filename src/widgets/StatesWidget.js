@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
+import _ from "lodash";
 import { us_states } from "../helpers/us_states";
 
 const StatesWidget = (props) => {
