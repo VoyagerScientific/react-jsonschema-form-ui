@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
-
+import _ from "lodash";
 class PercentWidget extends Component {
   constructor(props) {
     super(props);

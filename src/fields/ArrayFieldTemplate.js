@@ -114,7 +114,7 @@ function ArrayFieldTemplate(props) {
 
       {props.canAdd && (
         <div className="row">
-          <p className={`col array-item-add`}>
+          <p className={"col array-item-add"}>
             <Button
               className="btn-add"
               variant="link"

@@ -335,7 +335,15 @@ const schema = {
     },
     input_table_button: {
       title: "Risk Matrix: Likelihood x Consequences",
-      type: "string",
+      type: "object",
+      properties: {
+        "row": {
+          type: "string",
+        },
+        "column": {
+          type: "string",
+        },
+      },
     },
   },
 };
@@ -677,8 +685,7 @@ class FormComponent extends Component {
               ArrayFieldTemplate={ArrayFieldTemplate}
               widgets={widgets}
               fields={fields}
-              noValidate
-              // liveValidate
+              liveValidate
               onChange={log("changed")}
               onSubmit={this.handleSubmit}
               onError={log("errors")}

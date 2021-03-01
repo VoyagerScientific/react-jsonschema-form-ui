@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 
 const imgStyle = {
   transition: "transform .3s cubic-bezier(0.0,0.0,0.2,1),opacity linear .5s"
@@ -24,7 +24,7 @@ const PhotoItem = (props) => {
   return (
     <div
       className="img-wrap"
-      style={{ height, width, top, left, position: isColumn ? 'absolute' : 'relative' }}
+      style={{ height, width, top, left, position: isColumn ? "absolute" : "relative" }}
       onMouseEnter={_onMouseEnter}
       onMouseLeave={_onMouseLeave}
     >

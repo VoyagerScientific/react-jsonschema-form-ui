@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _ from "lodash"
 
 class TreeOption {
   constructor(raw, isEnd) {

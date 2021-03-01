@@ -1,7 +1,8 @@
 import HyperFormula from "hyperformula";
+import _ from "lodash";
 
 function toColumnName(num) {
-  for (var ret = '', a = 1, b = 26; (num -= a) >= 0; a = b, b *= 26) {
+  for (var ret = "", a = 1, b = 26; (num -= a) >= 0; a = b, b *= 26) {
     ret = String.fromCharCode(parseInt((num % b) / a) + 65) + ret;
   }
   return ret;
@@ -44,7 +45,7 @@ class HyperFormulaBuilder {
   getRow(obj, index) {
     const values = _.map(this.headers, (header) => {
       if (header.readOnly) {
-        return _.replace(`=${header.formula}`, new RegExp('\\[i\\]',"g"), index);
+        return _.replace(`=${header.formula}`, new RegExp("\\[i\\]","g"), index);
       }
       return _.get(obj, header.header);
     });
