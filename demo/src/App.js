@@ -203,8 +203,8 @@ const schema = {
       type: "string",
     },
     react_tree_select: {
-      title: 'Tree Select',
-      type: 'array',
+      title: "Tree Select",
+      type: "array",
       items: {
         type: "string",
       },
@@ -342,7 +342,15 @@ const schema = {
     },
     input_table_button: {
       title: "Risk Matrix: Likelihood x Consequences",
-      type: "string",
+      type: "object",
+      properties: {
+        row: {
+          type: "string",
+        },
+        column: {
+          type: "string",
+        },
+      },
     },
   },
 };
@@ -684,8 +692,8 @@ class FormComponent extends Component {
               ArrayFieldTemplate={ArrayFieldTemplate}
               widgets={widgets}
               fields={fields}
-              noValidate
-              // liveValidate
+              noHtmlValidate
+              liveValidate
               onChange={log("changed")}
               onSubmit={this.handleSubmit}
               onError={log("errors")}

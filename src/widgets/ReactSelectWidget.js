@@ -169,7 +169,7 @@ class ReactSelectWidget extends Component {
     const { onChange } = this.props;
     const isArrayType = this.props.options.isMulti || this.props.schema.type === "array";
     if (isArrayType && actionObject.action === ACTION_TYPE.REMOVE) {
-      const newValueOptions = _.reject(this.state.value || [], (option) => option.value === _.get(actionObject, 'removedValue.value'));
+      const newValueOptions = _.reject(this.state.value || [], (option) => option.value === _.get(actionObject, "removedValue.value"));
       const newValues = _.map(newValueOptions, (valueOption) => valueOption.value);
       this.setState({ value: newValueOptions });
       return onChange && onChange(newValues);
@@ -205,15 +205,15 @@ class ReactSelectWidget extends Component {
   render() {
     const { isClearable, isSearchable, isCreateable } = this.props.options;
     const isMulti = this.props.options.isMulti || this.props.schema.type === "array" || false;
-    const isList = _.get(this.props, 'options.isList', false);
+    const isList = _.get(this.props, "options.isList", false);
     if (isCreateable) {
       return (
         <div>
           <AsyncCreatable
             classNamePrefix="react-select"
-            className={isList ? 'is-list' : ''}
+            className={isList ? "is-list" : ""}
             selectProps={{
-              className: isList ? 'is-list-input' : ''
+              className: isList ? "is-list-input" : ""
             }}
             cacheOptions
             defaultOptions={this.state.select_options.length ? this.state.select_options : true}
@@ -241,10 +241,10 @@ class ReactSelectWidget extends Component {
         <div>
           <AsyncSelect
             classNamePrefix="react-select"
-            className={isList ? 'is-list' : ''}
+            className={isList ? "is-list" : ""}
             cacheOptions
             selectProps={{
-              className: isList ? 'is-list-input' : ''
+              className: isList ? "is-list-input" : ""
             }}
             defaultOptions={this.state.select_options.length ? this.state.select_options : true}
             loadOptions={this.getData()}
