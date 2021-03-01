@@ -111,7 +111,7 @@ const schema = {
       type: "array",
       items: {
         type: "string",
-        enum: [],
+        enum: [""],
       },
       uniqueItems: true,
     },
@@ -204,12 +204,20 @@ const schema = {
       type: "string",
     },
     react_tree_select: {
-      title: "Tree Select",
-      type: "array",
+      title: 'Tree Select',
+      type: 'array',
+      items: {
+        type: "string",
+      },
     },
     react_remote_tree_select: {
       title: "Tree Select Remote",
       type: "array",
+      items: {
+        type: "string",
+        // enum: [""],
+      },
+      // uniqueItems: true,
     },
     react_formula_field: {
       title: "Calculations",
@@ -498,7 +506,6 @@ const uiSchema = {
       width: "100%",
     },
   },
-
   react_remote_tree_select: {
     "ui:field": "ReactTreeSelectField",
     "ui:options": {
@@ -606,6 +613,7 @@ const uiSchema = {
 
 const formData = {
   react_tree_select: ["child1", "child2", "child3"],
+  test_react_select_remote: ["rec6hO5uh6A7BlgNA", "rec7nPdth3A1pkpPw"],
   react_dropzone: [],
   react_dropzone_2: [],
   react_formula_field: [
