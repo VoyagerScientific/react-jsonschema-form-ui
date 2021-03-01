@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import IconButton from "react-jsonschema-form-bs4/lib/components/IconButton";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
@@ -37,7 +37,8 @@ function DefaultArrayItem(props) {
             style={{
               display: "flex",
               justifyContent: "space-around",
-            }}>
+            }}
+          >
             {(props.hasMoveUp || props.hasMoveDown) && (
               <IconButton
                 icon="arrow-up"
@@ -83,6 +84,7 @@ function DefaultArrayItem(props) {
 }
 
 function ArrayFieldTemplate(props) {
+  console.log("this is props from ArrayFieldTemplate:", props);
   return (
     <fieldset className={props.className} id={props.idSchema.$id}>
       <ArrayFieldTitle
@@ -106,13 +108,14 @@ function ArrayFieldTemplate(props) {
 
       <div
         className="array-item-list"
-        key={`array-item-list-${props.idSchema.$id}`}>
-        {props.items && props.items.map(p => DefaultArrayItem(p))}
+        key={`array-item-list-${props.idSchema.$id}`}
+      >
+        {props.items && props.items.map((p) => DefaultArrayItem(p))}
       </div>
 
       {props.canAdd && (
         <div className="row">
-          <p className={`col array-item-add`}>
+          <p className={"col array-item-add"}>
             <IconButton
               type="link"
               icon="plus"

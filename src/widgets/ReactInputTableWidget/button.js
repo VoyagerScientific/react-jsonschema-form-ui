@@ -17,15 +17,28 @@ class ButtonInputTable extends React.Component {
 
   isCellValueChecked = (rowData, colData, optionCellValue) => {
     const formData = this.props.formData;
-    return optionCellValue === formData.value && rowData === formData.row && colData === formData.column;
+    return (
+      optionCellValue === formData.value &&
+      rowData === formData.row &&
+      colData === formData.column
+    );
   };
 
   renderCell(rowData, colData, rowIndex, colIndex) {
-    const optionValueMatrix = _.get(this.props, 'uiSchema.ui:options.values', []);
-    const optionCellValue = _.get(optionValueMatrix, `${rowIndex}.${colIndex}`, null);
-    const isSelected = this.isCellValueChecked(rowData, colData, optionCellValue);
+    const optionValueMatrix = _.get(this.props, "options.values", []);
+    const optionCellValue = _.get(
+      optionValueMatrix,
+      `${rowIndex}.${colIndex}`,
+      null
+    );
+    const isSelected = this.isCellValueChecked(
+      rowData,
+      colData,
+      optionCellValue
+    );
     return optionCellValue ? (
-      <Button as={"span"}
+      <Button
+        as={"span"}
         className="buttonCell"
         variant={isSelected ? "secondary" : "outlined"}
         active={isSelected}
@@ -33,19 +46,29 @@ class ButtonInputTable extends React.Component {
       >
         {optionCellValue}
       </Button>
-    ) : "";
+    ) : (
+      ""
+    );
   }
 
   render() {
-    const { rows, columns } = _.get(this.props, "uiSchema.ui:options", {});
+    const { rows, columns } = _.get(this.props, "options", {});
     return (
       <Table responsive>
         <tbody>
           {_.map(rows, (rowData, rowIndex) => (
-            <tr key={rowIndex} className={`input_table_row input_table_row-${rowIndex}`}>
-              <td className="headerCell"><b>{rowData}</b></td>
+            <tr
+              key={rowIndex}
+              className={`input_table_row input_table_row-${rowIndex}`}
+            >
+              <td className="headerCell">
+                <b>{rowData}</b>
+              </td>
               {_.map(columns, (colData, colIndex) => (
-                <td key={colIndex} className={`input_table_cell input_table_cell_${rowIndex}-${colIndex}`}>
+                <td
+                  key={colIndex}
+                  className={`input_table_cell input_table_cell_${rowIndex}-${colIndex}`}
+                >
                   {this.renderCell(rowData, colData, rowIndex, colIndex)}
                 </td>
               ))}
@@ -54,9 +77,7 @@ class ButtonInputTable extends React.Component {
           <tr>
             <th />
             {_.map(columns, (colData, colIndex) => (
-              <th key={colIndex}>
-                {colData}
-              </th>
+              <th key={colIndex}>{colData}</th>
             ))}
           </tr>
         </tbody>

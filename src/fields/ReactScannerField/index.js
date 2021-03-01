@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import Scanner from "./scanner";
-import { BrowserMultiFormatReader } from '@zxing/library/esm/browser/BrowserMultiFormatReader.js';
+import { BrowserMultiFormatReader } from "@zxing/library/esm/browser/BrowserMultiFormatReader.js";
 
 const styles = {
   closeButton: {
-    position: 'fixed',
-    bottom: '0px',
-    left: '0px',
+    position: "fixed",
+    bottom: "0px",
+    left: "0px",
   }
 };
 
@@ -42,11 +42,11 @@ class ReactScannerField extends Component {
     return ReactDOM.createPortal(
       (
         <div style={{
-          position: 'fixed',
+          position: "fixed",
           top: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'rgba(255, 255, 255, 0.5)'
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(255, 255, 255, 0.5)"
         }}>
           <Scanner
             codeReader={this.codeReader}

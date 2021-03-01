@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import AsyncSelect from 'react-select/async';
-import AsyncCreatable from 'react-select/async-creatable';
-import _ from 'lodash';
-import 'whatwg-fetch';
+import React, { Component } from "react";
+
+import AsyncSelect from "react-select/async";
+import AsyncCreatable from "react-select/async-creatable";
+import "whatwg-fetch";
 
 const ACTION_TYPE = {
   REMOVE: "remove-value",
@@ -28,6 +28,13 @@ class ReactSelectWidget extends Component {
     if (remote_options && remote_options.url) {
       setTimeout(() => this._setRemoteSelectOptions(), 10);
     };
+  }
+
+  componentDidMount() {
+    const remote_options = this.props.options.remote;
+    if (remote_options && remote_options.url) {
+      setTimeout(() => this._setRemoteSelectOptions(), 10);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -68,7 +75,9 @@ class ReactSelectWidget extends Component {
           }) : [];
 
           if (!select_options.length)
-            console.warn("ReactSelectWidget: There's no options being generated from the remote data. Check that paths were set properly. ")
+            console.warn(
+              "ReactSelectWidget: There's no options being generated from the remote data. Check that paths were set properly. "
+            );
 
           let value = this.state.value;
           if (value && Array.isArray(value)) {
@@ -100,8 +109,8 @@ class ReactSelectWidget extends Component {
       const option = select_options.find(({ value }) => value === obj.value)
       return {
         value: obj.value,
-        label: option ? option.label : obj.value
-      }
+        label: option ? option.label : obj.value,
+      };
     });
   }
 
@@ -121,42 +130,46 @@ class ReactSelectWidget extends Component {
 
         const obj = {
           value: item,
-          label: label
-        }
-        return obj
+          label: label,
+        };
+        return obj;
       });
     }
 
-    return data
+    return data;
   }
 
   async getRemoteData() {
     const response = await fetch(this.state.options.remote.url, {
       method: this.state.options.remote.method || "GET",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        ...this.state.options.remote.headers
-      }
-    })
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        ...this.state.options.remote.headers,
+      },
+    });
 
     return await response; // parses JSON response into native JavaScript objects
   }
 
   getData() {
     const data = this.entriesDataTransform();
-    const filteredData = value => data.filter(item => item.label.toLowerCase().includes(value.toLowerCase()));
-    const options = value => new Promise(resolve => {
-      setTimeout(() => resolve(filteredData(value)), 200);
-    });
-    return options
+    const filteredData = (value) =>
+      data.filter((item) =>
+        item.label.toLowerCase().includes(value.toLowerCase())
+      );
+    const options = (value) =>
+      new Promise((resolve) => {
+        setTimeout(() => resolve(filteredData(value)), 200);
+      });
+    return options;
   }
 
   handleChange = (e, actionObject) => {
     const { onChange } = this.props;
     const isArrayType = this.props.options.isMulti || this.props.schema.type === "array";
     if (isArrayType && actionObject.action === ACTION_TYPE.REMOVE) {
-      const newValueOptions = _.reject(this.state.value || [], (option) => option.value === _.get(actionObject, 'removedValue.value'));
+      const newValueOptions = _.reject(this.state.value || [], (option) => option.value === _.get(actionObject, "removedValue.value"));
       const newValues = _.map(newValueOptions, (valueOption) => valueOption.value);
       this.setState({ value: newValueOptions });
       return onChange && onChange(newValues);
@@ -192,15 +205,15 @@ class ReactSelectWidget extends Component {
   render() {
     const { isClearable, isSearchable, isCreateable } = this.props.options;
     const isMulti = this.props.options.isMulti || this.props.schema.type === "array" || false;
-    const isList = _.get(this.props, 'options.isList', false);
+    const isList = _.get(this.props, "options.isList", false);
     if (isCreateable) {
       return (
         <div>
           <AsyncCreatable
             classNamePrefix="react-select"
-            className={isList ? 'is-list' : ''}
+            className={isList ? "is-list" : ""}
             selectProps={{
-              className: isList ? 'is-list-input' : ''
+              className: isList ? "is-list-input" : ""
             }}
             cacheOptions
             defaultOptions={this.state.select_options.length ? this.state.select_options : true}
@@ -228,10 +241,10 @@ class ReactSelectWidget extends Component {
         <div>
           <AsyncSelect
             classNamePrefix="react-select"
-            className={isList ? 'is-list' : ''}
+            className={isList ? "is-list" : ""}
             cacheOptions
             selectProps={{
-              className: isList ? 'is-list-input' : ''
+              className: isList ? "is-list-input" : ""
             }}
             defaultOptions={this.state.select_options.length ? this.state.select_options : true}
             loadOptions={this.getData()}

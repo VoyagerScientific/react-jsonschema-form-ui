@@ -7,9 +7,15 @@ import RadioInputTable from "./radio";
 import { CHECKBOX, RADIO } from "./constants";
 
 class ReactInputTableWidget extends React.Component {
-  state = {
-    checkbox: true,
-  };
+  static getDerivedStateFromProps(props, state) {
+    const options = _.merge(props.uiSchema["ui:options"] || {}, props.options);
+    return {
+      options: { ...options },
+      checkbox: true,
+    };
+  }
+
+  state = {};
 
   renderFooterItems() {
     return (
@@ -27,20 +33,30 @@ class ReactInputTableWidget extends React.Component {
   }
 
   renderTable() {
-    const { inputTableType } = _.get(this.props, "uiSchema.ui:options", {});
+    const { inputTableType } = _.get(this.state, "options", {});
     switch (inputTableType) {
       case CHECKBOX:
-        return <CheckboxInputTable {...this.props} />;
+        return (
+          <CheckboxInputTable {...this.props} options={this.state.options} />
+        );
       case RADIO:
-        return <RadioInputTable {...this.props} />;
+        return <RadioInputTable {...this.props} options={this.state.options} />;
       default:
-        return <ButtonInputTable {...this.props} />;
+        return (
+          <ButtonInputTable {...this.props} options={this.state.options} />
+        );
     }
   }
 
   render() {
     const { title } = _.get(this.props, "schema", {});
-    const { headerModifiable, columnModifiable } = _.get(this.props, "uiSchema.ui:options", {});
+    const { headerModifiable, columnModifiable } = _.get(
+      this.state,
+      "options",
+      {}
+    );
+ 
+
     return (
       <>
         <Form.Label>{title}</Form.Label>
@@ -50,5 +66,9 @@ class ReactInputTableWidget extends React.Component {
     );
   }
 }
+
+ReactInputTableWidget.defaultProps = {
+  options: { },
+};
 
 export default ReactInputTableWidget;

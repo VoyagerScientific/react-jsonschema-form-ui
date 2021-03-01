@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button } from 'react-bootstrap';
+import React from "react";
+import { Button } from "react-bootstrap";
 import FontAwesome from "react-fontawesome";
 
 class DeleteRowRenderer extends React.Component {

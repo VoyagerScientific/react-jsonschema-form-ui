@@ -1,7 +1,7 @@
-import _ from 'lodash';
-import axios from 'axios';
-import MustacheHelper from '../helpers/mustache';
-import TreeOption from './tree-option';
+import _ from "lodash";
+import axios from "axios";
+import MustacheHelper from "../helpers/mustache";
+import TreeOption from "./tree-option";
 
 class Tree {
   constructor(remoteData, ref) {
@@ -11,7 +11,7 @@ class Tree {
   }
 
   getSortedRemoteData(datas) {
-    return datas.sort((left, right) => _.get(left, 'parent') - _.get(right, 'parent'));
+    return datas.sort((left, right) => _.get(left, "parent") - _.get(right, "parent"));
   }
 
   async getChildOptions(option) {
@@ -67,7 +67,7 @@ class Tree {
     }
 
     const maxDepth = this.references.length - 1;
-    return _.get(parentOption, 'depth', 0) + 1 >= maxDepth;
+    return _.get(parentOption, "depth", 0) + 1 >= maxDepth;
   }
 
   async getDerivedOptions(derivedUrl, selectedReference, selectedOption) {
@@ -82,16 +82,16 @@ class Tree {
   }
 
   getDerivedUrl(url, parentValue) {
-    const derivedUrl = _.replace(url, ':id', parentValue);
+    const derivedUrl = _.replace(url, ":id", parentValue);
     return derivedUrl
   }
 
   getOptionsFromResponseData(selectedReference, responseData, parent) {
-    const records = _.get(responseData, selectedReference.record.join('.'), []);
+    const records = _.get(responseData, selectedReference.record.join("."), []);
     const isParentInLastDepth = this.isParentInLastDepth(parent);
     return _.map(records, (record) => {
-      const label = _.get(record, selectedReference.label.join('.'));
-      const value = _.get(record, selectedReference.value.join('.'));
+      const label = _.get(record, selectedReference.label.join("."));
+      const value = _.get(record, selectedReference.value.join("."));
       return {
         label,
         id: record.id,
