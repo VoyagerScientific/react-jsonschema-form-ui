@@ -1051,14 +1051,6 @@
     "@babel/plugin-transform-react-jsx-self" "^7.9.0"
     "@babel/plugin-transform-react-jsx-source" "^7.9.0"
 
-"@babel/runtime-corejs2@^7.0.0-rc.1":
-  version "7.12.13"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.12.13.tgz"
-  integrity sha512-BPjEhhHe12QsV4k2iRNvP95yB1Gpjj6/NMmVP++5Yw295Se/ZVXPePV8cC5cZ6nrZBmmsQ9n0JmeUobM8TbskA==
-  dependencies:
-    core-js "^2.6.5"
-    regenerator-runtime "^0.13.4"
-
 "@babel/runtime-corejs2@^7.4.5":
   version "7.13.6"
   resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.13.6.tgz"
@@ -2330,7 +2322,7 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bootstrap@^4.4.1, bootstrap@^4.5.3:
+bootstrap@^4.4.1, bootstrap@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.6.0.tgz"
   integrity sha512-Io55IuQY3kydzHtbGvQya3H+KorS/M9rSNyfCGCg9WZ4pyT/lCxIlpJgG1GXW/PswzC84Tr2fBYi+7+jFVQQBw==
@@ -5289,12 +5281,10 @@ inflight@^1.0.4:
     once "^1.3.0"
     wrappy "1"
 
-informed@^1.10.8:
-  version "1.10.12"
-  resolved "https://registry.yarnpkg.com/informed/-/informed-1.10.12.tgz"
-  integrity sha512-xug6ZKR8bj8zcqMdxcL3EMtJePugILCIZZALK9c0w5Mut93KEHjT/TUDViFrrorEgvt1VRyQEFo6jxlUxk5UcA==
-  dependencies:
-    "@babel/runtime-corejs2" "^7.0.0-rc.1"
+informed@^3.29.4:
+  version "3.30.0"
+  resolved "https://registry.yarnpkg.com/informed/-/informed-3.30.0.tgz#b737cba7689d1e3c938ecb6ec3616efc3f3fb334"
+  integrity sha512-0AYb4yycAFbEJ0eaHC+cBDtGWlbBXhcZzNdeZH0tBtUKtyO8S9flUs6bRFGTnyAZ/JUZQBFYqep7i35Yfs+L4A==
 
 inherits@2, inherits@2.0.4, inherits@^2.0.1, inherits@^2.0.3, inherits@^2.0.4, inherits@~2.0.1, inherits@~2.0.3:
   version "2.0.4"
@@ -5335,20 +5325,20 @@ inquirer@7.1.0:
     strip-ansi "^6.0.0"
     through "^2.3.6"
 
-intelligent-tree-select@^0.7.9:
-  version "0.7.9"
-  resolved "https://registry.yarnpkg.com/intelligent-tree-select/-/intelligent-tree-select-0.7.9.tgz"
-  integrity sha512-lkRrm+5k8DEKFlZfzAeuZVcyF7n3NLbeadAYvDLyej2CNPLiCohAx2b5Pero+DcsdNghrx1YSuo+ICwrz127QA==
+intelligent-tree-select@^0.7.11:
+  version "0.7.11"
+  resolved "https://registry.yarnpkg.com/intelligent-tree-select/-/intelligent-tree-select-0.7.11.tgz#2d50bf0c0dff1b93f5f99d4629a4b836ff122d4d"
+  integrity sha512-3RjzOj1oTXwn/lEDlCr6yr6cYSX8K4ALma2fcC/vrIQjfps+7ToNMWTH4rn+f4KRxrPV3q0tCWScZZXMRXEr7A==
   dependencies:
-    bootstrap "^4.5.3"
+    bootstrap "^4.6.0"
     classnames latest
-    informed "^1.10.8"
-    react-highlight-words "^0.16.0"
-    react-input-autosize "^2.2.2"
+    informed "^3.29.4"
+    react-highlight-words "^0.17.0"
+    react-input-autosize "^3.0.0"
     react-select "^1.3.0"
-    react-virtualized "^9.22.2"
+    react-virtualized "^9.22.3"
     react-virtualized-select "^3.1.3"
-    reactstrap "^8.7.1"
+    reactstrap "^8.9.0"
 
 internal-ip@^4.3.0:
   version "4.3.0"
@@ -8279,10 +8269,10 @@ react-google-autocomplete@^1.2.6:
   dependencies:
     prop-types "^15.5.0"
 
-react-highlight-words@^0.16.0:
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/react-highlight-words/-/react-highlight-words-0.16.0.tgz"
-  integrity sha512-q34TwCSJOL+5pVDv6LUj3amaoyXdNDwd7zRqVAvceOrO9g1haWLAglK6WkGLMNUa3PFN8EgGedLg/k8Gpndxqg==
+react-highlight-words@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/react-highlight-words/-/react-highlight-words-0.17.0.tgz#e79a559a2de301548339d7216264d6cd0f1eed6f"
+  integrity sha512-uX1Qh5IGjnLuJT0Zok234QDwRC8h4hcVMnB99Cb7aquB1NlPPDiWKm0XpSZOTdSactvnClCk8LOmVlP+75dgHA==
   dependencies:
     highlight-words-core "^1.2.0"
     memoize-one "^4.0.0"
@@ -8293,7 +8283,7 @@ react-inject-script@^1.0.4:
   resolved "https://registry.yarnpkg.com/react-inject-script/-/react-inject-script-1.0.4.tgz"
   integrity sha512-jdK0nytK4DD0Zt72G2Bru7wFvmopgDKCyeSGnKiyLH86SXZKYhjrICeDgUEdUHEPALXGO/sqD8GVrORSc/7sEg==
 
-react-input-autosize@^2.1.2, react-input-autosize@^2.2.2:
+react-input-autosize@^2.1.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.2.tgz"
   integrity sha512-jQJgYCA3S0j+cuOwzuCd1OjmBmnZLdqQdiLKRYrsMMzbjUrVDS5RvJUDwJqA7sKuksDuzFtm6hZGKFu7Mjk5aw==
@@ -8472,7 +8462,7 @@ react-virtualized-select@^3.1.3:
     react-select "^1.0.0-rc.2"
     react-virtualized "^9.0.0"
 
-react-virtualized@^9.0.0, react-virtualized@^9.22.2:
+react-virtualized@^9.0.0, react-virtualized@^9.22.3:
   version "9.22.3"
   resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.22.3.tgz"
   integrity sha512-MKovKMxWTcwPSxE1kK1HcheQTWfuCxAuBoSTf2gwyMM21NdX/PXUhnoP8Uc5dRKd+nKm8v41R36OellhdCpkrw==
@@ -8493,9 +8483,9 @@ react@^16.13.0:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
 
-reactstrap@^8.7.1:
+reactstrap@^8.9.0:
   version "8.9.0"
-  resolved "https://registry.yarnpkg.com/reactstrap/-/reactstrap-8.9.0.tgz"
+  resolved "https://registry.yarnpkg.com/reactstrap/-/reactstrap-8.9.0.tgz#bca4afa3f5cd18899ef9b33d877a141886d5abae"
   integrity sha512-pmf33YjpNZk1IfrjqpWCUMq9hk6GzSnMWBAofTBNIRJQB1zQ0Au2kzv3lPUAFsBYgWEuI9iYa/xKXHaboSiMkQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
