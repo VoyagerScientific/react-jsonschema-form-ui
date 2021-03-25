@@ -45,6 +45,7 @@
     "react-dropzone": "^11.0.1",
     "react-fontawesome": "^1.7.1",
     "react-google-autocomplete": "^1.2.6",
+    "react-grid-layout": "^1.2.4",
     "react-inject-script": "^1.0.4",
     "react-photo-gallery": "^8.0.0",
     "react-places-autocomplete": "^7.3.0",
