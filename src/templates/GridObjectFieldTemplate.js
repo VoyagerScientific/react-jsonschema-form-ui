@@ -7,6 +7,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const DEFAULT_COLS = { lg: 32, md: 32, sm: 32, xs: 32, xxs: 32 };
 const DEFAULT_BREAKPOINTS = { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 };
+const DEFAULT_GRID_LAYOUT = { x: 0, y: 0, w: 32, h: 1 };
 
 function GridObjectFieldTemplate(props) {
   const canExpand = function canExpand() {
@@ -27,8 +28,8 @@ function GridObjectFieldTemplate(props) {
   };
 
   const renderChild = (prop) => {
-    const gridLayout = prop.content.props.uiSchema.layout;
-    return <div key={prop.name} data-grid={gridLayout}>
+    const gridLayout = _.get(prop, "content.props.uiSchema.layout");
+    return <div key={prop.name} data-grid={gridLayout || DEFAULT_GRID_LAYOUT}>
       {prop.content}
     </div>;
   }
