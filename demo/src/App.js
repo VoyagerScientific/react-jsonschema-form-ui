@@ -19,6 +19,7 @@ import {
   ReactQRReaderField,
   ReactScannerField,
   ReactTreeSelectField,
+  GridObjectFieldTemplate
 } from "../../src/index";
 import treeOptions from "./tree-options";
 import "./App.css";

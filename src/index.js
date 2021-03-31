@@ -1,7 +1,6 @@
 import "../css/app.css";
 
 // Fields
-export { default as ArrayFieldTemplate } from "./fields/ArrayFieldTemplate";
 export { default as HeadingField } from "./fields/HeadingField";
 export { default as ReactFormulaField } from "./fields/ReactFormulaField";
 export { default as ReactSignatureCanvasField } from "./fields/ReactSignatureCanvasField";
@@ -21,3 +20,10 @@ export { default as ReactDropZoneWidget } from "./widgets/ReactDropZoneWidget";
 export { default as ReactSelectWidget } from "./widgets/ReactSelectWidget";
 export { default as StatesWidget } from "./widgets/StatesWidget";
 export { default as ReactInputTableWidget } from "./widgets/ReactInputTableWidget";
+
+// Templates
+export { default as ArrayFieldTemplate } from "./templates/ArrayFieldTemplate";
+export { default as GridObjectFieldTemplate } from "./templates/GridObjectFieldTemplate";
+
+// Registry Factory
+export { default as RegistryFactory } from "./factories/registry";
