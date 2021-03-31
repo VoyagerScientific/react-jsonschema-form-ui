@@ -1,5 +1,6 @@
 import React from "react";
 import { Responsive, WidthProvider } from 'react-grid-layout';
+import _ from "lodash";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
