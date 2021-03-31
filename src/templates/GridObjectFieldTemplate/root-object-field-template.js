@@ -3,7 +3,7 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-const DEFAULT_COLS = { lg: 36, md: 36, sm: 36, xs: 36, xxs: 36 };
+const DEFAULT_COLS = { lg: 36, md: 24, sm: 6, xs: 2, xxs: 1 };
 const DEFAULT_BREAKPOINTS = { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 };
 
 class RootObjectFieldTemplate extends React.Component {
