@@ -1,5 +1,6 @@
 import React from "react";
-import { Responsive, WidthProvider } from 'react-grid-layout';
+import _ from "lodash";
+import { Responsive, WidthProvider } from "react-grid-layout";
 import AddButton from "@rjsf/core/lib/components/AddButton";
 import { getUiOptions } from "@rjsf/core/lib/utils";
 
@@ -37,8 +38,8 @@ function GridObjectFieldTemplate(props) {
   const { idSchema, TitleField, DescriptionField } = props;
 
   if (idSchema.$id === "root") {
-    const cols = _.get(props, 'uiSchema.ui:options.cols');
-    const breakpoints = _.get(props, 'uiSchema.ui:options.breakpoints');
+    const cols = _.get(props, "uiSchema.ui:options.cols");
+    const breakpoints = _.get(props, "uiSchema.ui:options.breakpoints");
     return (
       <ResponsiveGridLayout
         layout="layout"
@@ -56,10 +57,10 @@ function GridObjectFieldTemplate(props) {
 
   return (
     <fieldset id={props.idSchema.$id}>
-      {(props.uiSchema['ui:title'] || props.title) && (
+      {(props.uiSchema["ui:title"] || props.title) && (
         <TitleField
           id={`${props.idSchema.$id}__title`}
-          title={props.title || props.uiSchema['ui:title']}
+          title={props.title || props.uiSchema["ui:title"]}
           required={props.required}
           formContext={props.formContext}
         />
