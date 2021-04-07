@@ -35,7 +35,7 @@ class CurrencyWidget extends Component {
     const keyCode = event.keyCode || event.which;
     const keyValue = String.fromCharCode(keyCode);
     //regex that accepts numbers only
-    if (!/^[0-9]+$/.test(keyValue)) event.preventDefault();
+    if (!/^[0-9.]+$/.test(keyValue)) event.preventDefault();
   };
 
   render() {
