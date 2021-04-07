@@ -692,8 +692,8 @@ class FormComponent extends Component {
               ArrayFieldTemplate={ArrayFieldTemplate}
               widgets={widgets}
               fields={fields}
-              noHtmlValidate
-              liveValidate
+              // noHtmlValidate
+              // liveValidate
               onChange={log("changed")}
               onSubmit={this.handleSubmit}
               onError={log("errors")}
