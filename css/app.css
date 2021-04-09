@@ -148,3 +148,8 @@
 .input_table_cell_2-4 {
   background-color: #ffa293;
 }
+
+#ReactGridGallery {
+  display: flex;
+  flex-wrap: wrap;
+}

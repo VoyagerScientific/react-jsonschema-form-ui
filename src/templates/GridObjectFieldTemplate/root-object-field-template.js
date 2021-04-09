@@ -1,5 +1,5 @@
 import React from "react";
-import { Responsive, WidthProvider } from 'react-grid-layout';
+import { Responsive, WidthProvider } from "react-grid-layout";
 import _ from "lodash";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -41,7 +41,7 @@ class RootObjectFieldTemplate extends React.Component {
 
   renderChild = (childProp) => {
     const gridLayout = childProp.content.props.uiSchema.layout;
-    let responsiveGridLayout = _.omit(gridLayout, ['sm', 'md', 'lg']);
+    let responsiveGridLayout = _.omit(gridLayout, ["sm", "md", "lg"]);
 
     if (this.state.breakpoint) {
       const breakpointGridLayout = _.get(gridLayout, this.state.breakpoint);
@@ -55,8 +55,8 @@ class RootObjectFieldTemplate extends React.Component {
 
   renderGridLayout() {
     const props = this.props;
-    const cols = _.get(props, 'uiSchema.ui:options.cols');
-    const breakpoints = _.get(props, 'uiSchema.ui:options.breakpoints');
+    const cols = _.get(props, "uiSchema.ui:options.cols");
+    const breakpoints = _.get(props, "uiSchema.ui:options.breakpoints");
     return (
       <ResponsiveGridLayout
         ref={(grid) => {this.grid = grid }}

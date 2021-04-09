@@ -173,7 +173,9 @@ const schema = {
       type: "object",
       required: ["attachments"],
       properties: {
-        attachments: { type: "array" },
+        attachments: {
+          type: "array",
+        },
       },
     },
     react_dropzone: {
