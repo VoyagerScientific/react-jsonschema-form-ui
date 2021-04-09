@@ -23,10 +23,10 @@ function BasicObjectFieldTemplate(props) {
 
   return (
     <fieldset id={props.idSchema.$id}>
-      {(props.uiSchema['ui:title'] || props.title) && (
+      {(props.uiSchema["ui:title"] || props.title) && (
         <TitleField
           id={`${props.idSchema.$id}__title`}
-          title={props.title || props.uiSchema['ui:title']}
+          title={props.title || props.uiSchema["ui:title"]}
           required={props.required}
           formContext={props.formContext} />
       )}
