@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Form } from "react-bootstrap";
-import Gallery from "react-photo-gallery";
+import Gallery from "react-grid-gallery";
 import _ from "lodash";
 import { ReactDropZoneWidget } from "../../index";
 import PhotoItem from "./components/PhotoItem";
@@ -9,8 +9,9 @@ import PhotoItem from "./components/PhotoItem";
 class ReactPhotoGalleryField extends React.Component {
   handleRemoveFile = (index) => {
     const { formData, onChange } = this.props;
-    const newFormData = _.reject(formData || [], (item, i) => i === index);
-    onChange && onChange(newFormData);
+    const attachments = formData.attachments;
+    const newAttachments = _.reject(attachments || [], (item, i) => i === index);
+    onChange && onChange({ attachments: newAttachments });
   };
 
   handleAcceptFiles = async (acceptedFiles) => {
@@ -30,10 +31,10 @@ class ReactPhotoGalleryField extends React.Component {
     const attachments = this.getAttachments();
     if (_.isArray(responseData)) {
       const newAttachments = [...attachments, ...responseData];
-      onChange && onChange(newAttachments);
+      onChange && onChange({ attachments: newAttachments });
     } else {
       attachments.push(responseData);
-      onChange && onChange(attachments);
+      onChange && onChange({ attachments });
     }
   };
 
@@ -53,16 +54,12 @@ class ReactPhotoGalleryField extends React.Component {
   }
 
   getAttachments() {
-    const attachments = _.get(this.props, "formData", []) || [];
+    const attachments = _.get(this.props, "formData.attachments", []) || [];
     if (_.isArray(attachments)) {
       return attachments;
     } else {
       return [];
     }
-  }
-
-  isColumnLayout() {
-    return !_.isEmpty(this.getAttachments);
   }
 
   renderPhotos = (item) => {
@@ -77,12 +74,21 @@ class ReactPhotoGalleryField extends React.Component {
   };
 
   renderGallery() {
-    const renderedAttachments = _.map(this.getAttachments(), ({ url }) => ({ src: url, width: 1, height: 1 }));
+    const images = _.map(this.getAttachments(), ({ url }) => ({
+      src: url,
+      thumbnail: url,
+      thumbnailWidth: 300,
+      thumbnailHeight: 300,
+    }));
     return <Gallery
-      photos={renderedAttachments}
-      renderImage={this.renderPhotos}
-      columns={2}
-      direction={this.isColumnLayout() ? "column" : "row"}
+      onSelectImage={this.handleRemoveFile}
+      enableLightbox={false}
+      thumbnailImageComponent={(imageProps) =>
+        <PhotoItem
+          onDeleteButtonClick={() => this.handleRemoveFile(imageProps.index)}
+          {...imageProps} />}
+      enableImageSelection={false}
+      images={images}
     />
   }
 
@@ -101,7 +107,9 @@ class ReactPhotoGalleryField extends React.Component {
               className={"d-print-none"}
             />
           )}
-          {this.renderGallery()}
+          <div>
+            {this.renderGallery()}
+          </div>
         </div>
       </Form.Group>
     );
