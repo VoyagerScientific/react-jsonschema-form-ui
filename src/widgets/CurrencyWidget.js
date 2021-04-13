@@ -31,6 +31,13 @@ class CurrencyWidget extends Component {
     };
   }
 
+  isNumberPressed = (event) => {
+    const keyCode = event.keyCode || event.which;
+    const keyValue = String.fromCharCode(keyCode);
+    //regex that accepts numbers only
+    if (!/^[0-9.]+$/.test(keyValue)) event.preventDefault();
+  };
+
   render() {
     return (
       <>
@@ -40,6 +47,24 @@ class CurrencyWidget extends Component {
           style={{ textAlign: "right" }}
           value={this.state.value}
           required={this.state.required}
+          onKeyPress={(event) => this.isNumberPressed(event)}
+          onFocus={(event) => {
+            const value = (
+              accounting.unformat(event.target.value) * 100
+            ).toFixed(this.precision);
+
+            if (!parseInt(value)) {
+              //if value is 0 the field will reset. and value will set into empty string
+              this.setState({
+                value: "",
+              });
+            } else {
+              this.state.onChange(value);
+              this.setState({
+                value: accounting.unformat(event.target.value),
+              });
+            }
+          }}
           onBlur={(event) => {
             this.state.onChange(
               (accounting.unformat(event.target.value) * 100).toFixed(
