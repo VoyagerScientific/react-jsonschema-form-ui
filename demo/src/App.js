@@ -472,6 +472,9 @@ const uiSchema = {
   },
   react_photo_gallery: {
     "ui:field": "ReactPhotoGalleryField",
+    "ui:options": {
+      "targetRowHeight": 400
+    }
   },
   react_dropzone: {
     "ui:widget": "ReactDropZoneWidget",

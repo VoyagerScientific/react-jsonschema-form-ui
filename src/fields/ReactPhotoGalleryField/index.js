@@ -83,6 +83,7 @@ class ReactPhotoGalleryField extends React.Component {
       renderImage={this.renderPhotos}
       columns={2}
       direction={this.isColumnLayout() ? "column" : "row"}
+      targetRowHeight={_.get(this.props.uiSchema, "ui:options.targetRowHeight") || 500}
     />
   }
 
