@@ -24,6 +24,7 @@ export { default as ReactInputTableWidget } from "./widgets/ReactInputTableWidge
 // Templates
 export { default as ArrayFieldTemplate } from "./templates/ArrayFieldTemplate";
 export { default as GridObjectFieldTemplate } from "./templates/GridObjectFieldTemplate";
+export { default as withHeader } from "./templates/GridObjectFieldTemplate/with-header";
 
 // Registry Factory
 export { default as RegistryFactory } from "./factories/registry";
