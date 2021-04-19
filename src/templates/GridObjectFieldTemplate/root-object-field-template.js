@@ -59,7 +59,7 @@ class RootObjectFieldTemplate extends React.Component {
     const breakpoints = _.get(props, "uiSchema.ui:options.breakpoints");
     return (
       <ResponsiveGridLayout
-        ref={(grid) => {this.grid = grid }}
+        ref={(grid) => { this.grid = grid }}
         layout="layout"
         breakpoints={_.isObject(breakpoints) ? breakpoints : DEFAULT_BREAKPOINTS}
         cols={_.isObject(cols) ? cols : DEFAULT_COLS}
@@ -77,6 +77,8 @@ class RootObjectFieldTemplate extends React.Component {
 
   render() {
     return <>
+      <div dangerouslySetInnerHTML={{ __html: this.props.uiSchema.$header }}>
+      </div>
       {!this.state.loading && this.renderGridLayout()}
     </>
   }
