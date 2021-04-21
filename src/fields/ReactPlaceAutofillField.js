@@ -102,7 +102,7 @@ class ReactPlaceAutofillField extends React.Component {
   };
 
   handleChange = (value) => {
-    console.log(value);
+    // console.log(value);
     this.props.onChange && this.props.onChange(value);
   };
 
@@ -137,7 +137,7 @@ class ReactPlaceAutofillField extends React.Component {
 
   render() {
     const showFields = _.get(this.state, "options.showFields", false);
-    console.log("ReactPlaceAutofillField:", this.props);
+    // console.log("ReactPlaceAutofillField:", this.props);
     return (
       <>
         <ReactPlaceField

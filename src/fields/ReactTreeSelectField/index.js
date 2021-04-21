@@ -81,7 +81,7 @@ class ReactTreeSelectField extends Component {
     const schemaOptions = this.getSchemaOptions();
     const valueOptions = this.getOptionsFromValue(formData, schemaOptions);
 
-    console.log("ReactTreeSelectField state:", this.state);
+    // console.log("ReactTreeSelectField state:", this.state);
     return (
       <div>
         <div>{schema.title}</div>

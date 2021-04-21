@@ -84,7 +84,7 @@ function DefaultArrayItem(props) {
 }
 
 function ArrayFieldTemplate(props) {
-  console.log("this is props from ArrayFieldTemplate:", props);
+  // console.log("this is props from ArrayFieldTemplate:", props);
   return (
     <fieldset className={props.className} id={props.idSchema.$id}>
       <ArrayFieldTitle
