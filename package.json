@@ -1,6 +1,6 @@
 {
   "name": "react-jsonschema-form-ui",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": false,
   "description": "react-jsonschema-form-ui React component",
   "main": "lib/index.js",
@@ -43,6 +43,7 @@
     "react-dropzone": "^11.0.1",
     "react-fontawesome": "^1.7.1",
     "react-google-autocomplete": "^1.2.6",
+    "react-image-file-resizer": "^0.4.3",
     "react-inject-script": "^1.0.4",
     "react-jsonschema-form": "^1.8.1",
     "react-jsonschema-form-bs4": "^1.7.1",

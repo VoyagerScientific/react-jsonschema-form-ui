@@ -8278,6 +8278,11 @@ react-highlight-words@^0.17.0:
     memoize-one "^4.0.0"
     prop-types "^15.5.8"
 
+react-image-file-resizer@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/react-image-file-resizer/-/react-image-file-resizer-0.4.3.tgz#b6dc28a65aa9435ee02a393d34be0e1966fa6735"
+  integrity sha512-G1+z2iihTEmQs6B9m1iXaUwfMpi78AjKYZYK5HnEH5SeW9OwqvJ2DlKmiFXHmm+eixFfGlj5c+nehd1LEd03kA==
+
 react-inject-script@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-inject-script/-/react-inject-script-1.0.4.tgz"
