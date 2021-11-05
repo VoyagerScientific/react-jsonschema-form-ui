@@ -35,6 +35,8 @@ class ReactPhotoGalleryField extends React.Component {
       attachments.push(responseData);
       onChange && onChange(attachments);
     }
+
+    this.forceUpdate();
   };
 
   isDisabled() {
