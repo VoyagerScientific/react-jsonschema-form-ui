@@ -112,8 +112,8 @@ class ReactPhotoGalleryField extends React.Component {
       return {
         src: url,
         thumbnail: url,
-        thumbnailWidth: width,
-        thumbnailHeight: height
+        thumbnailWidth: width || 500,
+        thumbnailHeight: height || 500
       }
     });
     return <Gallery
