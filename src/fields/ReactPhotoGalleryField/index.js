@@ -9,9 +9,9 @@ import PhotoItem from "./components/PhotoItem";
 class ReactPhotoGalleryField extends React.Component {
   handleRemoveFile = (index) => {
     const { formData, onChange } = this.props;
-    const attachments = formData.attachments;
+    const attachments = formData;
     const newAttachments = _.reject(attachments || [], (item, i) => i === index);
-    onChange && onChange({ attachments: newAttachments });
+    onChange && onChange(newAttachments);
   };
 
   handleAcceptFiles = async (acceptedFiles) => {
@@ -29,12 +29,20 @@ class ReactPhotoGalleryField extends React.Component {
     });
     const responseData = _.get(response, "data");
     const attachments = this.getAttachments();
+
+    const promises = responseData.map(async (attachment) => {
+      const dimensions = await this.getImageDimensions(attachment.url);
+      return {...attachment, ...dimensions};
+    });
+    const allPromises = Promise.all(promises)
+    const attachmentsWithMetaData = await allPromises;
+
     if (_.isArray(responseData)) {
-      const newAttachments = [...attachments, ...responseData];
-      onChange && onChange({ attachments: newAttachments });
+      const newAttachments = [...attachments, ...attachmentsWithMetaData];
+      onChange && onChange(newAttachments);
     } else {
-      attachments.push(responseData);
-      onChange && onChange({ attachments });
+      attachments.push(attachmentsWithMetaData);
+      onChange && onChange(attachments);
     }
   };
 
@@ -54,7 +62,7 @@ class ReactPhotoGalleryField extends React.Component {
   }
 
   getAttachments() {
-    const attachments = _.get(this.props, "formData.attachments", []) || [];
+    const attachments = _.get(this.props, "formData", []) || [];
     if (_.isArray(attachments)) {
       return attachments;
     } else {
@@ -73,23 +81,52 @@ class ReactPhotoGalleryField extends React.Component {
     );
   };
 
+  getImageDimensions = async (url) => {
+    const imageDimensions = url => 
+    new Promise((resolve, reject) => {
+        const img = new Image()
+
+        // the following handler will fire after the successful loading of the image
+        img.onload = () => {
+            const { naturalWidth: width, naturalHeight: height } = img
+            resolve({ width, height })
+        }
+
+        // and this handler will fire if there was an error with the image (like if it's not really an image or a corrupted one)
+        img.onerror = () => {
+            reject('There was some problem with the image.')
+        }
+    
+        img.src = url
+    });
+
+    return await imageDimensions(url);
+  }
+
+
+
   renderGallery() {
-    const images = _.map(this.getAttachments(), ({ url }) => ({
-      src: url,
-      thumbnail: url,
-      thumbnailWidth: 300,
-      thumbnailHeight: 300,
-    }));
+    const { rowHeight } = this.props;
+    const images = _.map(this.getAttachments(), ({ url, width, height }) => {
+
+      return {
+        src: url,
+        thumbnail: url,
+        thumbnailWidth: width,
+        thumbnailHeight: height
+      }
+    });
     return <Gallery
+      rowHeight={rowHeight || 400}
       onSelectImage={this.handleRemoveFile}
       enableLightbox={false}
       thumbnailImageComponent={(imageProps) =>
         <PhotoItem
           onDeleteButtonClick={() => this.handleRemoveFile(imageProps.index)}
           {...imageProps} />}
-      enableImageSelection={false}
-      images={images}
-    />
+          enableImageSelection={false}
+          images={images}
+        />
   }
 
   render() {
