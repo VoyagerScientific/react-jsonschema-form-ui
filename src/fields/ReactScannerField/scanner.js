@@ -46,9 +46,12 @@ class CodeReader extends Component {
     const videoInputDevices = await this.props.codeReader.listVideoInputDevices();
     this.setState({ devices: videoInputDevices });
 
-    const firstDeviceId = videoInputDevices[0].deviceId;
+
+    // console.log(videoInputDevices);
+
+    // const firstDeviceId = videoInputDevices[0].deviceId;
     this.props.codeReader
-      .decodeOnceFromVideoDevice(firstDeviceId, "video")
+      .decodeOnceFromVideoDevice(undefined, "video")
       .then(this.handleSuccess)
       .catch(this.handleError);
 
