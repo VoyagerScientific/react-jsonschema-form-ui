@@ -153,3 +153,7 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.remove-photo-item-btn:hover{
+  cursor: pointer;
+}
