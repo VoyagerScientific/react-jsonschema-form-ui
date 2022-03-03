@@ -77,6 +77,10 @@ const schema = {
     "test_react_select_without_enumNames",
   ],
   properties: {
+    text: {
+      title: "Plain Text Field",
+      type: "string"
+    },
     textarea: {
       title: "Textarea auto resize content",
       type: "string",
@@ -352,6 +356,9 @@ const schema = {
 };
 
 const uiSchema = {
+  text: {
+    "classNames": "text-class"
+  },
   textarea: {
     "ui:widget": "textarea",
     "ui:options": {

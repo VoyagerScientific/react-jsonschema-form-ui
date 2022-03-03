@@ -3,27 +3,54 @@ import Dropzone from "react-dropzone";
 import _ from "lodash";
 import FileDisplay from "./components/FileDisplay";
 import { Spinner } from "react-bootstrap";
+import Resizer from "react-image-file-resizer";
 
 function ReactDropZoneWidget(props) {
   const { isReading, onAcceptedFiles, onChange } = props;
   const [saving, setSaving] = useState(false);
   const acceptedFiles = _.get(props, "options.accepted");
   const originalValue = _.isArray(props.value) ? props.value : [];
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        1000,
+        1000,
+        "PNG",
+        90,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        "file"
+      );
+  });
 
   const _onDrop = async (acceptedFiles) => {
-    try {
-      setSaving(true);
-      if (acceptedFiles.length > 0 && onAcceptedFiles) {
-        await onAcceptedFiles([...originalValue, ...acceptedFiles]);
+
+    const processedFiles = _.map(acceptedFiles, async (file) => {
+      if (["image/jpeg", "image/png"].includes(file.type))
+        file = await resizeFile(file);
+
+      return file
+    })
+
+    Promise.all(processedFiles).then(async processedFiles => {
+      try {
+        setSaving(true);
+        if (processedFiles.length > 0 && onAcceptedFiles) {
+          await onAcceptedFiles([...originalValue, ...processedFiles]);
+        }
+        if (processedFiles.length > 0 && onChange) {
+          await onChange([...originalValue, ...processedFiles]);
+        }
+      } catch (error) {
+        alert(error);
+      } finally {
+        setSaving(false);
       }
-      if (acceptedFiles.length > 0 && onChange) {
-        await onChange([...originalValue, ...acceptedFiles]);
-      }
-    } catch (error) {
-      alert(error);
-    } finally {
-      setSaving(false);
-    }
+    });
+
   };
 
   const handleRemove = (item, index) => {
@@ -69,8 +96,8 @@ function ReactDropZoneWidget(props) {
             </div>
           </section>
           {props.rawErrors &&
-            props.rawErrors.map((error) => {
-              return <div>{error}</div>;
+            props.rawErrors.map((error, i) => {
+              return <div key={i}>{error}</div>;
             })}
           {areFilesVisible && (
             <FileDisplay files={props.value} onRemove={handleRemove} />
