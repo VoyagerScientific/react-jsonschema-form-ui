@@ -466,7 +466,7 @@ const uiSchema = {
   react_place_field: {
     "ui:field": "ReactPlaceField",
     "ui:options": {
-      api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU",
+      api: "AIzaSyCPZAqho8oiEeV-0A0I8BORR-9eYfC4WUg",
     },
   },
   raw_html: {
@@ -556,7 +556,7 @@ const uiSchema = {
   prepopulated_address: {
     "ui:field": "ReactPlaceAutofillField",
     "ui:options": {
-      api: "AIzaSyDbrX2Eez6sb3gPBE-NIESdJfCHFrCUbCU",
+      api: "AIzaSyCPZAqho8oiEeV-0A0I8BORR-9eYfC4WUg",
       showFields: true,
       updateAdjacentFields: true,
       fields: {
