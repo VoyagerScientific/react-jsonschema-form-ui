@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
-    "@rjsf/bootstrap-4": "^4.0.1",
     "@rjsf/core": "^4.0.1",
     "@zxing/library": "^0.18.3",
     "accounting": "^0.4.1",
@@ -39,7 +38,7 @@
     "moment": "^2.24.0",
     "popper.js": "^1.16.1",
     "prop-types": "^15.7.2",
-    "react-bootstrap": "^2.1.2",
+    "react-bootstrap": "^2.2.0",
     "react-datepicker": "^2.13.0",
     "react-dom": "^16.x",
     "react-dropzone": "^11.0.1",
