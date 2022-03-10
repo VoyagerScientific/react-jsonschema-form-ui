@@ -6,7 +6,7 @@ import { Spinner } from "react-bootstrap";
 import Resizer from "react-image-file-resizer";
 
 function ReactDropZoneWidget(props) {
-  const { isReading, onAcceptedFiles, onChange } = props;
+  const { isReading, onAcceptedFiles, onChange, imageSettings } = props;
   const [saving, setSaving] = useState(false);
   const acceptedFiles = _.get(props, "options.accepted");
   const originalValue = _.isArray(props.value) ? props.value : [];
@@ -14,10 +14,10 @@ function ReactDropZoneWidget(props) {
     new Promise((resolve) => {
       Resizer.imageFileResizer(
         file,
-        1000,
-        1000,
+        _.get(imageSettings, "maxWidth") || 1000,
+        _.get(imageSettings, "maxHeight") || 1000,
         "PNG",
-        90,
+        _.get(imageSettings, "quality") || 90,
         0,
         (uri) => {
           resolve(uri);
@@ -39,9 +39,8 @@ function ReactDropZoneWidget(props) {
       try {
         setSaving(true);
         if (processedFiles.length > 0 && onAcceptedFiles) {
-          await onAcceptedFiles([...originalValue, ...processedFiles]);
-        }
-        if (processedFiles.length > 0 && onChange) {
+          await onAcceptedFiles([...originalValue, ...processedFiles], props);
+        }else if (processedFiles.length > 0 && onChange) {
           await onChange([...originalValue, ...processedFiles]);
         }
       } catch (error) {

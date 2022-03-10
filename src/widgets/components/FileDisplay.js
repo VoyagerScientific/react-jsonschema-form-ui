@@ -12,7 +12,7 @@ class FileDisplay extends React.Component {
     return <div className="file-display container">
       {(this.props.files || []).map((file, index) => (
         <Row key={index} className="file justify-content-between">
-          <Col>{file.url ? <a target="_blank" href={`${file.url}`}>{file.name}</a> : file.name}</Col>
+          <Col>{file.url ? <a target="_blank" href={`${file.url}`}>{file.name || file.file_name}</a> : file.name || file.file_name}</Col>
           <Col xs="auto">
             <div
               onClick={() => this.handleRemove(file, index)}
