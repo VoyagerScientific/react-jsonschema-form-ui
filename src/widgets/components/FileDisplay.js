@@ -16,6 +16,7 @@ class FileDisplay extends React.Component {
           <Col xs="auto">
             <div
               onClick={() => this.handleRemove(file, index)}
+              className="btn btn-sm p-0 d-print-none"
             >
               <FontAwesome
                 name="trash-alt" />
