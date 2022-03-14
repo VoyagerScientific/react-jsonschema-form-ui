@@ -27,8 +27,11 @@ class ReactPhotoGalleryField extends React.Component {
         "X-CSRF-Token": authenticityToken,
       },
     });
-    const responseData = _.get(response, "data");
+    let responseData = _.get(response, "data");
     const attachments = this.getAttachments();
+
+    if (!_.isArray(responseData))
+      responseData = [responseData];
 
     const promises = responseData.map(async (attachment) => {
       const dimensions = await this.getImageDimensions(attachment.url);
