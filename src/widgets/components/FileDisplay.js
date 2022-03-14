@@ -9,9 +9,9 @@ class FileDisplay extends React.Component {
   }
 
   render() {
-    return <div className="file-display">
+    return <div className="file-display mx-2 my-3">
       {(this.props.files || []).map((file, index) => (
-        <Row key={index} className="file justify-content-between">
+        <Row key={index} className="file">
           <Col>{file.url ? <a target="_blank" href={`${file.url}`}>{file.name || file.file_name}</a> : file.name || file.file_name}</Col>
           <Col xs="auto">
             <div

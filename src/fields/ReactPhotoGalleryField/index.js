@@ -134,7 +134,7 @@ class ReactPhotoGalleryField extends React.Component {
     const UploadComponent = uploadComponent || ReactDropZoneWidget;
     return (
       <Form.Group>
-        <Form.Label>{schema.title}</Form.Label>
+        <label className="control-label">{schema.title}</label>
         <div className="react-gallery">
           {!this.isDisabled() && (
             <UploadComponent
