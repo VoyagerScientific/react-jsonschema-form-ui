@@ -146,6 +146,7 @@ class ReactPhotoGalleryField extends React.Component {
               onAcceptedFiles={this.handleAcceptFiles}
               className={"d-print-none"}
               adjustImages={null}
+              isPhotoGallery={true}
             />
           )}
           <div>

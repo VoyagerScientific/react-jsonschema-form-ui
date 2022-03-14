@@ -6,7 +6,7 @@ import { Spinner } from "react-bootstrap";
 import Resizer from "react-image-file-resizer";
 
 function ReactDropZoneWidget(props) {
-  const { isReading, onAcceptedFiles, onChange, imageSettings } = props;
+  const { isReading, onAcceptedFiles, onChange, imageSettings, isPhotoGallery } = props;
   const [saving, setSaving] = useState(false);
   const acceptedFiles = _.get(props, "options.accepted");
   const originalValue = _.isArray(props.value) ? props.value : [];
@@ -66,7 +66,7 @@ function ReactDropZoneWidget(props) {
   return (
     <Dropzone
       onDrop={_onDrop}
-      accept={acceptedFiles || ["image/*"]}
+      accept={isPhotoGallery ? ["image/*"] : acceptedFiles || ["image/*"]}
       disabled={saving}
     >
       {({ getRootProps, getInputProps, isDragActive }) => (
