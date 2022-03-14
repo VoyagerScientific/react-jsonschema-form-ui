@@ -133,7 +133,7 @@ class ReactPhotoGalleryField extends React.Component {
   }
 
   render() {
-    const { schema, uploadComponent } = this.props;
+    const { schema, uploadComponent, onAcceptedFiles } = this.props;
     const UploadComponent = uploadComponent || ReactDropZoneWidget;
     return (
       <Form.Group>
@@ -143,7 +143,7 @@ class ReactPhotoGalleryField extends React.Component {
             <UploadComponent
               title={schema.title}
               accepted={["image/*"]}
-              onAcceptedFiles={this.handleAcceptFiles}
+              onAcceptedFiles={(files) => onAcceptedFiles(files, this.props) || this.handleAcceptFiles}
               className={"d-print-none"}
               adjustImages={null}
               isPhotoGallery={true}
