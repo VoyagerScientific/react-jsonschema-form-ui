@@ -35,9 +35,9 @@ function ReactDropZoneWidget(props) {
       return file
     })
 
+    setSaving(true);
     Promise.all(processedFiles).then(async processedFiles => {
       try {
-        setSaving(true);
         if (processedFiles.length > 0 && onAcceptedFiles) {
           await onAcceptedFiles([...originalValue, ...processedFiles], props);
         }else if (processedFiles.length > 0 && onChange) {

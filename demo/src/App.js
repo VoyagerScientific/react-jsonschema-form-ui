@@ -475,12 +475,15 @@ const uiSchema = {
   },
   react_photo_gallery: {
     "ui:field": "ReactPhotoGalleryField",
+    "ui:options": {
+      accepted: ["image/*"]
+    }
   },
   react_dropzone: {
     "ui:widget": "ReactDropZoneWidget",
     fieldType: "react-drop-zone",
     "ui:options": {
-      accepted: ["image/*", "application/pdf"],
+      accepted: ["image/*", ".pdf"],
       withFileDisplay: true,
     },
   },
