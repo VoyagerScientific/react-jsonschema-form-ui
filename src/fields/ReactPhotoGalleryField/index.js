@@ -143,7 +143,7 @@ class ReactPhotoGalleryField extends React.Component {
             <UploadComponent
               title={schema.title}
               accepted={["image/*"]}
-              onAcceptedFiles={(files) => onAcceptedFiles(files, this.props) || this.handleAcceptFiles}
+              onAcceptedFiles={(files) => onAcceptedFiles([...this.getAttachments(), ...files], this.props) || this.handleAcceptFiles}
               className={"d-print-none"}
               adjustImages={null}
               isPhotoGallery={true}
