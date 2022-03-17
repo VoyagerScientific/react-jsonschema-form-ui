@@ -425,10 +425,10 @@ const uiSchema = {
   date: {
     "ui:widget": "ReactDatePickerWidget",
     "ui:options": {
-      format: {
-        data: "MM-DD-YYYY",
-        display: "DD/MM/YYYY",
-      },
+      // format: {
+      //   data: "MM-DD-YYYY",
+      //   display: "DD/MM/YYYY",
+      // },
     },
   },
   array_template: {
@@ -638,6 +638,7 @@ const uiSchema = {
 };
 
 const formData = {
+  date: "2022-03-22T04:00:00.000Z",
   react_tree_select: ["child1", "child2", "child3"],
   react_dropzone: [],
   react_dropzone_2: [],

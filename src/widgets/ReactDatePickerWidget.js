@@ -75,7 +75,10 @@ class ReactDatePickerWidget extends Component {
             onChange={(date) => {
               let value = date;
 
-              if (this.dataFormat) value = moment(date).format(this.dataFormat);
+              if (this.dataFormat) 
+                value = moment(date).format(this.dataFormat);
+              else
+                value = moment(value).toISOString()
 
               this.setState({ value: date }, () => this.state.onChange(value));
             }}
