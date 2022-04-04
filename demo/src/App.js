@@ -10,6 +10,7 @@ import {
   ReactDatePickerWidget,
   ReactSelectWidget,
   ReactSignatureCanvasField,
+  SegmentedWidget,
   StatesWidget,
   ReactDropZoneWidget,
   ReactInputTableWidget,
@@ -41,6 +42,7 @@ const widgets = {
   ReactDatePickerWidget: ReactDatePickerWidget,
   ReactDropZoneWidget: ReactDropZoneWidget,
   ReactSelectWidget: ReactSelectWidget,
+  SegmentedWidget: SegmentedWidget,
   StatesWidget: StatesWidget,
   ReactInputTableWidget: ReactInputTableWidget,
 };
@@ -77,6 +79,27 @@ const schema = {
     "test_react_select_without_enumNames",
   ],
   properties: {
+    segmented_radio: {
+      "type": "string",
+      "enum": [
+        "pass", "fail", "na"
+      ],
+      "enumNames": [
+        "Pass", "Fail", "N/A"
+      ]
+    },
+    segmented_multi: {
+      "type": ["boolean", "null"],
+      "enum": [
+        true, false, null
+      ],
+      "enumNames": [
+        "Pass", "Fail", "N/A"
+      ]
+    },
+    segmented_boolean: {
+      "type": "boolean"
+    },
     text: {
       title: "Plain Text Field",
       type: "string"
@@ -356,6 +379,15 @@ const schema = {
 };
 
 const uiSchema = {
+  segmented_radio: {
+    "ui:widget": "SegmentedWidget"
+  },
+  segmented_multi: {
+    "ui:widget": "SegmentedWidget"
+  },
+  segmented_boolean: {
+    "ui:widget": "SegmentedWidget"
+  },
   text: {
     "classNames": "text-class"
   },

@@ -18,6 +18,7 @@ export { default as PercentWidget } from "./widgets/PercentWidget";
 export { default as ReactDatePickerWidget } from "./widgets/ReactDatePickerWidget";
 export { default as ReactDropZoneWidget } from "./widgets/ReactDropZoneWidget";
 export { default as ReactSelectWidget } from "./widgets/ReactSelectWidget";
+export { default as SegmentedWidget } from "./widgets/SegmentedWidget";
 export { default as StatesWidget } from "./widgets/StatesWidget";
 export { default as ReactInputTableWidget } from "./widgets/ReactInputTableWidget";
 

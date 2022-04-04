@@ -1,6 +1,6 @@
 {
   "name": "react-jsonschema-form-ui",
-  "version": "2.2.26",
+  "version": "2.2.27",
   "private": false,
   "description": "react-jsonschema-form-ui React component",
   "main": "lib/index.js",
@@ -52,6 +52,7 @@
     "react-qr-reader": "^2.2.1",
     "react-select": "^5.2.2",
     "react-signature-canvas": "^1.0.3",
+    "segmented-control": "^0.1.17",
     "video-canvas": "^4.0.3",
     "whatwg-fetch": "^3.5.0"
   },
