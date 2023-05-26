@@ -94,7 +94,7 @@ class ReactTreeSelectField extends Component {
           showSettings={isCreateable}
           multi={isMulti}
           options={schemaOptions || []}
-          value={isMulti ? valueOptions : _.get(valueOptions, "0")}
+          value={isMulti ? valueOptions : formData[0]}
           fetchOptions={this.handleFetchChildren}
           onChange={this.handleChange}
           onInputChange={this.handleInputChange}
