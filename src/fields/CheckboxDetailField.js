@@ -8,8 +8,8 @@ class CheckboxDetailField extends Component {
         this.state = {
             title: props.schema.title,
             value : {
-                boolean: false,
-                detail: null
+                boolean: props.formData.boolean || false,
+                detail: props.formData.detail || null
             },
             detail_required: false
         }

@@ -383,10 +383,10 @@ const schema = {
       type: "object",
       placeholder: "Enter your details here.",
       properties: {
-        boolean_value: {
+        boolean: {
           type: "boolean"
         },
-        detail_value: {
+        detail: {
           type: "string"
         } 
       }
@@ -715,6 +715,10 @@ const formData = {
     column: "Low",
     value: 10,
   },
+  checkbox_detail: {
+    boolean: true,
+    detail: "test"
+  }
 };
 
 class FormComponent extends Component {
