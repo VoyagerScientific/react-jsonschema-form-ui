@@ -1,6 +1,7 @@
 import "../css/app.css";
 
 // Fields
+export { default as CheckboxDetailField } from "./fields/CheckboxDetailField";
 export { default as HeadingField } from "./fields/HeadingField";
 export { default as ReactFormulaField } from "./fields/ReactFormulaField";
 export { default as ReactSignatureCanvasField } from "./fields/ReactSignatureCanvasField";

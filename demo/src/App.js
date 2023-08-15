@@ -4,6 +4,7 @@ import Form from "../../src/forms/index";
 import {
   ArrayFieldTemplate,
   CurrencyWidget,
+  CheckboxDetailField,
   PercentWidget,
   ReactFormulaField,
   RawHTMLField,
@@ -48,6 +49,7 @@ const widgets = {
 };
 
 const fields = {
+  CheckboxDetailField: CheckboxDetailField,
   RawHTMLField: RawHTMLField,
   ReactPlaceField: ReactPlaceField,
   ReactPlaceAutofillField: ReactPlaceAutofillField,
@@ -375,7 +377,21 @@ const schema = {
         },
       },
     },
-  },
+    checkbox_detail: {
+      title: "CheckboxDetailWidget",
+      description: "For use when a checking a checkbox requires filling in some free-text details.",
+      type: "object",
+      placeholder: "Enter your details here.",
+      properties: {
+        boolean_value: {
+          type: "boolean"
+        },
+        detail_value: {
+          type: "string"
+        } 
+      }
+    }
+  }
 };
 
 const uiSchema = {
@@ -667,6 +683,9 @@ const uiSchema = {
       ],
     },
   },
+  checkbox_detail: {
+    "ui:field": "CheckboxDetailField"
+  }
 };
 
 const formData = {
