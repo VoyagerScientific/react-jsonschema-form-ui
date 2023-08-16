@@ -72,9 +72,9 @@ class CheckboxDetailField extends Component {
                 <div className={`mb-1 checkbox ${disabled || readonly ? "disabled" : ""}`}>
                
                     <div className={`mb-1`}>{this.props.schema.title}</div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <div className="input-group-text">
                                 <input
                                     type="checkbox"
                                     className=""
@@ -91,7 +91,7 @@ class CheckboxDetailField extends Component {
                         </div>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            className="form-control" 
                             aria-label="Details" 
                             required={detail_required}
                             value={this.state.value.detail ? this.state.value.detail : ""}
