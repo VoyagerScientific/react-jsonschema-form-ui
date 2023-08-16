@@ -29,4 +29,4 @@ export { default as GridObjectFieldTemplate } from "./templates/GridObjectFieldT
 export { default as withHeader } from "./templates/GridObjectFieldTemplate/with-header";
 
 // Registry Factory
-export { default as RegistryFactory } from "./factories/registry";
+// export { default as RegistryFactory } from "./factories/registry";
