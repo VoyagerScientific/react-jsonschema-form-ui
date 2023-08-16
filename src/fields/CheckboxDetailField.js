@@ -7,9 +7,9 @@ class CheckboxDetailField extends Component {
         super(props);
         this.state = {
             title: props.schema.title,
-            value : {
-                boolean: props.formData.boolean || false,
-                detail: props.formData.detail || null
+            value : props.value || props.formData || {
+                checked: undefined,
+                detail: null
             },
             detail_required: false
         }
@@ -17,29 +17,29 @@ class CheckboxDetailField extends Component {
 
     handleCheckBoxChange(event) {
 
-        const bool = event.target.checked;
-        let detail = bool ? this.state.value.detail : null;
+        const checked = event.target.checked;
+        let detail = checked ? this.state.value.detail : null;
 
         const newValue = {
-            boolean: bool,
+            checked: checked,
             detail: detail
         }
 
         this.setState(
             {
                 value: newValue,
-                detail_required: bool
+                detail_required: checked
             }, () => this.props.onChange(newValue));
         return;
     }
 
     handleDetailChange(event) {
 
-        const bool = true;
+        const checked = true;
         const detail = event.target.value
 
         const newValue = {
-            boolean: bool,
+            checked: checked,
             detail: detail
         }
 
@@ -79,7 +79,7 @@ class CheckboxDetailField extends Component {
                                     type="checkbox"
                                     className=""
                                     id={idSchema && idSchema.$id}
-                                    checked={typeof this.state.value.boolean === "undefined" ? false : this.state.value.boolean}
+                                    checked={typeof this.state.value.checked === "undefined" ? false : this.state.value.checked}
                                     required={required}
                                     disabled={disabled || readonly}
                                     autoFocus={autofocus}
@@ -95,7 +95,7 @@ class CheckboxDetailField extends Component {
                             aria-label="Details" 
                             required={detail_required}
                             value={this.state.value.detail ? this.state.value.detail : ""}
-                            disabled={disabled || readonly || !this.state.value.boolean}
+                            disabled={disabled || readonly || !this.state.value.checked}
                             onChange={event => this.handleDetailChange(event)}
                             placeholder={schema.placeholder}
                         />
