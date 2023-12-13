@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Form } from "react-bootstrap";
-import Gallery from "react-grid-gallery";
+import { Gallery } from "react-grid-gallery";
 import _ from "lodash";
 import { ReactDropZoneWidget } from "../../index";
 import PhotoItem from "./components/PhotoItem";
@@ -114,9 +114,8 @@ class ReactPhotoGalleryField extends React.Component {
 
       return {
         src: url,
-        thumbnail: url,
-        thumbnailWidth: width || 500,
-        thumbnailHeight: height || 500
+        width: width || 500,
+        height: height || 500
       }
     });
     return <Gallery
