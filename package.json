@@ -3,6 +3,7 @@
   "version": "1.0.10",
   "private": false,
   "description": "react-jsonschema-form-ui React component",
+  "source": "src/index.js",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -12,8 +13,7 @@
     "umd"
   ],
   "scripts": {
-    "build": "nwb build-react-component",
-    "clean": "nwb clean-module && nwb clean-demo",
+    "build": "parcel build",
     "prepublishOnly": "npm run build",
     "start": "nwb serve-react-demo",
     "test": "nwb test-react",
@@ -58,12 +58,16 @@
     "react": "16.x"
   },
   "devDependencies": {
+    "@parcel/bundler-library": "^2.12.0",
+    "@parcel/config-default": "^2.13.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.20.0",
-    "eslint-plugin-react": "^7.22.0",
+    "eslint": "^9.15.0",
+    "eslint-plugin-react": "^7.37.2",
     "miragejs": "^0.1.41",
-    "nwb": "0.25.x",
-    "react": "^16.13.0"
+    "nwb": "^0.25.2",
+    "parcel": "^2.13.0",
+    "react": "^16.13.0",
+    "webpack": "^5.96.1"
   },
   "author": "Matt Monihan",
   "homepage": "",
